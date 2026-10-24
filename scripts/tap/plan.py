@@ -1,6 +1,7 @@
 """Decide which tap formulae need Intel bottles built, in dependency order."""
 
 import argparse
+import subprocess
 import sys
 from collections.abc import Mapping
 from collections.abc import Set as AbstractSet
@@ -27,12 +28,44 @@ def is_bottled(tap_dir: Path, name: str) -> bool:
     return path.is_file() and extract_bottle_block(path.read_text(encoding="utf-8")) is not None
 
 
+def bottle_exists_gh(name: str, version: str) -> bool:
+    """Check if a bottle exists in GitHub Releases for the given formula version."""
+    tag = f"{name}-{version}"
+    result = subprocess.run(
+        ["gh", "release", "view", tag, "-R", "homebrew-intel/homebrew-tap"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    return result.returncode == 0
+
+
 def needs_build(
-    order: list[str], tap_dir: Path, formulae: Mapping[str, Mapping], forced: AbstractSet[str]
+    order: list[str],
+    tap_dir: Path,
+    formulae: Mapping[str, Mapping],
+    forced: AbstractSet[str],
+    *,
+    skip_unchanged: bool = False,
 ) -> list[str]:
     built: list[str] = []
     for name in order:
-        stale = name in forced or not is_bottled(tap_dir, name)
+        # Always build forced formulae
+        if name in forced:
+            built.append(name)
+            continue
+
+        # Skip if bottle exists for current version (only when skip_unchanged enabled)
+        if skip_unchanged:
+            version = pkg_version(formulae[name]) if name in formulae else None
+            if version and bottle_exists_gh(name, version):
+                # Still need to rebuild if a dependency was rebuilt
+                if any(d in built for d in tap_dependencies(name, order, formulae)):
+                    built.append(name)
+                continue
+
+        # Default behavior: build if stale or dependency was rebuilt
+        stale = not is_bottled(tap_dir, name)
         if stale or any(d in built for d in tap_dependencies(name, order, formulae)):
             built.append(name)
     return built
@@ -49,6 +82,11 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     commands.add_parser("commit", help="print the homebrew-core commit of the API snapshot")
     builds = commands.add_parser("builds", help="print one line per formula to build")
     builds.add_argument("--force", action="append", default=[], metavar="NAME", help="build NAME regardless")
+    builds.add_argument(
+        "--skip-unchanged",
+        action="store_true",
+        help="skip formulae that already have bottles for the current version",
+    )
     return parser.parse_args(argv)
 
 
@@ -63,7 +101,8 @@ def run(args: argparse.Namespace) -> None:
     if unknown:
         message = f"--force names not in the build set: {', '.join(unknown)}"
         raise PlanError(message)
-    for name in needs_build(order, TAP_ROOT, formulae, frozenset(args.force)):
+    skip_unchanged = getattr(args, "skip_unchanged", False)
+    for name in needs_build(order, TAP_ROOT, formulae, frozenset(args.force), skip_unchanged=skip_unchanged):
         print(build_line(name, order, formulae))
 
 

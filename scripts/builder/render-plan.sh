@@ -56,7 +56,12 @@ render_and_classify() {
 }
 
 planned_builds() {
-  python3 "${TAP_DIR}/scripts/tap/plan.py" builds ${force_args[@]+"${force_args[@]}"}
+  local skip_flag=()
+  if [[ "${skip_unchanged:-no}" = yes ]]
+  then
+    skip_flag+=(--skip-unchanged)
+  fi
+  python3 "${TAP_DIR}/scripts/tap/plan.py" builds ${force_args[@]+"${force_args[@]}"} ${skip_flag[@]+"${skip_flag[@]}"}
 }
 
 # True when <name> starts a line of the plan.
