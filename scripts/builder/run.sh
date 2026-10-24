@@ -40,6 +40,7 @@ readonly core_url="${BUILDER_CORE_URL:-https://github.com/Homebrew/homebrew-core
 
 build_only=no
 dry_run=no
+skip_unchanged=no
 force_args=()
 core_commit=""
 pinned_core_commit=""
@@ -53,7 +54,7 @@ log() {
 }
 
 usage() {
-  log "usage: run.sh --build-only [--core-commit SHA] [--force NAME ...] [--dry-run]"
+  log "usage: run.sh --build-only [--core-commit SHA] [--force NAME ...] [--dry-run] [--skip-unchanged]"
   exit 2
 }
 
@@ -63,6 +64,7 @@ parse_arguments() {
     case "$1" in
       --build-only) build_only=yes ;;
       --dry-run) dry_run=yes ;;
+      --skip-unchanged) skip_unchanged=yes ;;
       --force)
         [[ $# -ge 2 && "$2" =~ ${NAME_PATTERN} ]] || usage
         force_args+=(--force "$2")
