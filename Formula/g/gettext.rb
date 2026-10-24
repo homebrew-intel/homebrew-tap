@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@350e3d8834021ff593eea208a2e17963ea6e18b0 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@f71148290f0a0204a502ea61c6a03265c703c86a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/gettext.patch.
 class Gettext < Formula
   desc "GNU internationalization (i18n) and localization (l10n) library"
@@ -11,6 +11,12 @@ class Gettext < Formula
     "LGPL-2.1-or-later", # libintl, libasprintf
   ]
   compatibility_version 1
+
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/gettext-1.0"
+    rebuild 1
+    sha256 sequoia: "15ae5ae1602281ef150c16449b430feda26a7a46ea60863763e06267d388f33f"
+  end
 
   # bottle block: written by brew pr-pull
 
