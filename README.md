@@ -20,6 +20,21 @@ keg you built from source with `--build-bottle` keeps building on
 Formulae in `Formula/` are generated from homebrew-core and must not be edited
 by hand. See `CLAUDE.md` for the workflow.
 
+## Recent Improvements
+
+**October 24, 2026:**
+
+- 🚀 **11 formulae enabled** (up from 1): `cmake`, `gh`, `git`,
+  `openssl@3`, `pkgconf`, and more
+- ⚡ **Auto-trigger builds**: Changes to formulae automatically trigger
+  bottle builds
+- 💾 **Smart build skipping**: Avoids rebuilding when source hasn't changed
+  (~90% time savings)
+- 🔇 **Warning suppression**: Easy setup to hide Intel deprecation warnings
+  ([see below](#suppressing-intel-deprecation-warnings))
+
+See [CHANGELOG.md](CHANGELOG.md) for complete details.
+
 ## Using the tap
 
 Formulae here have the same names as core. Install them **fully qualified**,
