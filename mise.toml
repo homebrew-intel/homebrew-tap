@@ -44,7 +44,6 @@ ARCH = "{{exec(command='uname -m')}}"
 PROJECT_NAME = '''{{ exec(command='basename "$(git config --get remote.origin.url || echo ' ~ config_root ~ ')" .git') }}'''
 
 [hooks]
-enter = { task = "setup" }
 postinstall = '''
 echo "Installed: $MISE_INSTALLED_TOOLS"
 '''
