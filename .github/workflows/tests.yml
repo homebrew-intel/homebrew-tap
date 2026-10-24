@@ -68,6 +68,10 @@ jobs:
       - name: Pour changed bottled formulae in build order
         env:
           BASE_REF: ${{ github.base_ref }}
+          # brew runs the first curl on PATH, which on this image is
+          # Homebrew's own, linked to openssl@3; swapping openssl@3 below
+          # would break every later download. The system curl is new enough.
+          HOMEBREW_CURL_PATH: /usr/bin/curl
         run: |
           set -Eeuo pipefail
           changed="$(git diff --name-only "origin/${BASE_REF}...HEAD" -- Formula | sed 's@.*/@@; s@\.rb$@@')"
