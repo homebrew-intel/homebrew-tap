@@ -50,6 +50,11 @@ Design: `docs/superpowers/specs/2026-10-21-intel-bottles-design.md`.
 - Dependencies that are also in this tap are rewritten to
   `homebrew-intel/tap/<dep>` by the render; the rest stay plain names.
 - Casks are out of scope.
+- `scripts/setup-intel.sh` is user-facing: it appends
+  `export HOMEBREW_DEVELOPER=1` to the user's shell RC file, the only
+  setting Homebrew checks before its Intel Tier 3 warning. Keep its
+  confirmation prompt and checks (absolute `$HOME`, known shell, no writes
+  through a symlinked RC unless `--allow-symlink`).
 
 ## Verification
 
@@ -100,6 +105,10 @@ rebuilds `reports/` from a fresh API snapshot plus local git history, taps and
 - Public CI (`.github/workflows/tests.yml`) runs on hosted runners only:
   `lint-and-test`, `tap-syntax` and `drift` on Ubuntu, and `pour-test` on
   `macos-15-intel`. Never run a job from this repository on the iMac.
+  On a push to `main` that changes `Formula/`, `trigger-builder` dispatches
+  `build.yml` for the changed formulae, using a token from the
+  `homebrew-intel-internal` App (`INTERNAL_APP_ID`/`INTERNAL_APP_PRIVATE_KEY`,
+  `actions: write` on `builder` only).
 - `verify-bot-pr` (`.github/workflows/verify-bot-pr.yml`) is the auto-merge
   gate. It runs on `pull_request_target`, so the base branch's workflow and
   `scripts/ci/verify_bot_pr.py` judge every pull request; it must never check
@@ -170,6 +179,14 @@ rebuilds `reports/` from a fresh API snapshot plus local git history, taps and
     as a verified bot commit (render-only formulae first), attests the last
     commit with the `bottle-builder` check run, opens one pull request and one
     private issue per failed build (a fenced log tail with `@` neutralised).
+- Two Apps, never merged: `homebrew-intel` (the public bot: Contents, Pull
+  requests and Checks set to Read and write on `homebrew-tap`) and
+  `homebrew-intel-internal` (only dispatches builds). An HTTP 403 when
+  `commit-formula` creates `bottle/*` means `.github/workflows/` on `main`
+  changed after prepare's tap commit: the token has no `workflows`
+  permission (keep it that way), so re-runs keep failing. Dispatch a new run,
+  first deleting the release assets the failed run uploaded (no formula
+  references them, and a rebuild reuses their names).
   - `pour` (self-hosted, no token): swaps each `--build-bottle` keg for a
     pour of its released bottle, since such a keg would rebuild from source
     on `reinstall`/`upgrade`.

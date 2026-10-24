@@ -1,5 +1,13 @@
 # homebrew-intel
 
+<!-- Inline HTML because Markdown's image syntax cannot set a width. The path
+     is relative, so the logo also renders on branches and pull requests. -->
+<p align="center">
+  <img src="img/homebrew-intel.svg"
+    alt="homebrew-intel logo: a beer mug with the Intel logo in its foam"
+    width="300">
+</p>
+
 A Homebrew tap that keeps Intel (x86_64) Macs usable after homebrew-core
 dropped them. Intel macOS is Tier 3 in Homebrew: no new Intel bottles are
 published, and Homebrew plans to stop running on Intel in or after September
@@ -7,15 +15,16 @@ published, and Homebrew plans to stop running on Intel in or after September
 It is not affiliated with or endorsed by Homebrew.
 
 The tap carries Intel `sequoia` bottles for an explicit, growing list of core
-formulae (heaviest builds first, such as `llvm` and `rust`), so you pour them
-instead of compiling. A Sequoia bottle also pours on Tahoe. It can also carry
-formulae that core removed, disabled or restricted to arm64 when the software
-still works on Intel; those have a small reviewed patch.
+formulae, so you pour them instead of compiling. A Sequoia bottle also pours
+on Tahoe. It can also carry formulae that core removed, disabled or restricted
+to arm64 when the software still works on Intel; those have a small reviewed
+patch.
 
-**Status:** bottles are being published. `lz4` ships an Intel Sequoia
-bottle; other formulae still build from source until theirs is published. A
-keg you built from source with `--build-bottle` keeps building on
-`reinstall`, so switch it with `brew uninstall` and then `brew install`.
+**Status:** bottles are being published. `lz4` and `cmake` ship Intel
+Sequoia bottles; the other formulae (`gh`, `git`, `openssl@3`, `pkgconf` and
+their dependencies) build from source until theirs is published. A keg you
+built from source with `--build-bottle` keeps building on `reinstall`, so
+switch it with `brew uninstall` and then `brew install`.
 
 Formulae in `Formula/` are generated from homebrew-core and must not be edited
 by hand. See `CLAUDE.md` for the workflow.
@@ -25,26 +34,24 @@ by hand. See `CLAUDE.md` for the workflow.
 **October 24, 2026:**
 
 - 🚀 **11 formulae enabled** (up from 1): `cmake`, `gh`, `git`,
-  `openssl@3`, `pkgconf`, and more
-- ⚡ **Auto-trigger builds**: Changes to formulae automatically trigger
-  bottle builds
-- 💾 **Smart build skipping**: Avoids rebuilding when source hasn't changed
-  (~90% time savings)
-- 🔇 **Warning suppression**: Easy setup to hide Intel deprecation warnings
-  ([see below](#suppressing-intel-deprecation-warnings))
+  `openssl@3`, `pkgconf`, and their dependencies
+- ⚡ **Auto-trigger builds**: a change to `Formula/` on `main` starts a bottle
+  build
+- 🔇 **About the Intel warning**: what it means and how to hide it
+  ([see below](#the-intel-deprecation-warning))
 
 See [CHANGELOG.md](CHANGELOG.md) for complete details.
 
 ## Using the tap
 
 Formulae here have the same names as core. Install them **fully qualified**,
-for example `homebrew-intel/tap/llvm`. A bare name installs core's
+for example `homebrew-intel/tap/cmake`. A bare name installs core's
 version.
 
 ```bash
 brew tap homebrew-intel/tap
 brew trust homebrew-intel/tap
-brew reinstall homebrew-intel/tap/llvm   # switches an installed core keg
+brew reinstall homebrew-intel/tap/cmake   # switches an installed core keg
 ```
 
 Switching an installed core formula to the tap needs its tap dependencies
@@ -56,33 +63,31 @@ In a Brewfile:
 
 ```ruby
 tap "homebrew-intel/tap", trusted: true
-brew "homebrew-intel/tap/llvm"
+brew "homebrew-intel/tap/cmake"
 ```
 
 Once installed, a formula follows the tap. When core bumps it, you stay on the
 tap's last published version until the new bottle is published (expected lag:
 one day plus build time).
 
-## Suppressing Intel Deprecation Warnings
+## The Intel deprecation warning
 
-Homebrew shows a warning about Intel x86_64 being deprecated. Since you're
-explicitly using the Intel tap, suppress it by adding to your `~/.zshrc`:
+On Intel, `brew install` and `brew doctor` warn that macOS on Intel x86_64 is
+a Tier 3 configuration. The warning is expected when you use this tap, and it
+does not stop anything from installing.
 
-```bash
-# homebrew-intel tap: suppress Intel deprecation warnings
-export HOMEBREW_NO_ENV_HINTS=1
-export HOMEBREW_NO_INSTALL_FROM_API=1
-```
+Homebrew has no setting that hides only this warning. It is skipped when
+`HOMEBREW_DEVELOPER=1` is set, but that variable also changes how Homebrew
+updates and adds developer checks, so only set it if you accept that.
+`HOMEBREW_NO_ENV_HINTS=1` hides Homebrew's environment hints, not this
+warning.
 
-Then `source ~/.zshrc` or restart your terminal.
-
-Or run the setup script:
+To add it to your shell config, run the setup script. It explains the trade-off
+and asks before changing anything:
 
 ```bash
 ./scripts/setup-intel.sh
 ```
-
-This configures your shell to suppress the warnings permanently.
 
 ## Requirements
 

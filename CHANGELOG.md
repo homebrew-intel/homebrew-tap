@@ -23,31 +23,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Uses dedicated `homebrew-intel-internal` GitHub App for cross-repo dispatch
   - Security: Fixed GitHub Actions injection vulnerability
 
-#### Build Optimizations
+#### Build Planning
 
-- **Skip unchanged formulae** in manual builds
-  - `--skip-unchanged` flag for `plan.py` and builder
-  - Checks GitHub Releases for existing bottles at current version
-  - Saves ~90% build time when source unchanged (e.g., cmake: ~20min → instant)
-  - Example: `gh workflow run build.yml -f formulae="cmake" -f skip-unchanged=true`
+- **`--skip-unchanged` planner flag** for `plan.py`, `run.sh` and
+  `render-plan.sh`
+  - Skips a formula whose `<name>-<version>` release already exists
+  - Not yet wired into the builder: `build.yml` has no input for it, so
+    every build still plans without it
 
 #### User Experience
 
-- **Intel deprecation warning suppression**
-  - `scripts/setup-intel.sh` to configure shell environment
-  - Suppresses Homebrew's Intel x86_64 deprecation warnings
-  - Detects zsh/bash and configures automatically
-  - README documentation added
-  - Security: Validates `$HOME`, RC files, and handles symlinked dotfiles safely
+- **`scripts/setup-intel.sh`** hides Homebrew's Intel Tier 3 warning
+  - Adds `export HOMEBREW_DEVELOPER=1`, the only setting Homebrew checks
+    before printing the warning, after explaining its side effects and asking
+    for confirmation (`--yes` skips the question)
+  - Detects zsh/bash, validates `$HOME`, and refuses a symlinked RC file
+    unless `--allow-symlink` is given
+- README explains the warning and the trade-off
 
-### Security
+### Fixed
 
-- **Fixed setup-intel.sh validation issues**
-  - Added `$HOME` validation (absolute path, directory exists)
-  - Detects user's login shell instead of script interpreter
-  - Refuses to modify symlinked RC files by default
-  - `--allow-symlink` flag for managed dotfiles users
-  - Comprehensive error messages for all failure modes
+- `scripts/setup-intel.sh` first set `HOMEBREW_NO_ENV_HINTS` and
+  `HOMEBREW_NO_INSTALL_FROM_API`. Neither hides the warning, and the second
+  makes Homebrew stop using its API. The script now warns when those lines
+  are still in the RC file
 
 ### Changed
 
@@ -59,17 +58,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Commits
 
 - `6dab230` - tap: enable core development tools
-- `ee86af4` - builder: add --skip-unchanged to avoid redundant rebuilds  
+- `ee86af4` - builder: add --skip-unchanged to avoid redundant rebuilds
 - `c41c422` - ci: add auto-trigger for builder workflow
-- `47a7d28` - docs: add Intel deprecation warning suppression
+- `47a7d28` - docs: add Intel deprecation warning suppression (fixed since)
 - `cc1a26a` - security: fix setup-intel.sh validation issues
 
 #### Impact
 
-- **Time savings:** ~20min per unnecessary build
-- **Automation:** Full CI/CD from push to bottles
-- **UX:** No more annoying deprecation warnings
-- **Security:** Hardened setup script with proper validation
+- **Automation:** a formula change on `main` now starts a bottle build
 
 ## [0.1.0] - 2026-10-23
 
