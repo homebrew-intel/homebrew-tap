@@ -48,6 +48,27 @@ Once installed, a formula follows the tap. When core bumps it, you stay on the
 tap's last published version until the new bottle is published (expected lag:
 one day plus build time).
 
+## Suppressing Intel Deprecation Warnings
+
+Homebrew shows a warning about Intel x86_64 being deprecated. Since you're
+explicitly using the Intel tap, suppress it by adding to your `~/.zshrc`:
+
+```bash
+# homebrew-intel tap: suppress Intel deprecation warnings
+export HOMEBREW_NO_ENV_HINTS=1
+export HOMEBREW_NO_INSTALL_FROM_API=1
+```
+
+Then `source ~/.zshrc` or restart your terminal.
+
+Or run the setup script:
+
+```bash
+./scripts/setup-intel.sh
+```
+
+This configures your shell to suppress the warnings permanently.
+
 ## Requirements
 
 - Intel macOS with Homebrew in `/usr/local`. Bottles are built there.
