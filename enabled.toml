@@ -1,2 +1,17 @@
 [formula.lz4]
 kind = "generated"
+
+[formula."openssl@3"]
+kind = "generated"
+
+[formula.cmake]
+kind = "generated"
+
+[formula.pkgconf]
+kind = "generated"
+
+[formula.git]
+kind = "generated"
+
+[formula.gh]
+kind = "generated"

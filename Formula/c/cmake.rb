@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@1abdb18fb70f59fea5797571e7fd964d2f67049d by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@350e3d8834021ff593eea208a2e17963ea6e18b0 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/cmake.patch.
 class Cmake < Formula
   desc "Cross-platform make"
