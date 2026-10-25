@@ -31,8 +31,8 @@ class Wget < Formula
   end
 
   depends_on "macos-intel/tap/pkgconf" => :build
-  depends_on "libpsl"
   depends_on "macos-intel/tap/libidn2"
+  depends_on "macos-intel/tap/libpsl"
   depends_on "macos-intel/tap/openssl@4"
 
   on_macos do

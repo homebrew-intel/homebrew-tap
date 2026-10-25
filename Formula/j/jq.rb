@@ -28,7 +28,7 @@ class Jq < Formula
     depends_on "macos-intel/tap/automake" => :build
   end
 
-  depends_on "oniguruma"
+  depends_on "macos-intel/tap/oniguruma"
 
   deny_network_access!
 
