@@ -15,3 +15,6 @@ kind = "generated"
 
 [formula.gh]
 kind = "generated"
+
+[formula.xz]
+kind = "generated"
