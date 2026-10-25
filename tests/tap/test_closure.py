@@ -102,6 +102,34 @@ class ExpandTest(unittest.TestCase):
         )
         self.assertEqual(expand(["python", "xz"], formulae), {"python", "xz", "zstd", "cmake"})
 
+    def test_expand_adds_bottled_deps_whose_build_deps_are_tap_formulae(self):
+        # brew locks every recursive dependency of any type by its rack name,
+        # so core libpsl's build dependency on core pkgconf collided with the
+        # tap's pkgconf when installing wget.
+        formulae = index(
+            formula("wget", deps=["libpsl"], build_deps=["pkgconf"]),
+            formula("libpsl", build_deps=["pkgconf"], tags={"sonoma"}),
+            formula("pkgconf", tags={"sonoma"}),
+        )
+        self.assertEqual(expand(["wget", "pkgconf"], formulae), {"wget", "pkgconf", "libpsl"})
+
+    def test_expand_adds_bottled_deps_whose_test_deps_are_tap_formulae(self):
+        formulae = index(
+            formula("a", deps=["b"]),
+            formula("b", test_deps=["c"], tags={"sonoma"}),
+            formula("c", tags={"sonoma"}),
+        )
+        self.assertEqual(expand(["a", "c"], formulae), {"a", "b", "c"})
+
+    def test_expand_follows_build_deps_of_bottled_deps_down_the_tree(self):
+        formulae = index(
+            formula("a", deps=["b"]),
+            formula("b", build_deps=["x"], tags={"sonoma"}),
+            formula("x", build_deps=["c"], tags={"sonoma"}),
+            formula("c", tags={"sonoma"}),
+        )
+        self.assertEqual(expand(["a", "c"], formulae), {"a", "b", "c", "x"})
+
     def test_expand_adds_unbottled_build_deps(self):
         formulae = index(formula("lz4", build_deps=["cmake"]), formula("cmake"))
         self.assertEqual(expand(["lz4"], formulae), {"lz4", "cmake"})

@@ -46,24 +46,44 @@ def expand(enabled: Iterable[str], formulae: Mapping[str, Mapping]) -> set[str]:
     only for formulae in the result: the tap builds and tests those, while a
     bottled formula is poured, never built.
 
-    A bottled formula with a runtime dependency in the result joins it: core's
-    keg names its dependencies bare, so brew would install core's copy of the
-    tap formula next to the tap's (core zstd pulled core xz this way). Joining
-    can make another bottled formula qualify, so this repeats until stable.
+    A core formula in the result's lock tree that depends, in any way, on a
+    formula in the result joins it: core names its dependencies bare, so the
+    tree would hold core's copy next to the tap's, and brew locks both by one
+    rack name (core zstd's xz, core libpsl's pkgconf). Joining can make
+    another core formula qualify, so this repeats until stable.
     """
     result = set(enabled)
     while True:
-        reached = _walk(result, formulae)
+        _add_unbottled(result, formulae)
         joining = {
-            name for name in reached - result if not result.isdisjoint(dependencies(name, formulae, "dependencies"))
+            name
+            for name in _lock_tree(result, formulae) - result
+            if not result.isdisjoint(dependencies(name, formulae, *BUILD_KEYS))
         }
         if not joining:
             return result
         result |= joining
 
 
-def _walk(result: set[str], formulae: Mapping[str, Mapping]) -> set[str]:
-    """Add every dependency without an Intel bottle to result; return all names reached."""
+def _lock_tree(result: AbstractSet[str], formulae: Mapping[str, Mapping]) -> set[str]:
+    """Every formula brew locks when installing one in result.
+
+    FormulaInstaller#lock takes recursive_dependencies without a block, which
+    keeps the build and test dependencies of every dependency, at any depth.
+    """
+    tree: set[str] = set()
+    pending = sorted(result)
+    while pending:
+        name = pending.pop()
+        if name in tree:
+            continue
+        tree.add(name)
+        pending.extend(d for d in dependencies(name, formulae, *BUILD_KEYS) if d in formulae)
+    return tree
+
+
+def _add_unbottled(result: set[str], formulae: Mapping[str, Mapping]) -> None:
+    """Add every dependency without an Intel bottle that result builds or pours."""
     visited: set[str] = set()
     pending = sorted(result)
     while pending:
@@ -78,7 +98,6 @@ def _walk(result: set[str], formulae: Mapping[str, Mapping]) -> set[str]:
                 result.add(dependency)
             if known:
                 pending.append(dependency)
-    return visited
 
 
 def build_order(names: AbstractSet[str], formulae: Mapping[str, Mapping]) -> list[str]:
