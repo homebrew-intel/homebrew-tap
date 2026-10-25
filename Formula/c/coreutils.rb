@@ -24,8 +24,8 @@ class Coreutils < Formula
     depends_on "bison" => :build
     depends_on "homebrew-intel/tap/automake" => :build
     depends_on "homebrew-intel/tap/gettext" => :build
+    depends_on "homebrew-intel/tap/wget" => :build
     depends_on "homebrew-intel/tap/xz" => :build
-    depends_on "wget" => :build
   end
 
   depends_on "texinfo" => :build
