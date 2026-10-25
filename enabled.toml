@@ -18,3 +18,18 @@ kind = "generated"
 
 [formula.xz]
 kind = "generated"
+
+[formula."python@3.14"]
+kind = "generated"
+
+[formula.jq]
+kind = "generated"
+
+[formula.coreutils]
+kind = "generated"
+
+[formula.tmux]
+kind = "generated"
+
+[formula.fzf]
+kind = "generated"

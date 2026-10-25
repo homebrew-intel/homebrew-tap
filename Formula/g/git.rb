@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@dc696222c55eeef85dc35114e6ec027cae3604ca by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/git.patch.
 class Git < Formula
   desc "Distributed revision control system"
@@ -43,7 +43,7 @@ class Git < Formula
   end
 
   on_linux do
-    depends_on "openssl@4" # for git-imap-send (GPL-2.0-or-later), uses CommonCrypto on macOS
+    depends_on "homebrew-intel/tap/openssl@4" # for git-imap-send (GPL-2.0-or-later), uses CommonCrypto on macOS
     depends_on "zlib-ng-compat"
   end
 

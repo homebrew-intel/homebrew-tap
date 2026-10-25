@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@350e3d8834021ff593eea208a2e17963ea6e18b0 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/cmake.patch.
 class Cmake < Formula
   desc "Cross-platform make"
@@ -29,7 +29,7 @@ class Cmake < Formula
   uses_from_macos "ncurses"
 
   on_linux do
-    depends_on "openssl@4"
+    depends_on "homebrew-intel/tap/openssl@4"
   end
 
   deny_network_access!
