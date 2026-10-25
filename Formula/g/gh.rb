@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@dc696222c55eeef85dc35114e6ec027cae3604ca by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/gh.patch.
 class Gh < Formula
   desc "GitHub command-line tool"
@@ -14,12 +14,11 @@ class Gh < Formula
     strategy :github_latest
   end
 
+  # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/gh-2.103.2"
     sha256 cellar: :any_skip_relocation, sequoia: "27c999ee2833a71cb409a585081abe49ee8c3a672d7f1d23557656f605768e46"
   end
-
-  # bottle block: written by brew pr-pull
 
   depends_on "homebrew-intel/tap/go" => :build
 
