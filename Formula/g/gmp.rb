@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@a2dee8ba714e60f35a4edf44c77561d60ac92a1a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/gmp.patch.
 class Gmp < Formula
   desc "GNU multiple precision arithmetic library"
@@ -14,6 +14,12 @@ class Gmp < Formula
   livecheck do
     url "https://gmplib.org/download/gmp/"
     regex(/href=.*?gmp[._-]v?(\d+(?:\.\d+)+)\.t/i)
+  end
+
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/gmp-6.3.0"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "724471755f8b509eb55a6c66d889a20e51c5d2cb4d041929cdd8fa9e0ee757f6"
   end
 
   # bottle block: written by brew pr-pull
