@@ -78,9 +78,29 @@ class ExpandTest(unittest.TestCase):
         formulae = index(
             formula("a", deps=["b"]),
             formula("b", deps=["c"], tags={"sonoma"}),
-            formula("c"),
+            formula("c", deps=["d"], tags={"sonoma"}),
+            formula("d"),
         )
-        self.assertEqual(expand(["a"], formulae), {"a", "c"})
+        self.assertEqual(expand(["a"], formulae), {"a", "b", "c", "d"})
+
+    def test_expand_leaves_bottled_deps_without_tap_deps_in_core(self):
+        formulae = index(
+            formula("a", deps=["b"]),
+            formula("b", deps=["c"], tags={"sonoma"}),
+            formula("c", tags={"sonoma"}),
+        )
+        self.assertEqual(expand(["a"], formulae), {"a"})
+
+    def test_expand_adds_bottled_deps_that_need_a_tap_formula(self):
+        # Core's zstd bottle depends on core's xz, which would be installed
+        # next to the tap's xz; wget's libidn2 does the same with gettext.
+        formulae = index(
+            formula("python", deps=["zstd", "xz"]),
+            formula("zstd", deps=["xz"], build_deps=["cmake"], tags={"sonoma"}),
+            formula("xz", tags={"sonoma"}),
+            formula("cmake"),
+        )
+        self.assertEqual(expand(["python", "xz"], formulae), {"python", "xz", "zstd", "cmake"})
 
     def test_expand_adds_unbottled_build_deps(self):
         formulae = index(formula("lz4", build_deps=["cmake"]), formula("cmake"))
@@ -90,10 +110,19 @@ class ExpandTest(unittest.TestCase):
         formulae = index(
             formula("a", build_deps=["b"]),
             formula("b", deps=["c"], build_deps=["d"], tags={"sonoma"}),
+            formula("c", tags={"sonoma"}),
+            formula("d"),
+        )
+        self.assertEqual(expand(["a"], formulae), {"a"})
+
+    def test_expand_adds_bottled_build_deps_that_need_a_tap_formula(self):
+        formulae = index(
+            formula("a", build_deps=["b"]),
+            formula("b", deps=["c"], build_deps=["d"], tags={"sonoma"}),
             formula("c"),
             formula("d"),
         )
-        self.assertEqual(expand(["a"], formulae), {"a", "c"})
+        self.assertEqual(expand(["a"], formulae), {"a", "b", "c", "d"})
 
     def test_expand_follows_build_deps_of_added_formulae(self):
         formulae = index(

@@ -45,8 +45,25 @@ def expand(enabled: Iterable[str], formulae: Mapping[str, Mapping]) -> set[str]:
     poured keg still needs its own. Build and test dependencies are followed
     only for formulae in the result: the tap builds and tests those, while a
     bottled formula is poured, never built.
+
+    A bottled formula with a runtime dependency in the result joins it: core's
+    keg names its dependencies bare, so brew would install core's copy of the
+    tap formula next to the tap's (core zstd pulled core xz this way). Joining
+    can make another bottled formula qualify, so this repeats until stable.
     """
     result = set(enabled)
+    while True:
+        reached = _walk(result, formulae)
+        joining = {
+            name for name in reached - result if not result.isdisjoint(dependencies(name, formulae, "dependencies"))
+        }
+        if not joining:
+            return result
+        result |= joining
+
+
+def _walk(result: set[str], formulae: Mapping[str, Mapping]) -> set[str]:
+    """Add every dependency without an Intel bottle to result; return all names reached."""
     visited: set[str] = set()
     pending = sorted(result)
     while pending:
@@ -61,7 +78,7 @@ def expand(enabled: Iterable[str], formulae: Mapping[str, Mapping]) -> set[str]:
                 result.add(dependency)
             if known:
                 pending.append(dependency)
-    return result
+    return visited
 
 
 def build_order(names: AbstractSet[str], formulae: Mapping[str, Mapping]) -> list[str]:
