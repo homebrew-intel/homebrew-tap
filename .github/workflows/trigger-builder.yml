@@ -57,7 +57,7 @@ jobs:
         with:
           app-id: ${{ secrets.INTERNAL_APP_ID }}
           private-key: ${{ secrets.INTERNAL_APP_PRIVATE_KEY }}
-          owner: homebrew-intel
+          owner: macos-intel
           repositories: builder
 
       - name: Trigger builder workflow
@@ -67,7 +67,7 @@ jobs:
           FORMULAE: ${{ steps.changed.outputs.formulae }}
         run: |
           gh workflow run build.yml \
-            -R homebrew-intel/builder \
+            -R macos-intel/builder \
             -f formulae="$FORMULAE" \
             --ref main
           echo "✅ Builder triggered for: $FORMULAE"
