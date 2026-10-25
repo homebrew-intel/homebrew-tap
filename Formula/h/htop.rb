@@ -14,7 +14,7 @@ class Htop < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/htop-3.5.3"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/htop-3.5.3"
     rebuild 1
     sha256 cellar: :any, sequoia: "7def7a504c1cbf7d282130e63a72c33032d79809879aa7315d4ab4f3c9e5205f"
   end
@@ -23,11 +23,11 @@ class Htop < Formula
     url "https://github.com/htop-dev/htop.git", branch: "main"
 
     depends_on "autoconf" => :build
-    depends_on "homebrew-intel/tap/automake" => :build
     depends_on "libtool" => :build
+    depends_on "macos-intel/tap/automake" => :build
   end
 
-  depends_on "homebrew-intel/tap/pkgconf" => :build
+  depends_on "macos-intel/tap/pkgconf" => :build
   depends_on "ncurses" # enables mouse scroll
 
   on_linux do

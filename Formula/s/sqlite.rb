@@ -19,14 +19,14 @@ class Sqlite < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/sqlite-3.54.1"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/sqlite-3.54.1"
     rebuild 1
     sha256 cellar: :any, sequoia: "ed0c83ea2e4c69abe321ba237aa34605aec9a41bb8ed5fb363864d7682648039"
   end
 
   keg_only :provided_by_macos
 
-  depends_on "homebrew-intel/tap/readline"
+  depends_on "macos-intel/tap/readline"
 
   on_linux do
     depends_on "zlib-ng-compat"

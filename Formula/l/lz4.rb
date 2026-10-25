@@ -17,12 +17,12 @@ class Lz4 < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/lz4-1.10.0"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/lz4-1.10.0"
     rebuild 4
     sha256 cellar: :any, sequoia: "ea8cf716249c96d8b5791dcd06b8ec3c4d9b30649ba82cf566e94c1120505994"
   end
 
-  depends_on "homebrew-intel/tap/cmake" => :build
+  depends_on "macos-intel/tap/cmake" => :build
 
   deny_network_access!
 

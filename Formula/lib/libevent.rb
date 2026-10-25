@@ -16,13 +16,13 @@ class Libevent < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/libevent-2.1.13_1"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/libevent-2.1.13_1"
     rebuild 1
     sha256 cellar: :any, sequoia: "ecff254e6463e39ea3dca6af4cb4426ade40fcaa9f77b86f44eb8e51c8f724e2"
   end
 
-  depends_on "homebrew-intel/tap/pkgconf" => :build
-  depends_on "homebrew-intel/tap/openssl@4"
+  depends_on "macos-intel/tap/pkgconf" => :build
+  depends_on "macos-intel/tap/openssl@4"
 
   def install
     system "./configure", "--disable-debug-mode", *std_configure_args

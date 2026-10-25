@@ -17,15 +17,15 @@ class Pyenv < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/pyenv-2.8.13"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/pyenv-2.8.13"
     rebuild 1
     sha256 cellar: :any, sequoia: "36ddfe0d505a25097b940fc8c7e9fc02dd52f69891747821f254d3f76539af76"
   end
 
   depends_on "autoconf"
-  depends_on "homebrew-intel/tap/openssl@4"
-  depends_on "homebrew-intel/tap/pkgconf"
-  depends_on "homebrew-intel/tap/readline"
+  depends_on "macos-intel/tap/openssl@4"
+  depends_on "macos-intel/tap/pkgconf"
+  depends_on "macos-intel/tap/readline"
 
   uses_from_macos "python" => :test
   uses_from_macos "bzip2"

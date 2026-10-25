@@ -18,14 +18,14 @@ class Gmp < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/gmp-6.3.0"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/gmp-6.3.0"
     rebuild 1
     sha256 cellar: :any, sequoia: "724471755f8b509eb55a6c66d889a20e51c5d2cb4d041929cdd8fa9e0ee757f6"
   end
 
   depends_on "autoconf" => :build
-  depends_on "homebrew-intel/tap/automake" => :build
   depends_on "libtool" => :build
+  depends_on "macos-intel/tap/automake" => :build
 
   uses_from_macos "m4" => :build
 

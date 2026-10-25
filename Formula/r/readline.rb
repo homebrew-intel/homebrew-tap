@@ -76,7 +76,7 @@ class Readline < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/readline-8.3.6"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/readline-8.3.6"
     rebuild 1
     sha256 cellar: :any, sequoia: "75dbd544c91b3a7329516ad164cfead6a44c7d6c83774f789119fd62768ed15b"
   end

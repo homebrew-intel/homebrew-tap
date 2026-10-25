@@ -25,14 +25,14 @@ class Zstd < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/zstd-1.5.7_1"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/zstd-1.5.7_1"
     rebuild 1
     sha256 cellar: :any, sequoia: "5d26c35f5ab3a76361269896c39e7ff558ed7016e9bea6cecd18f9000f3b501a"
   end
 
-  depends_on "homebrew-intel/tap/cmake" => :build
-  depends_on "homebrew-intel/tap/lz4"
-  depends_on "homebrew-intel/tap/xz"
+  depends_on "macos-intel/tap/cmake" => :build
+  depends_on "macos-intel/tap/lz4"
+  depends_on "macos-intel/tap/xz"
 
   on_linux do
     depends_on "zlib-ng-compat"

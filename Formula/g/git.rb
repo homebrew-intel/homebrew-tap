@@ -23,14 +23,14 @@ class Git < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/git-2.56.0_1"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/git-2.56.0_1"
     rebuild 2
     sha256 sequoia: "cc02389b87472cb61a1699649eb11be14b380076b7e32d61f4faf7db2ece3a12"
   end
 
-  depends_on "homebrew-intel/tap/gettext" => :build
-  depends_on "homebrew-intel/tap/pkgconf" => :build
-  depends_on "homebrew-intel/tap/pcre2"
+  depends_on "macos-intel/tap/gettext" => :build
+  depends_on "macos-intel/tap/pkgconf" => :build
+  depends_on "macos-intel/tap/pcre2"
 
   uses_from_macos "curl"
   uses_from_macos "expat"
@@ -39,11 +39,11 @@ class Git < Formula
   # https://github.com/Homebrew/homebrew-core/pull/258461
 
   on_macos do
-    depends_on "homebrew-intel/tap/gettext"
+    depends_on "macos-intel/tap/gettext"
   end
 
   on_linux do
-    depends_on "homebrew-intel/tap/openssl@4" # for git-imap-send (GPL-2.0-or-later), uses CommonCrypto on macOS
+    depends_on "macos-intel/tap/openssl@4" # for git-imap-send (GPL-2.0-or-later), uses CommonCrypto on macOS
     depends_on "zlib-ng-compat"
   end
 

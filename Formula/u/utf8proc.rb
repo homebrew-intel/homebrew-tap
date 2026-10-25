@@ -11,12 +11,12 @@ class Utf8proc < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/utf8proc-2.12.0"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/utf8proc-2.12.0"
     rebuild 1
     sha256 cellar: :any, sequoia: "99836690f5209a1bb16d4d3bf4c8d5bcacb2a9a1cef34062e309cb79286f4944"
   end
 
-  depends_on "homebrew-intel/tap/cmake" => :build
+  depends_on "macos-intel/tap/cmake" => :build
 
   deny_network_access!
 

@@ -15,7 +15,7 @@ class Mpdecimal < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/mpdecimal-4.0.1"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/mpdecimal-4.0.1"
     rebuild 1
     sha256 cellar: :any, sequoia: "5ec4692810d28e6063a3265ef497ca216e3b6e97f68176c64cfd0d15cf5f6e2d"
   end

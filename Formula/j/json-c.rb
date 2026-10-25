@@ -15,12 +15,12 @@ class JsonC < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/json-c-0.19"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/json-c-0.19"
     rebuild 2
     sha256 cellar: :any, sequoia: "f87aa43f5eb8aae8e74730e8753d7cf3a7afb2eef204e8d033a4c7be56517280"
   end
 
-  depends_on "homebrew-intel/tap/cmake" => :build
+  depends_on "macos-intel/tap/cmake" => :build
 
   deny_network_access!
 

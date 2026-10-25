@@ -16,7 +16,7 @@ class Tmux < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/tmux-3.8"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/tmux-3.8"
     rebuild 1
     sha256 cellar: :any, sequoia: "bd74190bb3aa60207890d94862d55bed81cd67dee7a06805be54f2601c24e889"
   end
@@ -25,13 +25,13 @@ class Tmux < Formula
     url "https://github.com/tmux/tmux.git", branch: "master"
 
     depends_on "autoconf" => :build
-    depends_on "homebrew-intel/tap/automake" => :build
     depends_on "libtool" => :build
+    depends_on "macos-intel/tap/automake" => :build
   end
 
-  depends_on "homebrew-intel/tap/pkgconf" => :build
-  depends_on "homebrew-intel/tap/libevent"
-  depends_on "homebrew-intel/tap/utf8proc"
+  depends_on "macos-intel/tap/pkgconf" => :build
+  depends_on "macos-intel/tap/libevent"
+  depends_on "macos-intel/tap/utf8proc"
   depends_on "ncurses"
 
   uses_from_macos "bison" => :build # for yacc
@@ -39,7 +39,7 @@ class Tmux < Formula
   on_macos do
     # https://github.com/tmux/tmux/blob/62044f02dff22d304da78ac81b69afcf84872ac7/CHANGES#L169-L170
     # https://github.com/tmux/tmux/issues/5385
-    depends_on "homebrew-intel/tap/jemalloc"
+    depends_on "macos-intel/tap/jemalloc"
   end
 
   # runs a server as a test

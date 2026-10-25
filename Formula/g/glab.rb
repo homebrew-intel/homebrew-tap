@@ -11,12 +11,12 @@ class Glab < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/glab-1.124.0"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/glab-1.124.0"
     rebuild 1
     sha256 cellar: :any_skip_relocation, sequoia: "21a231a899df0fabcc2e6a1c11fbe7988c517d714bc1de2321ca01cce8f225ae"
   end
 
-  depends_on "homebrew-intel/tap/go" => :build
+  depends_on "macos-intel/tap/go" => :build
 
   # `test do` block queries the GitLab API
   allow_network_access! :test

@@ -96,18 +96,18 @@ class Bash < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/bash-5.3.20"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/bash-5.3.20"
     rebuild 1
     sha256 sequoia: "e560f121629db497fff6282b90c04195e7265fd1785a023ad6f4100ed4f9ceee"
   end
 
   # System ncurses lacks functionality
   # https://github.com/Homebrew/homebrew-core/issues/158667
-  depends_on "homebrew-intel/tap/readline"
+  depends_on "macos-intel/tap/readline"
   depends_on "ncurses"
 
   on_macos do
-    depends_on "homebrew-intel/tap/gettext"
+    depends_on "macos-intel/tap/gettext"
   end
 
   deny_network_access!

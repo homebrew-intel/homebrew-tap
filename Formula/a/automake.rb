@@ -11,7 +11,7 @@ class Automake < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/automake-1.19"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/automake-1.19"
     rebuild 1
     sha256 cellar: :any_skip_relocation, sequoia: "8fa01d90ba6addb916cea08292ffebafc0dacb0918d91ffd38f4231376a2af23"
   end
