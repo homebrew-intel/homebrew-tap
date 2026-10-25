@@ -74,8 +74,6 @@ class Readline < Formula
     end
   end
 
-  no_autobump! because: :incompatible_version_format
-
   # bottle block: written by brew pr-pull
 
   keg_only :shadowed_by_macos, "macOS provides BSD libedit"
