@@ -37,3 +37,24 @@ kind = "generated"
 
 [formula.zstd]
 kind = "generated"
+
+[formula.pyenv]
+kind = "generated"
+
+[formula.wget]
+kind = "generated"
+
+[formula.htop]
+kind = "generated"
+
+[formula.bash]
+kind = "generated"
+
+[formula.helm]
+kind = "generated"
+
+[formula.glab]
+kind = "generated"
+
+[formula.lazygit]
+kind = "generated"
