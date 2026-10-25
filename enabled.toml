@@ -33,3 +33,6 @@ kind = "generated"
 
 [formula.fzf]
 kind = "generated"
+
+[formula.zstd]
+kind = "generated"

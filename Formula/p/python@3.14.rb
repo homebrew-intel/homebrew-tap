@@ -25,7 +25,7 @@ class PythonAT314 < Formula
   depends_on "homebrew-intel/tap/openssl@4"
   depends_on "homebrew-intel/tap/sqlite"
   depends_on "homebrew-intel/tap/xz"
-  depends_on "zstd"
+  depends_on "homebrew-intel/tap/zstd"
 
   uses_from_macos "bzip2"
   uses_from_macos "expat", since: :sequoia
