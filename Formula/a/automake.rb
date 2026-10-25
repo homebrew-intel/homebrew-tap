@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@a2dee8ba714e60f35a4edf44c77561d60ac92a1a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/automake.patch.
 class Automake < Formula
   desc "Tool for generating GNU Standards-compliant Makefiles"
@@ -8,6 +8,12 @@ class Automake < Formula
   sha256 "e3e2c2e3abf37898138db5b6c1d1dc35c9160c5978be7947d2c741705251d445"
   license "GPL-2.0-or-later"
   compatibility_version 1
+
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/automake-1.19"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "8fa01d90ba6addb916cea08292ffebafc0dacb0918d91ffd38f4231376a2af23"
+  end
 
   # bottle block: written by brew pr-pull
 

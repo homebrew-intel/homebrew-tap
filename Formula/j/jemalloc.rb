@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@a2dee8ba714e60f35a4edf44c77561d60ac92a1a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/jemalloc.patch.
 class Jemalloc < Formula
   desc "Implementation of malloc emphasizing fragmentation avoidance"
@@ -6,6 +6,12 @@ class Jemalloc < Formula
   url "https://github.com/jemalloc/jemalloc/releases/download/5.4.0/jemalloc-5.4.0.tar.bz2"
   sha256 "200776fac271093e7c2f21edd6d62657ecd2be578d9328633f2a86bfa6ef4f1d"
   license "BSD-2-Clause"
+
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/jemalloc-5.4.0"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "a99afffc42c17b600970c2a1c2381f84c0343b2e409818d21576b70b41aa65cb"
+  end
 
   # bottle block: written by brew pr-pull
 

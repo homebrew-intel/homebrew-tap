@@ -1,16 +1,21 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@a2dee8ba714e60f35a4edf44c77561d60ac92a1a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/openssl@4.patch.
 class OpensslAT4 < Formula
   desc "Cryptography and SSL/TLS Toolkit"
   homepage "https://openssl-library.org"
-  url "https://github.com/openssl/openssl/releases/download/openssl-4.0.3/openssl-4.0.3.tar.gz"
-  mirror "http://fresh-center.net/linux/misc/openssl-4.0.3.tar.gz"
-  sha256 "325b5c806167c13b40b1ffeadfe0248197c00eccc4cf123ec1e28d2d2fd216d9"
+  url "https://github.com/openssl/openssl/releases/download/openssl-4.1.0/openssl-4.1.0.tar.gz"
+  mirror "http://fresh-center.net/linux/misc/openssl-4.1.0.tar.gz"
+  sha256 "50c17baf54cb008f6ce42d50deb4b28050a1aad711636cabd4b241c7e90cc2fd"
   license "Apache-2.0"
 
   livecheck do
     url "https://openssl-library.org/source/"
     regex(/href=.*?openssl[._-]v?(4(?:\.\d+)+)\.t/i)
+  end
+
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/openssl@4-4.1.0"
+    sha256 sequoia: "d50149fe111726f544841e3e4d87d646ecba2680a52a5633c24b47423c8f2f95"
   end
 
   # bottle block: written by brew pr-pull
