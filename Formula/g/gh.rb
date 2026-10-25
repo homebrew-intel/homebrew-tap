@@ -1,10 +1,10 @@
-# Generated from Homebrew/homebrew-core@350e3d8834021ff593eea208a2e17963ea6e18b0 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/gh.patch.
 class Gh < Formula
   desc "GitHub command-line tool"
   homepage "https://cli.github.com/"
-  url "https://github.com/cli/cli/archive/refs/tags/v2.103.0.tar.gz"
-  sha256 "c15a3794f56f6b9c0dca05d5f5b357f27da3c1b7031523fb42c0870ef16c6aff"
+  url "https://github.com/cli/cli/archive/refs/tags/v2.103.2.tar.gz"
+  sha256 "73a62f89937b2c058e0873a571f4963a28c7c78d3b60d0bf29e5658789eb8012"
   license "MIT"
   compatibility_version 1
   head "https://github.com/cli/cli.git", branch: "trunk"
@@ -12,6 +12,11 @@ class Gh < Formula
   livecheck do
     url :stable
     strategy :github_latest
+  end
+
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/gh-2.103.2"
+    sha256 cellar: :any_skip_relocation, sequoia: "27c999ee2833a71cb409a585081abe49ee8c3a672d7f1d23557656f605768e46"
   end
 
   # bottle block: written by brew pr-pull
