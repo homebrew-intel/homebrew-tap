@@ -8,7 +8,7 @@ from pathlib import Path
 from tests.builder.fakes import FakeBin, fake_oid
 
 SCRIPTS = Path(__file__).resolve().parents[2] / "scripts" / "builder"
-REPO = "homebrew-intel/homebrew-tap"
+REPO = "macos-intel/homebrew-tap"
 BRANCH = "bottle/2026-10-22-7"
 API = f"repos/{REPO}/"
 UNAUTHORIZED = {

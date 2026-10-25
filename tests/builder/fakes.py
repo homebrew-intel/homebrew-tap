@@ -33,7 +33,7 @@ NOT_FOUND_BODY = (
     '{{"message":"Not Found","documentation_url":"https://docs.github.com/rest/git/refs#get-a-reference",'
     '"status":"404"}}'
 )
-REPO_API = "repos/homebrew-intel/homebrew-tap/"
+REPO_API = "repos/macos-intel/homebrew-tap/"
 
 LOG, CONFIG = {log!r}, {config!r}
 tool, args = os.path.basename(sys.argv[0]), sys.argv[1:]

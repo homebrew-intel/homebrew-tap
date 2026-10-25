@@ -21,7 +21,7 @@ set -Eeuo pipefail
 # missing ruleset or a failure to enable auto-merge only warns; the owner then
 # merges by hand.
 
-readonly REPO="homebrew-intel/homebrew-tap"
+readonly REPO="macos-intel/homebrew-tap"
 readonly CHECK_NAME="bottle-builder"
 readonly GATE_CHECK="verify-bot-pr"
 # GitHub Actions' App id: the required check must come from a workflow run, so
