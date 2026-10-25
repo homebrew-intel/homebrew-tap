@@ -1,6 +1,8 @@
 import contextlib
 import io
+import tempfile
 import unittest
+from pathlib import Path
 
 import bottles
 
@@ -46,3 +48,14 @@ class BottlesTest(unittest.TestCase):
             code = bottles.main(["root-url", "lz4", "1.10.0"])
         self.assertEqual(code, 0)
         self.assertEqual(stdout.getvalue(), bottles.root_url("lz4", "1.10.0") + "\n")
+
+
+class PlaceTest(unittest.TestCase):
+    def test_cli_place_moves_the_block_next_to_the_marker(self):
+        marker = "  # bottle block: written by brew pr-pull"
+        text = f'class A < Formula\n  license "MIT"\n\n{LZ4_BLOCK}\n{marker}\n\n  def install\n  end\nend\n'
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "a.rb"
+            path.write_text(text, encoding="utf-8")
+            self.assertEqual(bottles.main(["place", str(path)]), 0)
+            self.assertIn(f"{marker}\n{LZ4_BLOCK}", path.read_text(encoding="utf-8"))

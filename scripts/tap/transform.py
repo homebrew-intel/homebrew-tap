@@ -166,6 +166,19 @@ def _drop_span(lines: list[str], start: int, end: int) -> list[str]:
     return [*lines[:start], *rest]
 
 
+def move_bottle_to_marker(text: str) -> str:
+    """Put the bottle block right after the marker, where render and verify expect it.
+
+    `brew bottle --write` places the block by its own rules: after `livecheck`
+    when it can parse it, else after `license` (readline, whose livecheck nests
+    a strategy block).
+    """
+    block = extract_bottle_block(text)
+    if block is None or f"{BOTTLE_MARKER}\n{block}" in text:
+        return text
+    return apply_bottle(strip_bottle_block(text), block)
+
+
 def strip_bottle_block(text: str) -> str:
     lines = _lines(text)
     for start, end in reversed(_bottle_spans(lines)):

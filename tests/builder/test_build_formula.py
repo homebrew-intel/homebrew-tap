@@ -21,10 +21,16 @@ RESTORE_CORE = ["brew", "install", "lz4"]
 RESTORE_TAP = ["brew", "install", f"{TAP}/lz4"]
 SAFEGUARDS = {
     "HOMEBREW_NO_AUTO_UPDATE": "1",
+    "HOMEBREW_NO_AUTOREMOVE": "1",
     "HOMEBREW_NO_INSTALL_CLEANUP": "1",
     "HOMEBREW_NO_INSTALL_UPGRADE": "1",
     "HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK": "1",
 }
+
+
+MARKER = "  # bottle block: written by brew pr-pull"
+BLOCK = '  bottle do\n    sha256 cellar: :any, sequoia: "abc"\n  end\n'
+FORMULA_WITHOUT_BLOCK = f'class Lz4 < Formula\n  license "BSD-2-Clause"\n\n{MARKER}\n\n  def install\n  end\nend\n'
 
 
 def installed_from(tap: str) -> str:
@@ -42,6 +48,9 @@ class BuildFormulaTest(unittest.TestCase):
         self.addCleanup(cache.cleanup)
         self.cache = Path(cache.name)
         self.marker = self.cache / "pending-restore"
+        self.formula = self.out / "lz4.rb"
+        self.formula.write_text(FORMULA_WITHOUT_BLOCK, encoding="utf-8")
+        self.fake.respond("brew", "formula", f"{TAP}/lz4", stdout=f"{self.formula}\n")
 
     def installed(self, tap: str) -> None:
         self.fake.respond(*INFO, stdout=installed_from(tap))
@@ -79,12 +88,22 @@ class BuildFormulaTest(unittest.TestCase):
                 ["brew", "test", f"{TAP}/lz4"],
                 ["brew", "bottle", "--json", f"--root-url={ROOT_URL}", f"{TAP}/lz4"],
                 self.merge(),
+                ["brew", "formula", f"{TAP}/lz4"],
             ],
         )
         self.assertEqual(self.fake.calls()[4]["cwd"], str(self.out))
         self.assertTrue((self.out / ASSET).is_file())
         self.assertFalse((self.out / "lz4--1.10.0.sequoia.bottle.tar.gz").exists())
         self.assertFalse(self.marker.exists())
+
+    def test_bottle_block_brew_wrote_elsewhere_moves_to_the_marker(self):
+        self.installed("homebrew/core")
+        self.formula.write_text(
+            FORMULA_WITHOUT_BLOCK.replace("\n\n" + MARKER, "\n\n" + BLOCK + "\n" + MARKER), encoding="utf-8"
+        )
+        result = self.run_script()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn(f"{MARKER}\n{BLOCK}", self.formula.read_text(encoding="utf-8"))
 
     def test_never_calls_github(self):
         self.fake.fail("gh")
@@ -141,6 +160,7 @@ class BuildFormulaTest(unittest.TestCase):
         self.assertEqual(self.fake.finished()[-1], RESTORE_CORE)
 
     def test_versioned_name_asset_is_url_decoded(self):
+        self.fake.respond("brew", "formula", f"{TAP}/python@3.12", stdout=f"{self.formula}\n")
         result = self.run_script("python@3.12", "3.12.7")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertFalse((self.out / "python@3.12--3.12.7.sequoia.bottle.tar.gz").exists())

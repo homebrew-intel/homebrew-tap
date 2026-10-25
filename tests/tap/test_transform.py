@@ -10,6 +10,7 @@ from transform import (
     extract_bottle_block,
     header,
     mark_bottle_block,
+    move_bottle_to_marker,
     order_dependencies,
     parse_header,
     qualify_dependencies,
@@ -122,6 +123,23 @@ class QualifyTest(unittest.TestCase):
 
     def test_empty_tap_names_is_identity(self):
         self.assertEqual(qualify_dependencies(FORMULA, set()), FORMULA)
+
+
+class MoveBottleTest(unittest.TestCase):
+    BLOCK = '  bottle do\n    sha256 cellar: :any, sequoia: "abc"\n  end\n'
+
+    def test_moves_a_block_brew_wrote_elsewhere_after_the_marker(self):
+        text = '  license "MIT"\n\n' + self.BLOCK + f"\n  livecheck do\n  end\n\n{BOTTLE_MARKER}\n\n  def install\n"
+        expected = f'  license "MIT"\n\n  livecheck do\n  end\n\n{BOTTLE_MARKER}\n' + self.BLOCK + "\n  def install\n"
+        self.assertEqual(move_bottle_to_marker(text), expected)
+
+    def test_a_block_already_next_to_the_marker_is_kept(self):
+        text = f"{BOTTLE_MARKER}\n" + self.BLOCK + "\n  def install\n"
+        self.assertEqual(move_bottle_to_marker(text), text)
+
+    def test_without_a_block_is_identity(self):
+        text = f"{BOTTLE_MARKER}\n\n  def install\n"
+        self.assertEqual(move_bottle_to_marker(text), text)
 
 
 class OfficialOnlyTest(unittest.TestCase):

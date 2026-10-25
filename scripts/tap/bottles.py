@@ -4,6 +4,9 @@ import argparse
 import re
 from collections import Counter
 from collections.abc import Iterable, Mapping
+from pathlib import Path
+
+from transform import move_bottle_to_marker
 
 ROOT_URL_BASE = "https://github.com/homebrew-intel/homebrew-tap/releases/download"
 
@@ -44,7 +47,13 @@ def main(argv: list[str] | None = None) -> int:
     root = commands.add_parser("root-url", help="print the bottle root URL of NAME VERSION")
     root.add_argument("name")
     root.add_argument("version", help="package version: <version> or <version>_<revision>")
+    place = commands.add_parser("place", help="move FORMULA's bottle block next to the bottle marker, in place")
+    place.add_argument("formula", type=Path)
     args = parser.parse_args(argv)
+    if args.command == "place":
+        text = args.formula.read_text(encoding="utf-8")
+        args.formula.write_text(move_bottle_to_marker(text), encoding="utf-8")
+        return 0
     print(root_url(args.name, args.version))
     return 0
 
