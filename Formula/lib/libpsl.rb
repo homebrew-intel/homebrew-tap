@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@5dc8e789d823006a4b7ca94336645ae3f3b248f5 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/libpsl.patch.
 class Libpsl < Formula
   desc "C library for the Public Suffix List"
@@ -11,6 +11,11 @@ class Libpsl < Formula
   compatibility_version 1
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/libpsl-0.23.3"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "e5428f78590544fcd6351ae22368bf1f83c7030e5a242310ce405f5604cb9660"
+  end
 
   depends_on "macos-intel/tap/pkgconf" => :build
 
