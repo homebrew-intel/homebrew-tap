@@ -33,6 +33,10 @@ Design: `docs/superpowers/specs/2026-10-21-intel-bottles-design.md`.
 - Enabling a formula means adding an entry to `enabled.toml`
   (`kind = "generated"`, or `kind = "patched"` plus a 40-character `base`
   core commit), then running `mise run render`.
+- A render with one `--core-commit` rewrites every header: keep new files
+  and real changes, revert header-only diffs (they force rebuilds). To change
+  existing formulae without a version bump, render each at its own header
+  commit.
 - The render also writes the enabled closure (`scripts/tap/closure.py`):
   every dependency without an Intel bottle that a tap formula needs. Runtime
   dependencies are followed through bottled formulae too; build and test
@@ -102,6 +106,9 @@ brew test macos-intel/tap/<name>
   reports hundreds of unrelated offenses. Locally, run `brew style` on
   specific formulae (`brew style macos-intel/tap/<name>`); CI
   checkouts do not have that directory.
+- From a worktree, link it as a throwaway tap
+  (`ln -s "$PWD" "$(brew --repo)/Library/Taps/macos-intel-tmp/homebrew-x"`),
+  run `brew style macos-intel-tmp/x/<name>`, then remove the link.
 - `brew audit` errors inherited from core are accepted. For example, lz4
   reports an HTTP-mirror error that core's lz4 also has.
 
