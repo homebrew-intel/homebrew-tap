@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@a2dee8ba714e60f35a4edf44c77561d60ac92a1a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/git.patch.
 class Git < Formula
   desc "Distributed revision control system"
@@ -24,8 +24,8 @@ class Git < Formula
   # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/git-2.56.0_1"
-    rebuild 1
-    sha256 sequoia: "4662a739aa916898d36c3145adbaf50fa628070060612b516fead6fa36339a78"
+    rebuild 2
+    sha256 sequoia: "cc02389b87472cb61a1699649eb11be14b380076b7e32d61f4faf7db2ece3a12"
   end
 
   depends_on "homebrew-intel/tap/gettext" => :build
