@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@dc696222c55eeef85dc35114e6ec027cae3604ca by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/pcre2.patch.
 class Pcre2 < Formula
   desc "Perl compatible regular expressions library with a new API"
@@ -13,13 +13,12 @@ class Pcre2 < Formula
     regex(/^pcre2[._-]v?(\d+(?:\.\d+)+)$/i)
   end
 
+  # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/pcre2-10.49"
     rebuild 1
     sha256 cellar: :any, sequoia: "0bc469f4c691d6250e2a19f3e0ebf0b2d042b0f1e3d77fd5ad6ffaf7ca4e8548"
   end
-
-  # bottle block: written by brew pr-pull
 
   head do
     url "https://github.com/PCRE2Project/pcre2.git", branch: "main"
