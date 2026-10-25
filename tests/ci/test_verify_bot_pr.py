@@ -9,7 +9,7 @@ from pathlib import Path
 import verify_bot_pr
 
 SCRIPT = Path(__file__).resolve().parents[2] / "scripts" / "ci" / "verify_bot_pr.py"
-REPO = "homebrew-intel/homebrew-tap"
+REPO = "macos-intel/homebrew-tap"
 HEAD_SHA = "5646363e5d4fc69def7c6ccad23a44a34e9e12a7"
 # Trimmed from the live bot pull request #1 (gh api repos/.../pulls/1, /commits, /files).
 PULL_REQUEST = {

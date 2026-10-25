@@ -32,7 +32,7 @@ def bottle_exists_gh(name: str, version: str) -> bool:
     """Check if a bottle exists in GitHub Releases for the given formula version."""
     tag = f"{name}-{version}"
     result = subprocess.run(
-        ["gh", "release", "view", tag, "-R", "homebrew-intel/homebrew-tap"],
+        ["gh", "release", "view", tag, "-R", "macos-intel/homebrew-tap"],
         capture_output=True,
         text=True,
         check=False,
