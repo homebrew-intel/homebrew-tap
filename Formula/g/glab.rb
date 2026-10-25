@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@f2fa4540ee4fc41c70a3c94df121528a11c17cb6 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/glab.patch.
 class Glab < Formula
   desc "Open-source GitLab command-line tool"
@@ -10,6 +10,11 @@ class Glab < Formula
   head "https://gitlab.com/gitlab-org/cli.git", branch: "main"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/glab-1.124.0"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "21a231a899df0fabcc2e6a1c11fbe7988c517d714bc1de2321ca01cce8f225ae"
+  end
 
   depends_on "homebrew-intel/tap/go" => :build
 
