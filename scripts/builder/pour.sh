@@ -4,7 +4,8 @@ set -Eeuo pipefail
 
 # Pour the bottles the publish job just released, on the self-hosted Mac:
 #   pour.sh <artifact-dir>
-# Runs in the pour job, with no token, after publish succeeded. Places the
+# Runs in the pour job, with no token, once publish ran (also when it failed
+# some formulae: those have no released bottle and keep their keg). Places the
 # artifact's formulae into the checkout (the tap commit the build used), points
 # the Taps symlink at it (restored on every exit) and swaps each built
 # formula's --build-bottle keg for a pour of its bottle (pour-formula.sh, which
