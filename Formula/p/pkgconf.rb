@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@dc696222c55eeef85dc35114e6ec027cae3604ca by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/pkgconf.patch.
 class Pkgconf < Formula
   desc "Package compiler and linker metadata toolkit"
@@ -15,13 +15,12 @@ class Pkgconf < Formula
     regex(/href=.*?pkgconf[._-]v?(\d+\.\d+(?:\.[1-8]?\d(?:\.\d+)*)?)\.t/i)
   end
 
+  # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/pkgconf-3.0.10"
     rebuild 1
     sha256 sequoia: "2d1ac8c29df489edbfce56980c104070d237a72e17f6a08deb079a7bb3de5b28"
   end
-
-  # bottle block: written by brew pr-pull
 
   head do
     url "https://github.com/pkgconf/pkgconf.git", branch: "main"
