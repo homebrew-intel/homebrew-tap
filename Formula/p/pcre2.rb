@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@dc696222c55eeef85dc35114e6ec027cae3604ca by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/pcre2.patch.
 class Pcre2 < Formula
   desc "Perl compatible regular expressions library with a new API"
@@ -24,7 +24,7 @@ class Pcre2 < Formula
     url "https://github.com/PCRE2Project/pcre2.git", branch: "main"
 
     depends_on "autoconf" => :build
-    depends_on "automake" => :build
+    depends_on "homebrew-intel/tap/automake" => :build
     depends_on "libtool" => :build
   end
 

@@ -91,11 +91,20 @@ jobs:
             # no dependencies), hence the ${deps[@]+...} form.
             brew fetch --force-bottle "homebrew-intel/tap/${name}" ${deps[@]+"${deps[@]}"}
             # The image ships some formulae from homebrew/core (cmake, for
-            # one); brew refuses a same-named tap formula next to them.
-            receipt="$(brew --prefix)/opt/${name}/INSTALL_RECEIPT.json"
-            if [ -f "$receipt" ] && ! grep -qF '"tap":"homebrew-intel/tap"' <(tr -d ' \n' < "$receipt"); then
-              brew uninstall --ignore-dependencies "$name"
-            fi
+            # one); brew refuses a same-named tap formula next to them. That
+            # holds for the tap dependencies too (git needs the tap's
+            # libunistring), so swap out every core keg among them.
+            for swap in "$name" ${deps[@]+"${deps[@]}"}; do
+              case "$swap" in
+                homebrew-intel/tap/*) swap="${swap#homebrew-intel/tap/}" ;;
+                "$name") ;;
+                *) continue ;;
+              esac
+              receipt="$(brew --prefix)/opt/${swap}/INSTALL_RECEIPT.json"
+              if [ -f "$receipt" ] && ! grep -qF '"tap":"homebrew-intel/tap"' <(tr -d ' \n' < "$receipt"); then
+                brew uninstall --ignore-dependencies "$swap"
+              fi
+            done
             # brew test refuses to run without test dependencies, and neither
             # install nor reinstall adds them unasked. --overwrite: the image
             # links files of other kegs where ours link (bin/openssl belongs
