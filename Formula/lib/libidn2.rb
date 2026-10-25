@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@f2fa4540ee4fc41c70a3c94df121528a11c17cb6 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/libidn2.patch.
 class Libidn2 < Formula
   desc "International domain name library (IDNA2008, Punycode and TR46)"
@@ -22,6 +22,11 @@ class Libidn2 < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/libidn2-2.3.8"
+    rebuild 1
+    sha256 sequoia: "fcc24ba590a153d8e55732053f279069e8cb3421d4427ba50df896fdb90f6a51"
+  end
 
   head do
     url "https://gitlab.com/libidn/libidn2.git", branch: "master"

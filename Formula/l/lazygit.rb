@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@f2fa4540ee4fc41c70a3c94df121528a11c17cb6 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/lazygit.patch.
 class Lazygit < Formula
   desc "Simple terminal UI for git commands"
@@ -14,6 +14,11 @@ class Lazygit < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/lazygit-0.66.2"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "9f865cb1c906fd6b116c7c2001e90201a102ed66e47b2d19dce844744f8ce4e7"
+  end
 
   depends_on "homebrew-intel/tap/go" => :build
 
