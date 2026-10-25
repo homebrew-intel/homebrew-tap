@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@f2fa4540ee4fc41c70a3c94df121528a11c17cb6 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/pyenv.patch.
 class Pyenv < Formula
   desc "Python version management"
@@ -16,6 +16,11 @@ class Pyenv < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/pyenv-2.8.13"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "36ddfe0d505a25097b940fc8c7e9fc02dd52f69891747821f254d3f76539af76"
+  end
 
   depends_on "autoconf"
   depends_on "homebrew-intel/tap/openssl@4"
