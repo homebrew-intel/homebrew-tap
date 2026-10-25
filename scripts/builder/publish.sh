@@ -81,7 +81,9 @@ commit_to_branch() {
 asset_digest() {
   gh release view "$1" -R "${REPO}" --json assets 2>/dev/null | python3 -c '
 import json, sys
-assets = json.load(sys.stdin)["assets"]
+# gh printed nothing: the release cannot be read
+release = sys.stdin.read().strip() or sys.exit(1)
+assets = json.loads(release)["assets"]
 print(*[asset.get("digest") or "none" for asset in assets if asset["name"] == sys.argv[1]][:1])
 ' "$2"
 }
