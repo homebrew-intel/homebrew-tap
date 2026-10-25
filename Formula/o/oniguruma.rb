@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@5dc8e789d823006a4b7ca94336645ae3f3b248f5 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/oniguruma.patch.
 class Oniguruma < Formula
   desc "Regular expressions library"
@@ -13,6 +13,11 @@ class Oniguruma < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/oniguruma-6.9.10"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "bb28ae71086b75e581028b5fda8914447c04b86be622bfdc0731e2397c40bd79"
+  end
 
   depends_on "autoconf" => :build
   depends_on "libtool" => :build

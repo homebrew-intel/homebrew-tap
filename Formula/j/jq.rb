@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@5dc8e789d823006a4b7ca94336645ae3f3b248f5 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/jq.patch.
 class Jq < Formula
   desc "Lightweight and flexible command-line JSON processor"
@@ -16,8 +16,8 @@ class Jq < Formula
   # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/macos-intel/homebrew-tap/releases/download/jq-1.8.2"
-    rebuild 1
-    sha256 cellar: :any, sequoia: "c9a42260e7143fa823c587b716670ed4d0b50ef10f10039190bc064735d316a5"
+    rebuild 2
+    sha256 cellar: :any, sequoia: "9d39c4231b9b1e6441642d53891510a81bfbe32f0d0a7a04adeb16ea4fa5646e"
   end
 
   head do
