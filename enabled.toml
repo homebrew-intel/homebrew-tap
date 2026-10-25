@@ -57,3 +57,6 @@ kind = "generated"
 
 [formula.lazygit]
 kind = "generated"
+
+[formula.llvm]
+kind = "generated"
