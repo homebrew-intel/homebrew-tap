@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@dc696222c55eeef85dc35114e6ec027cae3604ca by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/go.patch.
 class Go < Formula
   desc "Open source programming language to build simple/reliable/efficient software"
@@ -23,13 +23,12 @@ class Go < Formula
     end
   end
 
+  # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/go-1.27.3"
     rebuild 1
     sha256 cellar: :any_skip_relocation, sequoia: "760f46e9375041c899fea34747cb9a3f2cc063b48976bcdfaff966ed4d04b7ef"
   end
-
-  # bottle block: written by brew pr-pull
 
   on_macos do
     depends_on macos: :monterey
