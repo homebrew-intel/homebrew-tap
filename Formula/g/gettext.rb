@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@dc696222c55eeef85dc35114e6ec027cae3604ca by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/gettext.patch.
 class Gettext < Formula
   desc "GNU internationalization (i18n) and localization (l10n) library"
@@ -12,13 +12,12 @@ class Gettext < Formula
   ]
   compatibility_version 1
 
+  # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/gettext-1.0"
     rebuild 1
     sha256 sequoia: "409bc66e3c8ce40a8ee606235d5c81f9e5cd6a1aa72c40297230f00d2c1f97b2"
   end
-
-  # bottle block: written by brew pr-pull
 
   depends_on "homebrew-intel/tap/json-c" # for spit
   depends_on "homebrew-intel/tap/libunistring"
