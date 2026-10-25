@@ -8,8 +8,11 @@
 # next run.sh or pour.sh to reinstall. The caller defines log().
 # Must stay compatible with macOS /bin/bash 3.2.
 
-# Host safeguards: never update, clean up, upgrade or rebuild dependents.
+# Host safeguards: never update, clean up, autoremove, upgrade or rebuild
+# dependents. Without NO_AUTOREMOVE, removing a half-installed keg also
+# uninstalls the dependencies it just pulled in.
 export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_AUTOREMOVE=1
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 export HOMEBREW_NO_INSTALL_UPGRADE=1
 export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1

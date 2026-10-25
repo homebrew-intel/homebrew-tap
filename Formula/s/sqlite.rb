@@ -17,8 +17,6 @@ class Sqlite < Formula
     end
   end
 
-  no_autobump! because: :incompatible_version_format
-
   # bottle block: written by brew pr-pull
 
   keg_only :provided_by_macos

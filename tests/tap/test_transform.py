@@ -6,6 +6,7 @@ from transform import (
     TransformError,
     apply_bottle,
     bottle_blocks,
+    drop_official_only,
     extract_bottle_block,
     header,
     mark_bottle_block,
@@ -121,6 +122,19 @@ class QualifyTest(unittest.TestCase):
 
     def test_empty_tap_names_is_identity(self):
         self.assertEqual(qualify_dependencies(FORMULA, set()), FORMULA)
+
+
+class OfficialOnlyTest(unittest.TestCase):
+    def test_drops_no_autobump_and_one_surrounding_blank_line(self):
+        text = '  end\n\n  no_autobump! because: :incompatible_version_format\n\n  depends_on "a"\n'
+        self.assertEqual(drop_official_only(text), '  end\n\n  depends_on "a"\n')
+
+    def test_without_no_autobump_is_identity(self):
+        self.assertEqual(drop_official_only(FORMULA), FORMULA)
+
+    def test_render_body_drops_no_autobump(self):
+        source = FORMULA.replace("  bottle do", "  no_autobump! because: :requires_manual_review\n\n  bottle do", 1)
+        self.assertNotIn("no_autobump!", render_body(source, name="x", commit=SHA, tap_names=set()))
 
 
 class OrderTest(unittest.TestCase):

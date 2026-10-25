@@ -54,7 +54,12 @@ Design: `docs/superpowers/specs/2026-10-21-intel-bottles-design.md`.
   name for tap formulae that need them (e.g. `coreutils` uses
   `ENV.runtime_cpu_detection`); `brew style` only honours them for files
   inside a tap. The render re-sorts `depends_on` runs after qualifying, so
-  `FormulaAudit/DependencyOrder` holds.
+  `FormulaAudit/DependencyOrder` holds, and drops `no_autobump!`, which brew
+  only loads from official taps.
+- `Aliases/` mirrors core's aliases where brew needs them: superenv's
+  `pkg-config` shim runs `opt/pkg-config/bin/pkg-config`, and brew creates
+  that opt link only from an alias recorded at install (`pkg-config` and
+  `pkgconfig` → `pkgconf`).
 - `scripts/setup-intel.sh` is user-facing: it appends
   `export HOMEBREW_DEVELOPER=1` to the user's shell RC file, the only
   setting Homebrew checks before its Intel Tier 3 warning. Keep its
