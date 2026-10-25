@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/python@3.14.patch.
 class PythonAT314 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
@@ -132,9 +132,7 @@ class PythonAT314 < Formula
   deny_network_access!
 
   def install
-    # macos-intel/tap: dependencies are tap-qualified, so match the bare name.
-    openssl = deps.map { |dep| dep.name.delete_prefix("macos-intel/tap/") }
-                  .find { |dep_name| dep_name.start_with?("openssl@") }
+    openssl = deps.find { |dep| dep.name.delete_prefix("macos-intel/tap/").start_with?("openssl@") }.name
     # Unset these so that installing pip and setuptools puts them where we want
     # and not into some other Python the user has installed.
     ENV["PYTHONHOME"] = nil

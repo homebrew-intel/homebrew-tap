@@ -65,6 +65,11 @@ Design: `docs/superpowers/specs/2026-10-21-intel-bottles-design.md`.
   inside a tap. The render re-sorts `depends_on` runs after qualifying, so
   `FormulaAudit/DependencyOrder` holds, and drops `no_autobump!`, which brew
   only loads from official taps.
+- Core formulae test dependency names bare (`deps.map(&:name)`,
+  `dep.name.start_with?`), which tap-qualified names would silently fail
+  (llvm builds without z3). The render inserts
+  `.delete_prefix("macos-intel/tap/")` there; names passed to
+  `formula_opt_prefix` may stay qualified, brew strips the tap.
 - `Aliases/` mirrors core's aliases where brew needs them: superenv's
   `pkg-config` shim runs `opt/pkg-config/bin/pkg-config`, and brew creates
   that opt link only from an alias recorded at install (`pkg-config` and

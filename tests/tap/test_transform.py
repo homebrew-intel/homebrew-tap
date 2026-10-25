@@ -6,6 +6,7 @@ from transform import (
     TAP,
     TransformError,
     apply_bottle,
+    bare_dependency_names,
     bottle_blocks,
     core_patch_paths,
     drop_official_only,
@@ -166,6 +167,38 @@ class OfficialOnlyTest(unittest.TestCase):
     def test_render_body_drops_no_autobump(self):
         source = FORMULA.replace("  bottle do", "  no_autobump! because: :requires_manual_review\n\n  bottle do", 1)
         self.assertNotIn("no_autobump!", render_body(source, name="x", commit=SHA, tap_names=set()))
+
+
+class BareDependencyNamesTest(unittest.TestCase):
+    # Tap-qualified dependency names break core's predicates on bare names.
+    BARE = f'.delete_prefix("{TAP}/")'
+
+    def test_map_of_names_yields_bare_names(self):
+        # llvm: enable_z3 = deps.map(&:name).include?("z3")
+        text = '      enable_z3 = deps.map(&:name).include?("z3")\n'
+        expected = f'      enable_z3 = deps.map {{ |dep| dep.name{self.BARE} }}.include?("z3")\n'
+        self.assertEqual(bare_dependency_names(text), expected)
+
+    def test_predicate_on_a_dependency_name_sees_the_bare_name(self):
+        # python@3.14: openssl = deps.find { |dep| dep.name.start_with?("openssl@") }.name
+        text = '    openssl = deps.find { |dep| dep.name.start_with?("openssl@") }.name\n'
+        expected = f'    openssl = deps.find {{ |dep| dep.name{self.BARE}.start_with?("openssl@") }}.name\n'
+        self.assertEqual(bare_dependency_names(text), expected)
+
+    def test_each_rewrite_applies_once(self):
+        # rust: def llvm = deps.map(&:name).find { |dep| dep.match?(/^llvm(@\d+)?$/) }
+        text = "  def llvm = deps.map(&:name).find { |dep| dep.match?(/^llvm(@\\d+)?$/) }\n"
+        once = bare_dependency_names(text)
+        self.assertEqual(once.count("delete_prefix"), 1)
+        self.assertEqual(bare_dependency_names(once), once)
+
+    def test_other_uses_are_identity(self):
+        text = "    deps.map(&:to_formula).map { |dep| dep.opt_lib }\n    puts dep.name\n"
+        self.assertEqual(bare_dependency_names(text), text)
+
+    def test_render_body_applies_it(self):
+        source = FORMULA.replace("  def install\n", "  def install\n    x = deps.map(&:name)\n", 1)
+        self.assertIn(self.BARE, render_body(source, name="x", commit=SHA, tap_names=set()))
 
 
 class OrderTest(unittest.TestCase):
