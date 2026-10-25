@@ -37,7 +37,10 @@ Design: `docs/superpowers/specs/2026-10-21-intel-bottles-design.md`.
   every dependency without an Intel bottle that a tap formula needs. Runtime
   dependencies are followed through bottled formulae too; build and test
   dependencies only of tap formulae, since the builder's clean host builds
-  none of them itself (cmake joins for lz4). The plan builds each one first.
+  none of them itself (cmake joins for lz4). A bottled formula whose
+  runtime dependencies include a tap formula joins too: core's keg would
+  pull core's copy next to the tap's (zstd for xz, libidn2 for gettext).
+  The plan builds each one first.
 - A patched formula (core removed, disabled or arm64-gated it, or it fails on
   Intel): edit the rendered file, then run
   `mise run render -- --make-patch <name>` to write `patches/<name>.patch`.
