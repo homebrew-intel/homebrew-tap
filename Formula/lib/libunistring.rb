@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@dc696222c55eeef85dc35114e6ec027cae3604ca by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/libunistring.patch.
 class Libunistring < Formula
   desc "C string library for manipulating Unicode strings"
@@ -10,13 +10,12 @@ class Libunistring < Formula
   license any_of: ["GPL-2.0-or-later", "LGPL-3.0-or-later"]
   compatibility_version 1
 
+  # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/libunistring-1.5"
     rebuild 1
     sha256 cellar: :any, sequoia: "db98b5f547950c3d6f6d4e271a53bd3612f965a455b529e1e21dd7f47fdcdddb"
   end
-
-  # bottle block: written by brew pr-pull
 
   deny_network_access!
 
