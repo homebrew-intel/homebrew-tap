@@ -2,7 +2,10 @@ name: pages
 
 # Builds the Docusaurus site in website/ with bun and publishes it to GitHub
 # Pages. The bottle list is generated from the tap's releases at build time,
-# so a new release only needs a rebuild, never a hand edit.
+# so a new release only needs a rebuild, never a hand edit. Every release is
+# followed by the bot's pull request changing Formula/ on main, which
+# rebuilds the site; a release event itself runs on the tag, which the
+# github-pages environment refuses to deploy.
 on:
   push:
     branches: [main]
@@ -13,8 +16,6 @@ on:
       - mise.toml
       - mise.lock
       - .github/workflows/pages.yml
-  release:
-    types: [published]
   workflow_dispatch:
 
 permissions:
