@@ -179,17 +179,15 @@ rebuilds `reports/` from a fresh API snapshot plus local git history, taps and
     as a verified bot commit (render-only formulae first), attests the last
     commit with the `bottle-builder` check run, opens one pull request and one
     private issue per failed build (a fenced log tail with `@` neutralised).
-- Two Apps, never merged: `homebrew-intel` (the public bot: Contents, Pull
-  requests and Checks set to Read and write on `homebrew-tap`) and
-  `homebrew-intel-internal` (only dispatches builds). An HTTP 403 when
-  `commit-formula` creates `bottle/*` means `.github/workflows/` on `main`
-  changed after prepare's tap commit: the token has no `workflows`
-  permission (keep it that way), so re-runs keep failing. Dispatch a new run,
-  first deleting the release assets the failed run uploaded (no formula
-  references them, and a rebuild reuses their names).
   - `pour` (self-hosted, no token): swaps each `--build-bottle` keg for a
     pour of its released bottle, since such a keg would rebuild from source
     on `reinstall`/`upgrade`.
+- Two Apps, never merged: `homebrew-intel` (the public bot: Contents, Pull
+  requests and Checks set to Read and write on `homebrew-tap`) and
+  `homebrew-intel-internal` (only dispatches builds). Before rebuilding after
+  a run that uploaded bottles but opened no merged pull request, delete
+  those release assets (no formula references them, a rebuild reuses their
+  names, and publish refuses a different digest).
 - No hosted job of the builder (`prepare`, `verify`, `publish`) or
   `verify-bot-pr` restores a cache (`actions/cache`, a `setup-*` cache,
   `jdx/mise-action`): any job can write cache entries, so a restore would run
