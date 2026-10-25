@@ -2,10 +2,12 @@ import unittest
 
 from transform import (
     BOTTLE_MARKER,
+    CORE_PATCHES,
     TAP,
     TransformError,
     apply_bottle,
     bottle_blocks,
+    core_patch_paths,
     drop_official_only,
     extract_bottle_block,
     header,
@@ -140,6 +142,17 @@ class MoveBottleTest(unittest.TestCase):
     def test_without_a_block_is_identity(self):
         text = f"{BOTTLE_MARKER}\n\n  def install\n"
         self.assertEqual(move_bottle_to_marker(text), text)
+
+
+class CorePatchTest(unittest.TestCase):
+    def test_render_body_points_core_patch_files_into_the_tap(self):
+        source = FORMULA.replace("  bottle do", '  patch do\n    file "Patches/z3/fix.diff"\n  end\n\n  bottle do', 1)
+        body = render_body(source, name="x", commit=SHA, tap_names=set())
+        self.assertIn(f'    file "{CORE_PATCHES}/z3/fix.diff"\n', body)
+        self.assertEqual(core_patch_paths(body), ["z3/fix.diff"])
+
+    def test_formula_without_core_patches_lists_none(self):
+        self.assertEqual(core_patch_paths(FORMULA), [])
 
 
 class OfficialOnlyTest(unittest.TestCase):

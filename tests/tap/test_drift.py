@@ -79,3 +79,31 @@ class DriftTest(RenderTestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CorePatchDriftTest(RenderTestCase):
+    def setUp(self):
+        super().setUp()
+        path = self.core / "Formula/z/z3.rb"
+        text = path.read_text(encoding="utf-8")
+        self.write(path, text.replace("  # filler 0\n", '  patch do\n    file "Patches/z3/fix.diff"\n  end\n', 1))
+        self.write(self.core / "Patches/z3/fix.diff", "--- a/x\n+++ b/x\n")
+        git(self.core, "add", "-A")
+        git(self.core, "commit", "-q", "-m", "patch")
+        self.enable('[formula.z3]\nkind = "generated"\n')
+        self.run_render()
+
+    def test_clean_after_render(self):
+        self.assertEqual(drift.check(self.tap, self.core), [])
+
+    def test_flags_an_edited_core_patch_file(self):
+        self.write(self.tap / "core-patches/z3/fix.diff", "edited\n")
+        problems = drift.check(self.tap, self.core)
+        self.assertEqual(len(problems), 1)
+        self.assertIn("core-patches/z3/fix.diff", problems[0])
+
+    def test_flags_a_missing_core_patch_file(self):
+        (self.tap / "core-patches/z3/fix.diff").unlink()
+        problems = drift.check(self.tap, self.core)
+        self.assertEqual(len(problems), 1)
+        self.assertIn("core-patches/z3/fix.diff", problems[0])

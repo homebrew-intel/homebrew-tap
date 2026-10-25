@@ -60,6 +60,11 @@ Design: `docs/superpowers/specs/2026-10-21-intel-bottles-design.md`.
   `pkg-config` shim runs `opt/pkg-config/bin/pkg-config`, and brew creates
   that opt link only from an alias recorded at install (`pkg-config` and
   `pkgconfig` → `pkgconf`).
+- `core-patches/` holds copies of core's `Patches/` files that tap formulae
+  use (`patch do file "Patches/..."`), which brew resolves against the tap's
+  root. The render rewrites the path and copies each file from core at the
+  formula's header commit; drift checks the copies. Bot pull requests only
+  commit `Formula/`, so if core changes such a file, re-render by hand.
 - `scripts/setup-intel.sh` is user-facing: it appends
   `export HOMEBREW_DEVELOPER=1` to the user's shell RC file, the only
   setting Homebrew checks before its Intel Tier 3 warning. Keep its

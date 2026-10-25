@@ -4,7 +4,7 @@ import drift
 import render
 from transform import TAP, apply_bottle
 
-from tests.tap.fixtures import API, BOTTLE, TAP_BOTTLE, RenderTestCase
+from tests.tap.fixtures import API, BOTTLE, TAP_BOTTLE, RenderTestCase, git
 
 HEADER_PREFIX = "# Generated from Homebrew/homebrew-core@"
 
@@ -131,3 +131,25 @@ class RenderTest(RenderTestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CorePatchRenderTest(RenderTestCase):
+    def setUp(self):
+        super().setUp()
+        source = self.read_core("Formula/z/z3.rb").replace(
+            "  # filler 0\n", '  patch do\n    file "Patches/z3/fix.diff"\n  end\n  # filler 0\n', 1
+        )
+        self.write(self.core / "Formula/z/z3.rb", source)
+        self.write(self.core / "Patches/z3/fix.diff", "--- a/x\n+++ b/x\n")
+        git(self.core, "add", "-A")
+        git(self.core, "commit", "-q", "-m", "patch")
+        self.enable('[formula.z3]\nkind = "generated"\n')
+
+    def read_core(self, relpath: str) -> str:
+        return (self.core / relpath).read_text(encoding="utf-8")
+
+    def test_render_copies_referenced_core_patch_files(self):
+        code, _, stderr = self.run_render()
+        self.assertEqual((code, stderr), (0, ""))
+        self.assertEqual(self.read("core-patches/z3/fix.diff"), "--- a/x\n+++ b/x\n")
+        self.assertIn('file "core-patches/z3/fix.diff"', self.read("Formula/z/z3.rb"))

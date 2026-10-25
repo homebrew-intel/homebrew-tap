@@ -6,10 +6,10 @@ import sys
 from collections.abc import Set as AbstractSet
 from pathlib import Path
 
-from core_source import core_repo, formula_relpath, read_formula
+from core_source import core_repo, formula_relpath, read_core_file, read_formula
 from enabled import Entry, load_enabled
 from render import RENDER_ERRORS, TAP_ROOT, formula_files, patch_path, render_formula
-from transform import parse_header, strip_bottle_block
+from transform import CORE_PATCHES, core_patch_paths, parse_header, strip_bottle_block
 
 DIFF_CONTEXT = 1
 DIFF_MAX_LINES = 40
@@ -50,9 +50,24 @@ def check_formula(path: Path, tap_dir: Path, repo: Path, tap_names: AbstractSet[
     if relpath != expected_path:
         return f"{relpath}: misplaced formula, expected {expected_path}"
     actual = strip_bottle_block(text)
-    if actual == expected:
-        return None
-    return f"{relpath}: differs from core@{commit} (+ patch):\n{short_diff(expected, actual, relpath).rstrip()}"
+    if actual != expected:
+        return f"{relpath}: differs from core@{commit} (+ patch):\n{short_diff(expected, actual, relpath).rstrip()}"
+    return check_core_patches(tap_dir, repo, commit, actual)
+
+
+def check_core_patches(tap_dir: Path, repo: Path, commit: str, text: str) -> str | None:
+    for relpath in core_patch_paths(text):
+        path = tap_dir / CORE_PATCHES / relpath
+        label = f"{CORE_PATCHES}/{relpath}"
+        try:
+            expected = read_core_file(repo, f"Patches/{relpath}", commit)
+        except RENDER_ERRORS as error:
+            return f"{label}: {error}"
+        if not path.is_file():
+            return f"{label}: missing; run mise run render"
+        if path.read_text(encoding="utf-8") != expected:
+            return f"{label}: differs from core@{commit} Patches/{relpath}"
+    return None
 
 
 def check_bookkeeping(tap_dir: Path, files: list[Path], entries: list[Entry]) -> list[str]:
