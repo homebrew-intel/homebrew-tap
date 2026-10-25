@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@f2fa4540ee4fc41c70a3c94df121528a11c17cb6 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/helm.patch.
 class Helm < Formula
   desc "Kubernetes package manager"
@@ -10,6 +10,11 @@ class Helm < Formula
   head "https://github.com/helm/helm.git", branch: "main"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/helm-4.3.1"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "187dfc992d9eee84b0e6b46fe60aebdc84000885ce87fc36b4111c623765eec6"
+  end
 
   depends_on "homebrew-intel/tap/go" => :build
 
