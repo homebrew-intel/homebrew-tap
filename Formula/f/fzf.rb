@@ -11,12 +11,12 @@ class Fzf < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/fzf-0.74.5"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/fzf-0.74.5"
     rebuild 1
     sha256 cellar: :any_skip_relocation, sequoia: "a5f20696070b02f4d2512b8a67002551d80f15a94579b2e14c57453d0f191b3e"
   end
 
-  depends_on "homebrew-intel/tap/go" => :build
+  depends_on "macos-intel/tap/go" => :build
 
   uses_from_macos "ncurses"
 

@@ -11,12 +11,12 @@ class Helm < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/helm-4.3.1"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/helm-4.3.1"
     rebuild 1
     sha256 cellar: :any_skip_relocation, sequoia: "187dfc992d9eee84b0e6b46fe60aebdc84000885ce87fc36b4111c623765eec6"
   end
 
-  depends_on "homebrew-intel/tap/go" => :build
+  depends_on "macos-intel/tap/go" => :build
 
   deny_network_access!
 

@@ -15,7 +15,7 @@ class Pcre2 < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/pcre2-10.49"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/pcre2-10.49"
     rebuild 2
     sha256 cellar: :any, sequoia: "64323b115467f8eed289a370c57987a3c3566368351830be44b652ed36fbf1ca"
   end
@@ -24,8 +24,8 @@ class Pcre2 < Formula
     url "https://github.com/PCRE2Project/pcre2.git", branch: "main"
 
     depends_on "autoconf" => :build
-    depends_on "homebrew-intel/tap/automake" => :build
     depends_on "libtool" => :build
+    depends_on "macos-intel/tap/automake" => :build
   end
 
   uses_from_macos "bzip2"

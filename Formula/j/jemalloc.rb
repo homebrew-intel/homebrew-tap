@@ -9,7 +9,7 @@ class Jemalloc < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/jemalloc-5.4.0"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/jemalloc-5.4.0"
     rebuild 1
     sha256 cellar: :any, sequoia: "a99afffc42c17b600970c2a1c2381f84c0343b2e409818d21576b70b41aa65cb"
   end

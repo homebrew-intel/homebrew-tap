@@ -14,13 +14,13 @@ class Gettext < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/gettext-1.0"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/gettext-1.0"
     rebuild 2
     sha256 sequoia: "c5a938a66f118efe5a73739ab33ac626a75b0cff0537359499087ebe26f14ebe"
   end
 
-  depends_on "homebrew-intel/tap/json-c" # for spit
-  depends_on "homebrew-intel/tap/libunistring"
+  depends_on "macos-intel/tap/json-c" # for spit
+  depends_on "macos-intel/tap/libunistring"
 
   uses_from_macos "curl" # for spit
   uses_from_macos "libxml2"

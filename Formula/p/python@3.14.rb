@@ -15,7 +15,7 @@ class PythonAT314 < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/python@3.14-3.14.9"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/python@3.14-3.14.9"
     rebuild 1
     sha256 sequoia: "28d2307eac7167b1cc6c9ccb6b697a2ab56ac8648b1ff172d5797cab5ed5658c"
   end
@@ -24,13 +24,13 @@ class PythonAT314 < Formula
   deprecate! date: "2030-11-01", because: :deprecated_upstream
   disable! date: "2031-11-01", because: :deprecated_upstream
 
-  depends_on "homebrew-intel/tap/pkgconf" => :build
+  depends_on "macos-intel/tap/pkgconf" => :build
   depends_on "ca-certificates" => :no_linkage
-  depends_on "homebrew-intel/tap/mpdecimal"
-  depends_on "homebrew-intel/tap/openssl@4"
-  depends_on "homebrew-intel/tap/sqlite"
-  depends_on "homebrew-intel/tap/xz"
-  depends_on "homebrew-intel/tap/zstd"
+  depends_on "macos-intel/tap/mpdecimal"
+  depends_on "macos-intel/tap/openssl@4"
+  depends_on "macos-intel/tap/sqlite"
+  depends_on "macos-intel/tap/xz"
+  depends_on "macos-intel/tap/zstd"
 
   uses_from_macos "bzip2"
   uses_from_macos "expat", since: :sequoia
@@ -132,8 +132,8 @@ class PythonAT314 < Formula
   deny_network_access!
 
   def install
-    # homebrew-intel/tap: dependencies are tap-qualified, so match the bare name.
-    openssl = deps.map { |dep| dep.name.delete_prefix("homebrew-intel/tap/") }
+    # macos-intel/tap: dependencies are tap-qualified, so match the bare name.
+    openssl = deps.map { |dep| dep.name.delete_prefix("macos-intel/tap/") }
                   .find { |dep_name| dep_name.start_with?("openssl@") }
     # Unset these so that installing pip and setuptools puts them where we want
     # and not into some other Python the user has installed.

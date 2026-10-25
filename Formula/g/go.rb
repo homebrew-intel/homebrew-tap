@@ -25,7 +25,7 @@ class Go < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/go-1.27.3"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/go-1.27.3"
     rebuild 1
     sha256 cellar: :any_skip_relocation, sequoia: "760f46e9375041c899fea34747cb9a3f2cc063b48976bcdfaff966ed4d04b7ef"
   end

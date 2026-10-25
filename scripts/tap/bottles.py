@@ -8,7 +8,7 @@ from pathlib import Path
 
 from transform import move_bottle_to_marker
 
-ROOT_URL_BASE = "https://github.com/homebrew-intel/homebrew-tap/releases/download"
+ROOT_URL_BASE = "https://github.com/macos-intel/homebrew-tap/releases/download"
 
 _ROOT_URL_LINE = re.compile(r'^\s*root_url\s+"([^"]+)"', re.MULTILINE)
 _FULL_SHA = re.compile(r"[0-9a-f]{40}")

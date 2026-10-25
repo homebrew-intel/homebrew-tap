@@ -23,7 +23,7 @@ class Libidn2 < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/libidn2-2.3.8"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/libidn2-2.3.8"
     rebuild 1
     sha256 sequoia: "fcc24ba590a153d8e55732053f279069e8cb3421d4427ba50df896fdb90f6a51"
   end
@@ -34,14 +34,14 @@ class Libidn2 < Formula
     depends_on "autoconf" => :build
     depends_on "gengetopt" => :build
     depends_on "help2man" => :build
-    depends_on "homebrew-intel/tap/automake" => :build
-    depends_on "homebrew-intel/tap/gettext" => :build
     depends_on "libtool" => :build
+    depends_on "macos-intel/tap/automake" => :build
+    depends_on "macos-intel/tap/gettext" => :build
 
     uses_from_macos "gperf" => :build
 
     on_macos do
-      depends_on "homebrew-intel/tap/coreutils" => :build
+      depends_on "macos-intel/tap/coreutils" => :build
     end
 
     on_system :linux, macos: :ventura_or_newer do
@@ -49,11 +49,11 @@ class Libidn2 < Formula
     end
   end
 
-  depends_on "homebrew-intel/tap/pkgconf" => :build
-  depends_on "homebrew-intel/tap/libunistring"
+  depends_on "macos-intel/tap/pkgconf" => :build
+  depends_on "macos-intel/tap/libunistring"
 
   on_macos do
-    depends_on "homebrew-intel/tap/gettext"
+    depends_on "macos-intel/tap/gettext"
   end
 
   def install

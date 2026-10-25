@@ -16,7 +16,7 @@ class OpensslAT3 < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/openssl@3-3.5.9"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/openssl@3-3.5.9"
     rebuild 1
     sha256 sequoia: "017b6d1ba27bc5f82e73cc995ddcafed65ccd6442a28cb895d758e91a2a7e988"
   end

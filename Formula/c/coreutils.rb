@@ -12,7 +12,7 @@ class Coreutils < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/coreutils-9.12_1"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/coreutils-9.12_1"
     rebuild 2
     sha256 sequoia: "b8abe7edea308fff8336dc4819d3a2c5b8441cae40a8807ffd9defa38b1c7f0b"
   end
@@ -22,18 +22,18 @@ class Coreutils < Formula
 
     depends_on "autoconf" => :build
     depends_on "bison" => :build
-    depends_on "homebrew-intel/tap/automake" => :build
-    depends_on "homebrew-intel/tap/gettext" => :build
-    depends_on "homebrew-intel/tap/wget" => :build
-    depends_on "homebrew-intel/tap/xz" => :build
+    depends_on "macos-intel/tap/automake" => :build
+    depends_on "macos-intel/tap/gettext" => :build
+    depends_on "macos-intel/tap/wget" => :build
+    depends_on "macos-intel/tap/xz" => :build
   end
 
   depends_on "texinfo" => :build
-  depends_on "homebrew-intel/tap/gmp"
+  depends_on "macos-intel/tap/gmp"
   uses_from_macos "gperf" => :build
 
   on_macos do
-    depends_on "homebrew-intel/tap/openssl@4"
+    depends_on "macos-intel/tap/openssl@4"
   end
 
   on_sonoma :or_older do

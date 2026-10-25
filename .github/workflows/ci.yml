@@ -75,7 +75,7 @@ jobs:
           changed="$(git diff --name-only "origin/${BASE_REF}...HEAD" -- Formula | sed 's@.*/@@; s@\.rb$@@')"
           scripts/audit/fetch-api.sh
           order="$(python3 scripts/tap/render.py --print-order)"
-          brew trust homebrew-intel/tap
+          brew trust macos-intel/tap
           found=no
           while IFS= read -r name <&3; do
             grep -qxF "$name" <<< "$changed" || continue
@@ -86,22 +86,22 @@ jobs:
             # core's openssl@3 uninstalled every download fails. fetch and
             # deps, unlike install, accept a tap formula whose name is
             # installed from core.
-            read -r -a deps <<< "$(brew deps --include-test "homebrew-intel/tap/${name}" | tr '\n' ' ')"
+            read -r -a deps <<< "$(brew deps --include-test "macos-intel/tap/${name}" | tr '\n' ' ')"
             # bash 3.2 under set -u calls an empty array unbound (cmake has
             # no dependencies), hence the ${deps[@]+...} form.
-            brew fetch --force-bottle "homebrew-intel/tap/${name}" ${deps[@]+"${deps[@]}"}
+            brew fetch --force-bottle "macos-intel/tap/${name}" ${deps[@]+"${deps[@]}"}
             # The image ships some formulae from homebrew/core (cmake, for
             # one); brew refuses a same-named tap formula next to them. That
             # holds for the tap dependencies too (git needs the tap's
             # libunistring), so swap out every core keg among them.
             for swap in "$name" ${deps[@]+"${deps[@]}"}; do
               case "$swap" in
-                homebrew-intel/tap/*) swap="${swap#homebrew-intel/tap/}" ;;
+                macos-intel/tap/*) swap="${swap#macos-intel/tap/}" ;;
                 "$name") ;;
                 *) continue ;;
               esac
               receipt="$(brew --prefix)/opt/${swap}/INSTALL_RECEIPT.json"
-              if [ -f "$receipt" ] && ! grep -qF '"tap":"homebrew-intel/tap"' <(tr -d ' \n' < "$receipt"); then
+              if [ -f "$receipt" ] && ! grep -qF '"tap":"macos-intel/tap"' <(tr -d ' \n' < "$receipt"); then
                 brew uninstall --ignore-dependencies "$swap"
               fi
             done
@@ -109,13 +109,13 @@ jobs:
             # install nor reinstall adds them unasked. --overwrite: the image
             # links files of other kegs where ours link (bin/openssl belongs
             # to openssl@1.1), and this runner is thrown away afterwards.
-            brew install --overwrite --only-dependencies --include-test "homebrew-intel/tap/${name}"
+            brew install --overwrite --only-dependencies --include-test "macos-intel/tap/${name}"
             if [ -d "$(brew --cellar)/${name}" ]; then
-              brew reinstall --force-bottle "homebrew-intel/tap/${name}"
+              brew reinstall --force-bottle "macos-intel/tap/${name}"
             else
-              brew install --overwrite --force-bottle "homebrew-intel/tap/${name}"
+              brew install --overwrite --force-bottle "macos-intel/tap/${name}"
             fi
-            brew test "homebrew-intel/tap/${name}"
+            brew test "macos-intel/tap/${name}"
           done 3<<< "$order"
           if [ "$found" = no ]; then
             echo "no bottled formulae changed"

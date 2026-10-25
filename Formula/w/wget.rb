@@ -26,18 +26,18 @@ class Wget < Formula
     url "https://git.savannah.gnu.org/git/wget.git", branch: "master"
 
     depends_on "autoconf" => :build
-    depends_on "homebrew-intel/tap/automake" => :build
-    depends_on "homebrew-intel/tap/xz" => :build
+    depends_on "macos-intel/tap/automake" => :build
+    depends_on "macos-intel/tap/xz" => :build
   end
 
-  depends_on "homebrew-intel/tap/pkgconf" => :build
-  depends_on "homebrew-intel/tap/libidn2"
-  depends_on "homebrew-intel/tap/openssl@4"
+  depends_on "macos-intel/tap/pkgconf" => :build
   depends_on "libpsl"
+  depends_on "macos-intel/tap/libidn2"
+  depends_on "macos-intel/tap/openssl@4"
 
   on_macos do
-    depends_on "homebrew-intel/tap/gettext"
-    depends_on "homebrew-intel/tap/libunistring"
+    depends_on "macos-intel/tap/gettext"
+    depends_on "macos-intel/tap/libunistring"
   end
 
   on_linux do

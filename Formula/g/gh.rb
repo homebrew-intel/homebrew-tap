@@ -16,11 +16,11 @@ class Gh < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/gh-2.103.2"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/gh-2.103.2"
     sha256 cellar: :any_skip_relocation, sequoia: "27c999ee2833a71cb409a585081abe49ee8c3a672d7f1d23557656f605768e46"
   end
 
-  depends_on "homebrew-intel/tap/go" => :build
+  depends_on "macos-intel/tap/go" => :build
 
   deny_network_access! [:postinstall, :test]
 

@@ -15,7 +15,7 @@ class Jq < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/jq-1.8.2"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/jq-1.8.2"
     rebuild 1
     sha256 cellar: :any, sequoia: "c9a42260e7143fa823c587b716670ed4d0b50ef10f10039190bc064735d316a5"
   end
@@ -24,8 +24,8 @@ class Jq < Formula
     url "https://github.com/jqlang/jq.git", branch: "master"
 
     depends_on "autoconf" => :build
-    depends_on "homebrew-intel/tap/automake" => :build
     depends_on "libtool" => :build
+    depends_on "macos-intel/tap/automake" => :build
   end
 
   depends_on "oniguruma"

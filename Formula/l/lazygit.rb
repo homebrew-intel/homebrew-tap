@@ -15,12 +15,12 @@ class Lazygit < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/lazygit-0.66.2"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/lazygit-0.66.2"
     rebuild 1
     sha256 cellar: :any_skip_relocation, sequoia: "9f865cb1c906fd6b116c7c2001e90201a102ed66e47b2d19dce844744f8ce4e7"
   end
 
-  depends_on "homebrew-intel/tap/go" => :build
+  depends_on "macos-intel/tap/go" => :build
 
   deny_network_access!
 

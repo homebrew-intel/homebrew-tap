@@ -92,7 +92,7 @@ if call[:2] == ["brew", "bottle"] and "--json" in args and "--merge" not in args
     local, final = f"{{name}}--{{version}}.sequoia.bottle.tar.gz", f"{{name}}-{{version}}.sequoia.bottle.tar.gz"
     Path(local).write_bytes(b"bottle")
     tag = {{"filename": quote(final, safe=""), "local_filename": local}}
-    document = {{f"homebrew-intel/tap/{{name}}": {{"bottle": {{"tags": {{"sequoia": tag}}}}}}}}
+    document = {{f"macos-intel/tap/{{name}}": {{"bottle": {{"tags": {{"sequoia": tag}}}}}}}}
     Path(f"{{name}}--{{version}}.sequoia.bottle.json").write_text(json.dumps(document), encoding="utf-8")
 rule = next((r for r in config["rules"] if call[: len(r["argv"])] == r["argv"]), None)
 if rule is None and config.get("serve_git") and tool == "gh":

@@ -17,7 +17,7 @@ class Pkgconf < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/pkgconf-3.0.10"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/pkgconf-3.0.10"
     rebuild 1
     sha256 sequoia: "2d1ac8c29df489edbfce56980c104070d237a72e17f6a08deb079a7bb3de5b28"
   end

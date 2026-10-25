@@ -12,7 +12,7 @@ class Libunistring < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/libunistring-1.5"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/libunistring-1.5"
     rebuild 1
     sha256 cellar: :any, sequoia: "db98b5f547950c3d6f6d4e271a53bd3612f965a455b529e1e21dd7f47fdcdddb"
   end

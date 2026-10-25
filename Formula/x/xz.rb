@@ -16,7 +16,7 @@ class Xz < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/xz-5.8.4"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/xz-5.8.4"
     rebuild 1
     sha256 cellar: :any, sequoia: "7fbe93c64b13b4227ca237a255179d66c0b632fa110ed1458342529714945f5e"
   end

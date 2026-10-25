@@ -5,7 +5,7 @@ code in this repository.
 
 ## Purpose
 
-A Homebrew tap (`brew tap homebrew-intel/tap`) that keeps macOS Intel
+A Homebrew tap (`brew tap macos-intel/tap`) that keeps macOS Intel
 (x86_64) usable after homebrew-core dropped it. Intel macOS is Tier 3 in core:
 no new Intel bottles, and Homebrew plans to stop running on Intel in or after
 September 2027 (see `$(brew --repo)/docs/Support-Tiers.md`).
@@ -48,10 +48,10 @@ Design: `docs/superpowers/specs/2026-10-21-intel-bottles-design.md`.
   prints a notice. Commit the patch and the render. A patch may only remove
   Intel gates, revive a removed formula, or fix an Intel build failure.
 - Same name as core. Users must install fully qualified
-  (`brew install homebrew-intel/tap/<name>`), or core's version wins. Say
+  (`brew install macos-intel/tap/<name>`), or core's version wins. Say
   so in README and caveats; never rename to dodge the collision.
 - Dependencies that are also in this tap are rewritten to
-  `homebrew-intel/tap/<dep>` by the render; the rest stay plain names.
+  `macos-intel/tap/<dep>` by the render; the rest stay plain names.
 - Casks are out of scope.
 - `style_exceptions/*.json` copies entries from core's lists of the same
   name for tap formulae that need them (e.g. `coreutils` uses
@@ -86,19 +86,19 @@ mise run render
 mise run drift
 mise run lint
 mise run test
-brew style homebrew-intel/tap/<name>
-brew audit --strict --online --tap=homebrew-intel/tap
-brew install --build-from-source homebrew-intel/tap/<name>
-brew test homebrew-intel/tap/<name>
+brew style macos-intel/tap/<name>
+brew audit --strict --online --tap=macos-intel/tap
+brew install --build-from-source macos-intel/tap/<name>
+brew test macos-intel/tap/<name>
 ```
 
 - `mise run drift` must pass.
 - The local machine is Intel (`/usr/local` prefix). Bottles must be built
   under `/usr/local`, or relocation breaks them.
 - The tap is symlinked to this checkout, so `brew style
-  homebrew-intel/tap` also scans the gitignored `actions-runner/` and
+  macos-intel/tap` also scans the gitignored `actions-runner/` and
   reports hundreds of unrelated offenses. Locally, run `brew style` on
-  specific formulae (`brew style homebrew-intel/tap/<name>`); CI
+  specific formulae (`brew style macos-intel/tap/<name>`); CI
   checkouts do not have that directory.
 - `brew audit` errors inherited from core are accepted. For example, lz4
   reports an HTTP-mirror error that core's lz4 also has.
@@ -130,6 +130,9 @@ rebuilds `reports/` from a fresh API snapshot plus local git history, taps and
   (`INTERNAL_APP_ID`/`INTERNAL_APP_PRIVATE_KEY`, `actions: write` on
   `builder` only). It skips the builder's own bottle pull requests: those
   only add bottle blocks, and dispatching them would rebuild endlessly.
+  It also skips pull requests labelled `skip-build`, for changes that
+  leave every bottle valid (the macos-intel rename rewrote tap names and
+  `root_url` only).
 - `verify-bot-pr` (`.github/workflows/verify-bot-pr.yml`) is the auto-merge
   gate. It runs on `pull_request_target`, so the base branch's workflow and
   `scripts/ci/verify_bot_pr.py` judge every pull request; it must never check
@@ -150,7 +153,7 @@ rebuilds `reports/` from a fresh API snapshot plus local git history, taps and
   Intel image and is expected to retire around August 2027. Don't add hosted
   labels such as `macos-13` (retired) or `macos-26-intel` (doesn't exist).
 - Bottles are built by the private builder
-  `homebrew-intel/builder`, which writes the bottle blocks
+  `macos-intel/builder`, which writes the bottle blocks
   with `brew bottle --merge --write` and publishes them through a bot pull
   request (not `brew pr-pull`). Only Sequoia bottles are built; they also
   pour on Tahoe.
@@ -224,7 +227,7 @@ rebuilds `reports/` from a fresh API snapshot plus local git history, taps and
   and fails. Re-running the same workflow run fails at its first commit
   because its branch already exists; dispatch a new run instead.
 - Dispatch a build with `gh workflow run build.yml -R
-  homebrew-intel/builder -f formulae=<name>` (add
+  macos-intel/builder -f formulae=<name>` (add
   `-f dry-run=true` to only print the plan).
 - Never cancel a run while it builds or pours: the old keg is uninstalled
   first and restored on failure. If a restore cannot finish, the keg's full

@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-# Setup script for homebrew-intel tap users on Intel Macs.
+# Setup script for macos-intel tap users on Intel Macs.
 # Hides Homebrew's Intel x86_64 Tier 3 warning. Homebrew skips that warning
 # only when HOMEBREW_DEVELOPER is set (check_for_unsupported_macos in
 # Library/Homebrew/extend/os/mac/diagnostic.rb); no narrower setting exists.
@@ -41,7 +41,7 @@ do
   shift
 done
 
-echo "=== homebrew-intel tap setup ==="
+echo "=== macos-intel tap setup ==="
 echo ""
 
 # Validate $HOME

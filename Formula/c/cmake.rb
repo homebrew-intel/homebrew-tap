@@ -21,7 +21,7 @@ class Cmake < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/cmake-4.4.4"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/cmake-4.4.4"
     rebuild 3
     sha256 cellar: :any_skip_relocation, sequoia: "ec566bf33c3e821ee3f1e1abb19015bf60d897dd8377ba3a89482ee9c46d819e"
   end
@@ -29,7 +29,7 @@ class Cmake < Formula
   uses_from_macos "ncurses"
 
   on_linux do
-    depends_on "homebrew-intel/tap/openssl@4"
+    depends_on "macos-intel/tap/openssl@4"
   end
 
   deny_network_access!
