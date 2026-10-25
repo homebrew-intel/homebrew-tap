@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@60fc7a4f66eae6ccaf3360b76fbd75d3af9887f5 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/zstd.patch.
 class Zstd < Formula
   desc "Zstandard is a real-time compression algorithm"
@@ -24,6 +24,11 @@ class Zstd < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/zstd-1.5.7_1"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "5d26c35f5ab3a76361269896c39e7ff558ed7016e9bea6cecd18f9000f3b501a"
+  end
 
   depends_on "homebrew-intel/tap/cmake" => :build
   depends_on "homebrew-intel/tap/lz4"
