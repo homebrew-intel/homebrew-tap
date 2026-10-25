@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@a2dee8ba714e60f35a4edf44c77561d60ac92a1a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/libevent.patch.
 class Libevent < Formula
   desc "Asynchronous event library"
@@ -14,13 +14,12 @@ class Libevent < Formula
     regex(/libevent[._-]v?(\d+(?:\.\d+)+)-stable/i)
   end
 
+  # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/libevent-2.1.13_1"
     rebuild 1
     sha256 cellar: :any, sequoia: "ecff254e6463e39ea3dca6af4cb4426ade40fcaa9f77b86f44eb8e51c8f724e2"
   end
-
-  # bottle block: written by brew pr-pull
 
   depends_on "homebrew-intel/tap/pkgconf" => :build
   depends_on "homebrew-intel/tap/openssl@4"

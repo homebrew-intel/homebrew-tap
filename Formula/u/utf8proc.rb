@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@a2dee8ba714e60f35a4edf44c77561d60ac92a1a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/utf8proc.patch.
 class Utf8proc < Formula
   desc "Clean C library for processing UTF-8 Unicode data"
@@ -9,13 +9,12 @@ class Utf8proc < Formula
   compatibility_version 1
   head "https://github.com/JuliaStrings/utf8proc.git", branch: "master"
 
+  # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/utf8proc-2.12.0"
     rebuild 1
     sha256 cellar: :any, sequoia: "99836690f5209a1bb16d4d3bf4c8d5bcacb2a9a1cef34062e309cb79286f4944"
   end
-
-  # bottle block: written by brew pr-pull
 
   depends_on "homebrew-intel/tap/cmake" => :build
 

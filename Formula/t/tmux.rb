@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/tmux.patch.
 class Tmux < Formula
   desc "Terminal multiplexer"
@@ -15,6 +15,11 @@ class Tmux < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/tmux-3.8"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "bd74190bb3aa60207890d94862d55bed81cd67dee7a06805be54f2601c24e889"
+  end
 
   head do
     url "https://github.com/tmux/tmux.git", branch: "master"

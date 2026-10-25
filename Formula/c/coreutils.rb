@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@a2dee8ba714e60f35a4edf44c77561d60ac92a1a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/coreutils.patch.
 class Coreutils < Formula
   desc "GNU File, Shell, and Text utilities"
@@ -10,13 +10,12 @@ class Coreutils < Formula
   revision 1
   compatibility_version 1
 
+  # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/coreutils-9.12_1"
     rebuild 1
     sha256 sequoia: "a3a81d697ce0d6df96064102d402888b6434843a626ca80c0800f17b75192792"
   end
-
-  # bottle block: written by brew pr-pull
 
   head do
     url "https://git.savannah.gnu.org/git/coreutils.git", branch: "master"

@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/readline.patch.
 class Readline < Formula
   desc "Library for command-line editing"
@@ -75,6 +75,11 @@ class Readline < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/readline-8.3.6"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "75dbd544c91b3a7329516ad164cfead6a44c7d6c83774f789119fd62768ed15b"
+  end
 
   keg_only :shadowed_by_macos, "macOS provides BSD libedit"
 

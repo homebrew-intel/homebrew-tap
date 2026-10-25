@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/sqlite.patch.
 class Sqlite < Formula
   desc "Command-line interface for SQLite"
@@ -18,6 +18,11 @@ class Sqlite < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/sqlite-3.54.1"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "ed0c83ea2e4c69abe321ba237aa34605aec9a41bb8ed5fb363864d7682648039"
+  end
 
   keg_only :provided_by_macos
 
