@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@a2dee8ba714e60f35a4edf44c77561d60ac92a1a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/mpdecimal.patch.
 class Mpdecimal < Formula
   desc "Library for decimal floating point arithmetic"
@@ -13,13 +13,12 @@ class Mpdecimal < Formula
     regex(/href=.*?mpdecimal[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+  # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/mpdecimal-4.0.1"
     rebuild 1
     sha256 cellar: :any, sequoia: "5ec4692810d28e6063a3265ef497ca216e3b6e97f68176c64cfd0d15cf5f6e2d"
   end
-
-  # bottle block: written by brew pr-pull
 
   deny_network_access!
 
