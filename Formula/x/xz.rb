@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@dc696222c55eeef85dc35114e6ec027cae3604ca by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/xz.patch.
 class Xz < Formula
   desc "General-purpose data compression with high compression ratio"
@@ -13,6 +13,12 @@ class Xz < Formula
   ]
   version_scheme 1
   compatibility_version 1
+
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/xz-5.8.4"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "7fbe93c64b13b4227ca237a255179d66c0b632fa110ed1458342529714945f5e"
+  end
 
   # bottle block: written by brew pr-pull
 
