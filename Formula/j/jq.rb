@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@a2dee8ba714e60f35a4edf44c77561d60ac92a1a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/jq.patch.
 class Jq < Formula
   desc "Lightweight and flexible command-line JSON processor"
@@ -13,13 +13,12 @@ class Jq < Formula
     regex(/^(?:jq[._-])?v?(\d+(?:\.\d+)+)$/i)
   end
 
+  # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/jq-1.8.2"
     rebuild 1
     sha256 cellar: :any, sequoia: "c9a42260e7143fa823c587b716670ed4d0b50ef10f10039190bc064735d316a5"
   end
-
-  # bottle block: written by brew pr-pull
 
   head do
     url "https://github.com/jqlang/jq.git", branch: "master"
