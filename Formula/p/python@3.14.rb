@@ -14,6 +14,11 @@ class PythonAT314 < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/python@3.14-3.14.9"
+    rebuild 1
+    sha256 sequoia: "28d2307eac7167b1cc6c9ccb6b697a2ab56ac8648b1ff172d5797cab5ed5658c"
+  end
 
   # https://devguide.python.org/versions/#versions
   deprecate! date: "2030-11-01", because: :deprecated_upstream
