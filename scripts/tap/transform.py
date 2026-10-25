@@ -76,8 +76,48 @@ def qualify_dependencies(text: str, tap_names: AbstractSet[str]) -> str:
     return pattern.sub(rf'\1"{TAP}/\2"', text)
 
 
+_DEPENDS_ON = re.compile(r'^([ \t]*)depends_on "([^"]+)"(.*)$')
+_CONDITIONAL = re.compile(r"\b(if|unless)\b")
+# brew style's DependencyOrder: build-time > test > normal > recommended > optional.
+_TYPE_RANK = ((":build", 0), (":test", 1), (":recommended", 3), (":optional", 4))
+_NORMAL_RANK = 2
+
+
+def _dependency_key(match: re.Match[str]) -> tuple[int, str]:
+    rest = match.group(3)
+    rank = next((rank for tag, rank in _TYPE_RANK if tag in rest), _NORMAL_RANK)
+    return rank, match.group(2).lower()
+
+
+def _ordered_run(run: list[tuple[str, re.Match[str]]]) -> list[str]:
+    if any(_CONDITIONAL.search(match.group(3)) for _, match in run):
+        return [line for line, _ in run]
+    return [line for line, _ in sorted(run, key=lambda pair: _dependency_key(pair[1]))]
+
+
+def order_dependencies(text: str) -> str:
+    """Re-sort each run of same-indent depends_on lines the way brew style expects.
+
+    Qualifying a name with the tap changes where it sorts, so a core formula's
+    order no longer satisfies FormulaAudit/DependencyOrder.
+    """
+    out: list[str] = []
+    run: list[tuple[str, re.Match[str]]] = []
+    for line in _lines(text):
+        match = _DEPENDS_ON.match(line.rstrip("\n"))
+        if match and (not run or match.group(1) == run[0][1].group(1)):
+            run.append((line, match))
+            continue
+        out.extend(_ordered_run(run))
+        run = [(line, match)] if match else []
+        if not match:
+            out.append(line)
+    out.extend(_ordered_run(run))
+    return "".join(out)
+
+
 def render_body(source: str, *, name: str, commit: str, tap_names: AbstractSet[str]) -> str:
-    return header(commit, name) + qualify_dependencies(mark_bottle_block(source), tap_names)
+    return header(commit, name) + order_dependencies(qualify_dependencies(mark_bottle_block(source), tap_names))
 
 
 def apply_bottle(body: str, bottle_block: str | None) -> str:

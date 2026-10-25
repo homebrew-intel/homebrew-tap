@@ -9,6 +9,7 @@ from transform import (
     extract_bottle_block,
     header,
     mark_bottle_block,
+    order_dependencies,
     parse_header,
     qualify_dependencies,
     render_body,
@@ -120,6 +121,62 @@ class QualifyTest(unittest.TestCase):
 
     def test_empty_tap_names_is_identity(self):
         self.assertEqual(qualify_dependencies(FORMULA, set()), FORMULA)
+
+
+class OrderTest(unittest.TestCase):
+    def test_sorts_a_run_by_full_name_as_brew_style_does(self):
+        text = f'  depends_on "{TAP}/libevent"\n  depends_on "ncurses"\n  depends_on "{TAP}/utf8proc"\n'
+        expected = f'  depends_on "{TAP}/libevent"\n  depends_on "{TAP}/utf8proc"\n  depends_on "ncurses"\n'
+        self.assertEqual(order_dependencies(text), expected)
+
+    def test_groups_build_test_normal_recommended_optional(self):
+        text = (
+            '  depends_on "a" => :optional\n'
+            '  depends_on "b" => :recommended\n'
+            '  depends_on "c"\n'
+            '  depends_on "d" => :test\n'
+            '  depends_on "e" => [:build, :test] # why\n'
+            '  depends_on "f" => :build\n'
+        )
+        expected = (
+            '  depends_on "e" => [:build, :test] # why\n'
+            '  depends_on "f" => :build\n'
+            '  depends_on "d" => :test\n'
+            '  depends_on "c"\n'
+            '  depends_on "b" => :recommended\n'
+            '  depends_on "a" => :optional\n'
+        )
+        self.assertEqual(order_dependencies(text), expected)
+
+    def test_runs_end_at_other_lines_and_indentation(self):
+        text = (
+            '  depends_on "z"\n'
+            "  on_linux do\n"
+            '    depends_on "b"\n'
+            '    depends_on "a"\n'
+            "  end\n"
+            '  depends_on "y"\n'
+            '  depends_on "x"\n'
+        )
+        expected = (
+            '  depends_on "z"\n'
+            "  on_linux do\n"
+            '    depends_on "a"\n'
+            '    depends_on "b"\n'
+            "  end\n"
+            '  depends_on "x"\n'
+            '  depends_on "y"\n'
+        )
+        self.assertEqual(order_dependencies(text), expected)
+
+    def test_conditional_runs_are_left_alone(self):
+        text = '  depends_on "b" if build.with? "x"\n  depends_on "a"\n'
+        self.assertEqual(order_dependencies(text), text)
+
+    def test_render_body_orders_qualified_dependencies(self):
+        source = FORMULA.replace("  bottle do", '  depends_on "pkgconf"\n  depends_on "lz4"\n\n  bottle do', 1)
+        body = render_body(source, name="x", commit=SHA, tap_names={"pkgconf"})
+        self.assertIn(f'  depends_on "{TAP}/pkgconf"\n  depends_on "lz4"\n', body)
 
 
 class BottleBlockTest(unittest.TestCase):
