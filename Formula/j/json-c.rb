@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@350e3d8834021ff593eea208a2e17963ea6e18b0 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/json-c.patch.
 class JsonC < Formula
   desc "JSON parser for C"
@@ -11,6 +11,12 @@ class JsonC < Formula
   livecheck do
     url :head
     regex(/^json-c[._-](\d+(?:\.\d+)+)(?:[._-]\d{6,8})?$/i)
+  end
+
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/json-c-0.19"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "ae26ec0d564c0ba38a381b249d7ade73ec5d73fbf0d293b11d6d2211206b7901"
   end
 
   # bottle block: written by brew pr-pull
