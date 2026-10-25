@@ -103,6 +103,13 @@ class PublishRunTest(PublishRunCase):
         self.assertLess(argvs.index(upload), graphql[1])
         self.assertEqual({call["env"]["GH_TOKEN"] for call in self.calls("gh", "release")}, {"app-token"})
 
+    def test_missing_release_is_created_without_a_traceback(self):
+        self.fake.respond("gh", "release", "view", "lz4-1.10.0", stdout=NO_ASSETS)
+        self.fake.fail("gh", "release", "view", "zstd-1.5.6")
+        result = self.run_script()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotIn("assets = json", result.stderr)
+
     def test_failed_upload_skips_that_commit_and_fails_the_run(self):
         self.fake.respond("gh", "release", "view", "lz4-1.10.0", stdout=NO_ASSETS)
         self.fake.fail("gh", "release", "upload", "lz4-1.10.0")
