@@ -20,7 +20,8 @@ kind = "generated"
 kind = "generated"
 
 [formula."python@3.14"]
-kind = "generated"
+kind = "patched"
+base = "ade644111c76e5d78b9ed999a1dd4c118258259b"
 
 [formula.jq]
 kind = "generated"
