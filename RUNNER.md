@@ -1,7 +1,7 @@
 # Runners
 
 This public tap runs its CI on GitHub-hosted runners only: `ubuntu-latest`
-and `macos-15-intel` (see `.github/workflows/tests.yml`).
+and `macos-15-intel` (see `.github/workflows/ci.yml`).
 
 It never uses a self-hosted runner. On a public repository, a pull request
 from a fork can run arbitrary code on a self-hosted machine. There is no

@@ -102,13 +102,16 @@ rebuilds `reports/` from a fresh API snapshot plus local git history, taps and
 
 ## CI and bottles
 
-- Public CI (`.github/workflows/tests.yml`) runs on hosted runners only:
+- Public CI (`.github/workflows/ci.yml`) runs on hosted runners only:
   `lint-and-test`, `tap-syntax` and `drift` on Ubuntu, and `pour-test` on
   `macos-15-intel`. Never run a job from this repository on the iMac.
-  On a push to `main` that changes `Formula/`, `trigger-builder` dispatches
-  `build.yml` for the changed formulae, using a token from the
-  `homebrew-intel-internal` App (`INTERNAL_APP_ID`/`INTERNAL_APP_PRIVATE_KEY`,
-  `actions: write` on `builder` only).
+- `trigger-builder` (`.github/workflows/trigger-builder.yml`) runs when a
+  pull request that changes `Formula/` is merged, so its result shows on that
+  pull request, and dispatches `build.yml` for the changed formulae with a
+  token from the `homebrew-intel-internal` App
+  (`INTERNAL_APP_ID`/`INTERNAL_APP_PRIVATE_KEY`, `actions: write` on
+  `builder` only). It skips the builder's own bottle pull requests: those
+  only add bottle blocks, and dispatching them would rebuild endlessly.
 - `verify-bot-pr` (`.github/workflows/verify-bot-pr.yml`) is the auto-merge
   gate. It runs on `pull_request_target`, so the base branch's workflow and
   `scripts/ci/verify_bot_pr.py` judge every pull request; it must never check

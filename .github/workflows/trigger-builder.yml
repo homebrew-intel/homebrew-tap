@@ -1,0 +1,73 @@
+name: trigger-builder
+
+# Dispatches the builder for the formulae a merged pull request changed. It
+# runs on the pull request's `closed` event so its result shows on the pull
+# request itself; the required checks already passed before the merge. While
+# a pull request is open nothing runs, so unmerged code never starts a build.
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+    paths: ["Formula/**"]
+
+permissions: {}
+
+jobs:
+  trigger-builder:
+    name: Trigger Builder
+    # Only merged pull requests from this repository. The builder's own bottle
+    # pull requests only add bottle blocks; dispatching them would
+    # force-rebuild the same formulae and open another one, endlessly.
+    if: >-
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.user.login != 'homebrew-intel[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          fetch-depth: 2
+          persist-credentials: false
+
+      - name: Detect changed formulae
+        id: changed
+        run: |
+          set -Eeuo pipefail
+          # The merge commit's first parent is main before the merge, for a
+          # squash and a merge commit alike.
+          formulae=$(git diff HEAD^ HEAD --name-only -- Formula/ \
+            | sed 's|Formula/.*/||; s|\.rb$||' \
+            | tr '\n' ' ' \
+            | sed 's/ $//')
+          echo "formulae=$formulae"
+          echo "formulae=$formulae" >> "$GITHUB_OUTPUT"
+          if [ -z "$formulae" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate App token
+        if: steps.changed.outputs.skip == 'false'
+        id: generate-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.INTERNAL_APP_ID }}
+          private-key: ${{ secrets.INTERNAL_APP_PRIVATE_KEY }}
+          owner: homebrew-intel
+          repositories: builder
+
+      - name: Trigger builder workflow
+        if: steps.changed.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+          FORMULAE: ${{ steps.changed.outputs.formulae }}
+        run: |
+          gh workflow run build.yml \
+            -R homebrew-intel/builder \
+            -f formulae="$FORMULAE" \
+            --ref main
+          echo "✅ Builder triggered for: $FORMULAE"

@@ -172,9 +172,9 @@ class ProblemsTest(unittest.TestCase):
         self.assertIn("pull request has no commits", self.problems())
 
     def test_file_outside_formula_fails(self):
-        self.files.append({"filename": ".github/workflows/tests.yml", "status": "modified"})
+        self.files.append({"filename": ".github/workflows/ci.yml", "status": "modified"})
         self.pull_request["changed_files"] = 2
-        self.assertEqual(self.problems(), ["file '.github/workflows/tests.yml' is outside Formula/"])
+        self.assertEqual(self.problems(), ["file '.github/workflows/ci.yml' is outside Formula/"])
 
     def test_rename_from_outside_formula_fails(self):
         self.files = [{"filename": "Formula/l/lz4.rb", "status": "renamed", "previous_filename": "scripts/x.sh"}]
