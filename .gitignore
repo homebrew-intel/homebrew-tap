@@ -31,4 +31,3 @@ website/build/
 website/.docusaurus/
 website/.cache-loader/
 website/static/bottles.json
-.claude.local.md

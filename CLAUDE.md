@@ -253,6 +253,14 @@ rebuilds `reports/` from a fresh API snapshot plus local git history, taps and
   starts until it is back.
 - Never hand-edit `bottle do` blocks; the builder writes them.
 
+## Shell environment
+
+- The owner's shell is zsh: unquoted `$var` does not word-split; use arrays,
+  `xargs` or `bash -c`.
+- `sed` on the owner's Mac is GNU: `sed -i` takes no `''` argument.
+- Non-interactive ssh or nohup on the builder VM lacks `/usr/local/bin`;
+  export `PATH` first.
+
 ## Git
 
 - Commits are GPG-signed (`git commit -S`) and never carry
