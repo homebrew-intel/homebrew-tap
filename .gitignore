@@ -22,3 +22,12 @@ actions-runner/
 # Homebrew Intel Private
 homebrew-intel-private/
 mise.local.toml
+
+# Docusaurus site: dependencies, build output and the bottle list that
+# website/scripts/bottles.sh generates. Kept here, not in a nested
+# website/.gitignore, because some tools read only the root file.
+website/node_modules/
+website/build/
+website/.docusaurus/
+website/.cache-loader/
+website/static/bottles.json
