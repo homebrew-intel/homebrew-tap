@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@28354f466a6bfb34a765128ea13379087fc243e1 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/wget.patch.
 class Wget < Formula
   desc "Internet file retriever"
@@ -21,6 +21,11 @@ class Wget < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/wget-1.25.0_2"
+    rebuild 1
+    sha256 sequoia: "7c02c5506c2c33967bc7dd9d2e3285651bd4fbe5f973a89f33d7a1aaefedf8b6"
+  end
 
   head do
     url "https://git.savannah.gnu.org/git/wget.git", branch: "master"
