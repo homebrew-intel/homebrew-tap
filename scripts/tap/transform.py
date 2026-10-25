@@ -116,8 +116,22 @@ def order_dependencies(text: str) -> str:
     return "".join(out)
 
 
+# brew refuses these in an unofficial tap ("no_autobump! can only be used in
+# official Homebrew taps"), so the formula would not even load.
+_OFFICIAL_ONLY = re.compile(r"^[ \t]*no_autobump!.*$")
+
+
+def drop_official_only(text: str) -> str:
+    lines = _lines(text)
+    for index in reversed(range(len(lines))):
+        if _OFFICIAL_ONLY.match(lines[index].rstrip("\n")):
+            lines = _drop_span(lines, index, index + 1)
+    return "".join(lines)
+
+
 def render_body(source: str, *, name: str, commit: str, tap_names: AbstractSet[str]) -> str:
-    return header(commit, name) + order_dependencies(qualify_dependencies(mark_bottle_block(source), tap_names))
+    body = drop_official_only(mark_bottle_block(source))
+    return header(commit, name) + order_dependencies(qualify_dependencies(body, tap_names))
 
 
 def apply_bottle(body: str, bottle_block: str | None) -> str:
