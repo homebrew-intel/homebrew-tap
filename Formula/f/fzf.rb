@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@a2dee8ba714e60f35a4edf44c77561d60ac92a1a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/fzf.patch.
 class Fzf < Formula
   desc "Command-line fuzzy finder written in Go"
@@ -9,13 +9,12 @@ class Fzf < Formula
   compatibility_version 1
   head "https://github.com/junegunn/fzf.git", branch: "master"
 
+  # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/fzf-0.74.5"
     rebuild 1
     sha256 cellar: :any_skip_relocation, sequoia: "a5f20696070b02f4d2512b8a67002551d80f15a94579b2e14c57453d0f191b3e"
   end
-
-  # bottle block: written by brew pr-pull
 
   depends_on "homebrew-intel/tap/go" => :build
 
