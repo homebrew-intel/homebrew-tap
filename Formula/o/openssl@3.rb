@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@dc696222c55eeef85dc35114e6ec027cae3604ca by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/openssl@3.patch.
 class OpensslAT3 < Formula
   desc "Cryptography and SSL/TLS Toolkit"
@@ -14,13 +14,12 @@ class OpensslAT3 < Formula
     regex(/href=.*?openssl[._-]v?(3\.5(?:\.\d+)+)\.t/i)
   end
 
+  # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/openssl@3-3.5.9"
     rebuild 1
     sha256 sequoia: "017b6d1ba27bc5f82e73cc995ddcafed65ccd6442a28cb895d758e91a2a7e988"
   end
-
-  # bottle block: written by brew pr-pull
 
   keg_only :versioned_formula
 
