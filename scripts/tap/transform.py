@@ -129,6 +129,20 @@ def drop_official_only(text: str) -> str:
     return "".join(lines)
 
 
+# Core formulae test dependency names bare (deps.map(&:name).include?("z3"),
+# dep.name.start_with?("openssl@")); the render qualifies tap dependencies, so
+# those predicates would silently miss (llvm drops z3) or yield nil. Names fed
+# to formula_opt_prefix and friends may stay qualified: brew strips the tap.
+_BARE = f'.delete_prefix("{TAP}/")'
+_DEP_NAME_CALL = re.compile(r"\bdep\.name\.(?!delete_prefix\()(?=[a-z_]+[?!]?\b)")
+_DEPS_MAP_NAME = re.compile(r"\bdeps\.map\(&:name\)")
+
+
+def bare_dependency_names(text: str) -> str:
+    text = _DEP_NAME_CALL.sub(f"dep.name{_BARE}.", text)
+    return _DEPS_MAP_NAME.sub(f"deps.map {{ |dep| dep.name{_BARE} }}", text)
+
+
 # Core keeps shared patch files in Patches/ at its root, and brew resolves a
 # formula's `file` patch against its tap's root; the render copies them to
 # CORE_PATCHES (not Patches/, which collides with patches/ on case-insensitive
@@ -148,7 +162,7 @@ def core_patch_paths(text: str) -> list[str]:
 
 
 def render_body(source: str, *, name: str, commit: str, tap_names: AbstractSet[str]) -> str:
-    body = localize_core_patches(drop_official_only(mark_bottle_block(source)))
+    body = bare_dependency_names(localize_core_patches(drop_official_only(mark_bottle_block(source))))
     return header(commit, name) + order_dependencies(qualify_dependencies(body, tap_names))
 
 
