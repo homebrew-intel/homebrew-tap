@@ -101,7 +101,7 @@ class PythonAT314 < Formula
   # Remove when a non-patching mechanism is added.
   # We (ab)use osx_framework_library to exploit pip behaviour to allow --prefix to still work.
   patch do
-    file "Patches/python/3.13-sysconfig.diff"
+    file "core-patches/python/3.13-sysconfig.diff"
     type :unofficial
     resolves "https://bugs.python.org/issue43976"
   end
