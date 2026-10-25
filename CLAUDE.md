@@ -207,7 +207,10 @@ rebuilds `reports/` from a fresh API snapshot plus local git history, taps and
     private issue per failed build (a fenced log tail with `@` neutralised).
   - `pour` (self-hosted, no token): swaps each `--build-bottle` keg for a
     pour of its released bottle, since such a keg would rebuild from source
-    on `reinstall`/`upgrade`.
+    on `reinstall`/`upgrade`, never ran its `post_install` (openssl's
+    `cert.pem`), and `brew reinstall` keeps it `--build-bottle`. It runs
+    whenever `verify` passed and `publish` ran, including a `publish` that
+    failed some formulae.
 - Two Apps, never merged: `homebrew-intel` (the public bot: Contents, Pull
   requests and Checks set to Read and write on `homebrew-tap`) and
   `homebrew-intel-internal` (only dispatches builds). Before rebuilding after
