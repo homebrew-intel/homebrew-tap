@@ -231,6 +231,11 @@ rebuilds `reports/` from a fresh API snapshot plus local git history, taps and
   upon; then the run attests nothing, leaves the pull request to the owner
   and fails. Re-running the same workflow run fails at its first commit
   because its branch already exists; dispatch a new run instead.
+- Never merge a pull request that changes `.github/workflows/` while a
+  builder run is between `prepare` and `publish`: `publish` creates its
+  branch at `prepare`'s commit, and with different workflow files on `main`
+  GitHub refuses that ref to an App without the `workflows` permission
+  (HTTP 403 on `git/refs`), leaving an orphan release to delete.
 - Dispatch a build with `gh workflow run build.yml -R
   macos-intel/builder -f formulae=<name>` (add
   `-f dry-run=true` to only print the plan).
