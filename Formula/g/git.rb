@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@350e3d8834021ff593eea208a2e17963ea6e18b0 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@ade644111c76e5d78b9ed999a1dd4c118258259b by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/git.patch.
 class Git < Formula
   desc "Distributed revision control system"
@@ -19,6 +19,12 @@ class Git < Formula
   livecheck do
     url "https://mirrors.edge.kernel.org/pub/software/scm/git/"
     regex(/href=.*?git[._-]v?(\d+(?:\.\d+)+)\.t/i)
+  end
+
+  bottle do
+    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/git-2.56.0_1"
+    rebuild 1
+    sha256 sequoia: "4662a739aa916898d36c3145adbaf50fa628070060612b516fead6fa36339a78"
   end
 
   # bottle block: written by brew pr-pull
