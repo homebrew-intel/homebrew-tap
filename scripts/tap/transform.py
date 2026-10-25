@@ -129,8 +129,26 @@ def drop_official_only(text: str) -> str:
     return "".join(lines)
 
 
+# Core keeps shared patch files in Patches/ at its root, and brew resolves a
+# formula's `file` patch against its tap's root; the render copies them to
+# CORE_PATCHES (not Patches/, which collides with patches/ on case-insensitive
+# filesystems).
+CORE_PATCHES = "core-patches"
+_CORE_PATCH_FILE = re.compile(r'^([ \t]*file ")Patches/([^"]+)"', re.MULTILINE)
+_TAP_PATCH_FILE = re.compile(rf'^[ \t]*file "{CORE_PATCHES}/([^"]+)"', re.MULTILINE)
+
+
+def localize_core_patches(text: str) -> str:
+    return _CORE_PATCH_FILE.sub(rf'\1{CORE_PATCHES}/\2"', text)
+
+
+def core_patch_paths(text: str) -> list[str]:
+    """Paths, relative to core's Patches/ and the tap's CORE_PATCHES, a rendered formula needs."""
+    return _TAP_PATCH_FILE.findall(text)
+
+
 def render_body(source: str, *, name: str, commit: str, tap_names: AbstractSet[str]) -> str:
-    body = drop_official_only(mark_bottle_block(source))
+    body = localize_core_patches(drop_official_only(mark_bottle_block(source)))
     return header(commit, name) + order_dependencies(qualify_dependencies(body, tap_names))
 
 

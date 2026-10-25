@@ -56,3 +56,11 @@ def read_formula(repo: Path, name: str, commit: str) -> str:
         msg = f"{name}: {formula_relpath(name)} not found at core commit {commit}"
         raise CoreSourceError(msg)
     return result.stdout
+
+
+def read_core_file(repo: Path, relpath: str, commit: str) -> str:
+    result = _git(repo, "show", f"{commit}:{relpath}")
+    if result.returncode != 0:
+        msg = f"{relpath} not in core@{commit}: {result.stderr.strip()}"
+        raise CoreSourceError(msg)
+    return result.stdout

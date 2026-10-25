@@ -8,10 +8,19 @@ from pathlib import Path
 
 from bottles import bottle_release_tag, pkg_version, release_tag
 from closure import DependencyCycleError, build_order, expand
-from core_source import CoreSourceError, core_repo, formula_relpath, head_commit, read_formula
+from core_source import CoreSourceError, core_repo, formula_relpath, head_commit, read_core_file, read_formula
 from enabled import ConfigError, Entry, load_enabled
 from patching import PatchError, apply_patch, make_patch
-from transform import TransformError, apply_bottle, extract_bottle_block, render_body, strip_bottle_block
+from transform import (
+    CORE_PATCHES,
+    TransformError,
+    apply_bottle,
+    core_patch_paths,
+    extract_bottle_block,
+    parse_header,
+    render_body,
+    strip_bottle_block,
+)
 
 TAP_ROOT = Path(__file__).resolve().parents[2]
 RENDER_ERRORS = (ConfigError, CoreSourceError, TransformError, PatchError)
@@ -83,6 +92,15 @@ def render_one(
     )
 
 
+def core_patch_files(repo: Path, text: str) -> dict[Path, str]:
+    """The core Patches/ files a rendered formula needs, read at its header commit."""
+    commit = parse_header(text)
+    return {
+        TAP_ROOT / CORE_PATCHES / relpath: read_core_file(repo, f"Patches/{relpath}", commit)
+        for relpath in core_patch_paths(text)
+    }
+
+
 def render_all(
     order: list[str], entries: Mapping[str, Entry], commit: str | None, formulae: Mapping[str, Mapping]
 ) -> dict[Path, str]:
@@ -92,7 +110,9 @@ def render_all(
     for name in order:
         entry = entries.get(name, Entry(name, "generated", None))
         try:
-            rendered[TAP_ROOT / formula_relpath(name)] = render_one(entry, repo, commit, set(order), formulae)
+            text = render_one(entry, repo, commit, set(order), formulae)
+            rendered[TAP_ROOT / formula_relpath(name)] = text
+            rendered.update(core_patch_files(repo, text))
         except RENDER_ERRORS as error:
             msg = f"{name}: {error}"
             raise RenderError(msg) from error
