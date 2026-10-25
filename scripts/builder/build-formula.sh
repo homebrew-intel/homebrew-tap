@@ -69,7 +69,7 @@ print(*names) if safe else sys.exit(f"unsafe bottle filename in {sys.argv[1]}")
 # Writes the bottle into out_dir, renames the tarball to the JSON's filename
 # and merges the bottle block into the formula.
 make_bottle() {
-  local root_url="$1" matches pair local_file filename
+  local root_url="$1" matches pair local_file filename formula_file
   (cd "${out_dir}" && brew bottle --json --root-url="${root_url}" "${TAP}/${name}")
   matches="$(find "${out_dir}" -maxdepth 1 -name "${name}--${version}.*.bottle.json")"
   if [[ -z "${matches}" || "${matches}" == *$'\n'* ]]
@@ -84,6 +84,10 @@ make_bottle() {
     mv -f "${out_dir}/${local_file}" "${out_dir}/${filename}"
   fi
   brew bottle --merge --write --no-commit "${matches}"
+  # brew places the block by its own rules (after license when it cannot
+  # parse a livecheck block, as for readline); verify wants it at the marker.
+  formula_file="$(brew formula "${TAP}/${name}")"
+  python3 "${script_dir}/../tap/bottles.py" place "${formula_file}"
 }
 
 main() {
