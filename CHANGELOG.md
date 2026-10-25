@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed - 2026-10-25
+
+- The organization was renamed from `homebrew-intel` to `macos-intel`: the
+  tap is now `macos-intel/tap` and bottles download from
+  `macos-intel/homebrew-tap`. See the README for moving installed kegs.
+
 ### Added - 2026-10-24
 
 #### Core Formulae (11 total, up from 1)

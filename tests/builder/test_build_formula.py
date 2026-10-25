@@ -10,8 +10,8 @@ from pathlib import Path
 from tests.builder.fakes import FakeBin
 
 SCRIPT = Path(__file__).resolve().parents[2] / "scripts" / "builder" / "build-formula.sh"
-TAP = "homebrew-intel/tap"
-ROOT_URL = "https://github.com/homebrew-intel/homebrew-tap/releases/download/lz4-1.10.0"
+TAP = "macos-intel/tap"
+ROOT_URL = "https://github.com/macos-intel/homebrew-tap/releases/download/lz4-1.10.0"
 ASSET = "lz4-1.10.0.sequoia.bottle.tar.gz"
 BOTTLE_JSON = "lz4--1.10.0.sequoia.bottle.json"
 INFO = ["brew", "info", "--json=v2", "--installed", "lz4"]

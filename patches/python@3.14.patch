@@ -5,8 +5,8 @@
  
    def install
 -    openssl = deps.find { |dep| dep.name.start_with?("openssl@") }.name
-+    # homebrew-intel/tap: dependencies are tap-qualified, so match the bare name.
-+    openssl = deps.map { |dep| dep.name.delete_prefix("homebrew-intel/tap/") }
++    # macos-intel/tap: dependencies are tap-qualified, so match the bare name.
++    openssl = deps.map { |dep| dep.name.delete_prefix("macos-intel/tap/") }
 +                  .find { |dep_name| dep_name.start_with?("openssl@") }
      # Unset these so that installing pip and setuptools puts them where we want
      # and not into some other Python the user has installed.

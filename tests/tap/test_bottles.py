@@ -10,7 +10,7 @@ SHA_A = "a" * 40
 SHA_B = "b" * 40
 LZ4_BLOCK = (
     "  bottle do\n"
-    '    root_url "https://github.com/homebrew-intel/homebrew-tap/releases/download/lz4-1.10.0"\n'
+    '    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/lz4-1.10.0"\n'
     '    sha256 cellar: :any, sequoia: "abc"\n'
     "  end\n"
 )
@@ -27,7 +27,7 @@ class BottlesTest(unittest.TestCase):
         self.assertEqual(bottles.release_tag("lz4", "1.10.0"), "lz4-1.10.0")
         self.assertEqual(
             bottles.root_url("lz4", "1.10.0"),
-            "https://github.com/homebrew-intel/homebrew-tap/releases/download/lz4-1.10.0",
+            "https://github.com/macos-intel/homebrew-tap/releases/download/lz4-1.10.0",
         )
 
     def test_bottle_release_tag(self):

@@ -221,7 +221,7 @@ class OrderTest(unittest.TestCase):
     def test_render_body_orders_qualified_dependencies(self):
         source = FORMULA.replace("  bottle do", '  depends_on "pkgconf"\n  depends_on "lz4"\n\n  bottle do', 1)
         body = render_body(source, name="x", commit=SHA, tap_names={"pkgconf"})
-        self.assertIn(f'  depends_on "{TAP}/pkgconf"\n  depends_on "lz4"\n', body)
+        self.assertIn(f'  depends_on "lz4"\n  depends_on "{TAP}/pkgconf"\n', body)
 
 
 class BottleBlockTest(unittest.TestCase):

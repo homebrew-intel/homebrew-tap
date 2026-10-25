@@ -1,10 +1,10 @@
-# homebrew-intel
+# macos-intel/tap
 
 <!-- Inline HTML because Markdown's image syntax cannot set a width. The path
      is relative, so the logo also renders on branches and pull requests. -->
 <p align="center">
   <img src="img/homebrew-intel.svg"
-    alt="homebrew-intel logo: a beer mug with the Intel logo in its foam"
+    alt="macos-intel logo: a beer mug with the Intel logo in its foam"
     width="300">
 </p>
 
@@ -45,26 +45,44 @@ See [CHANGELOG.md](CHANGELOG.md) for complete details.
 ## Using the tap
 
 Formulae here have the same names as core. Install them **fully qualified**,
-for example `homebrew-intel/tap/cmake`. A bare name installs core's
+for example `macos-intel/tap/cmake`. A bare name installs core's
 version.
 
 ```bash
-brew tap homebrew-intel/tap
-brew trust homebrew-intel/tap
-brew reinstall homebrew-intel/tap/cmake   # switches an installed core keg
+brew tap macos-intel/tap
+brew trust macos-intel/tap
+brew reinstall macos-intel/tap/cmake   # switches an installed core keg
 ```
 
 Switching an installed core formula to the tap needs its tap dependencies
-switched first: run `brew reinstall homebrew-intel/tap/<dep>` in
+switched first: run `brew reinstall macos-intel/tap/<dep>` in
 dependency order, because `brew install` refuses a name installed from
 another tap.
 
 In a Brewfile:
 
 ```ruby
-tap "homebrew-intel/tap", trusted: true
-brew "homebrew-intel/tap/cmake"
+tap "macos-intel/tap", trusted: true
+brew "macos-intel/tap/cmake"
 ```
+
+### Moving from `homebrew-intel/tap`
+
+The organization was renamed from `homebrew-intel` to `macos-intel`, so the
+tap is now `macos-intel/tap`. Kegs installed under the old name keep it in
+their receipt. Tap the new name, reinstall each of them from it (dependencies
+first), then remove the old tap:
+
+```bash
+brew tap macos-intel/tap
+brew trust macos-intel/tap
+brew list --full-name | grep '^homebrew-intel/tap/'   # what the old name installed
+brew reinstall macos-intel/tap/<name>
+brew untap homebrew-intel/tap
+```
+
+In a Brewfile, change `tap "homebrew-intel/tap"` and every
+`homebrew-intel/tap/` prefix to `macos-intel/tap`.
 
 Once installed, a formula follows the tap. When core bumps it, you stay on the
 tap's last published version until the new bottle is published (expected lag:

@@ -17,11 +17,14 @@ jobs:
     name: Trigger Builder
     # Only merged pull requests from this repository. The builder's own bottle
     # pull requests only add bottle blocks; dispatching them would
-    # force-rebuild the same formulae and open another one, endlessly.
+    # force-rebuild the same formulae and open another one, endlessly. The
+    # skip-build label marks a change that leaves every bottle valid (e.g. a
+    # rename that only rewrites tap names and root_url).
     if: >-
       github.event.pull_request.merged == true &&
       github.event.pull_request.head.repo.full_name == github.repository &&
-      github.event.pull_request.user.login != 'homebrew-intel[bot]'
+      github.event.pull_request.user.login != 'homebrew-intel[bot]' &&
+      !contains(github.event.pull_request.labels.*.name, 'skip-build')
     runs-on: ubuntu-latest
     permissions:
       contents: read

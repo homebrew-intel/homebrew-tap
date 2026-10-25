@@ -28,7 +28,7 @@ readonly GATE_CHECK="verify-bot-pr"
 # no other App or commit status can satisfy it.
 readonly GATE_INTEGRATION_ID=15368
 readonly BOT_AUTHOR="app/homebrew-intel"
-readonly OWNER="homebrew-intel"
+readonly OWNER="${REPO%%/*}"
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly script_dir
 # shellcheck source=scripts/builder/gh-lookup.sh
