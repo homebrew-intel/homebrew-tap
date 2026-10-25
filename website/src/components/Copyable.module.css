@@ -1,0 +1,51 @@
+.copyable {
+  display: flex;
+  align-items: stretch;
+  max-width: 100%;
+  margin: 0 0 1rem;
+}
+
+.code {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  min-height: 44px;
+  margin: 0;
+  padding: 10px 12px;
+  overflow-x: auto;
+  border-radius: 0.4em 0 0 0.4em;
+  background: var(--brew-well);
+}
+
+.code code {
+  padding: 0;
+  background: none;
+  color: #fff;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  white-space: pre;
+}
+
+.code code::before {
+  content: "$ ";
+  color: var(--brew-muted);
+  user-select: none;
+}
+
+.button {
+  flex: 0 0 44px;
+  min-height: 44px;
+  border: none;
+  border-left: 1px solid var(--brew-rule);
+  border-radius: 0 0.4em 0.4em 0;
+  background: var(--brew-well);
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--brew-rule);
+}

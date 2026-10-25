@@ -10,6 +10,7 @@ quiet = true
 
 [tools]
 actionlint = { version = "latest" }
+bun = { version = "1.3" }
 python = "3.14"
 gh = { version = "latest" }
 gitleaks = { version = "latest" }
@@ -306,6 +307,71 @@ if [ "${usage_verbose:-false}" = "true" ]; then
 fi
 
 scripts/audit/run.sh
+'''
+shell = "bash -c"
+usage = '''
+flag "-v --verbose" help="Trace each command (set -x)"
+'''
+
+[tasks."docs:bottles"]
+alias = ["db"]
+description = "Generate the site's bottle list from the tap's releases"
+dir = "{{config_root}}/website"
+run = '''
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+if [ "${usage_verbose:-false}" = "true" ]; then
+  set -x
+fi
+
+./scripts/bottles.sh
+'''
+shell = "bash -c"
+usage = '''
+flag "-v --verbose" help="Trace each command (set -x)"
+'''
+
+[tasks."docs:dev"]
+alias = ["dd"]
+description = "Serve the Docusaurus site with live reload"
+depends = ["docs:bottles"]
+dir = "{{config_root}}/website"
+run = '''
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+if [ "${usage_verbose:-false}" = "true" ]; then
+  set -x
+fi
+
+bun install --frozen-lockfile
+bun run start
+'''
+shell = "bash -c"
+usage = '''
+flag "-v --verbose" help="Trace each command (set -x)"
+'''
+
+[tasks."docs:build"]
+alias = ["dbuild"]
+description = "Typecheck and build the Docusaurus site into website/build"
+depends = ["docs:bottles"]
+dir = "{{config_root}}/website"
+run = '''
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+if [ "${usage_verbose:-false}" = "true" ]; then
+  set -x
+fi
+
+bun install --frozen-lockfile
+bun run typecheck
+bun run build
 '''
 shell = "bash -c"
 usage = '''

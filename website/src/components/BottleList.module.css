@@ -1,0 +1,68 @@
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.count {
+  margin: 0;
+  color: var(--brew-muted);
+  font-size: 0.95rem;
+}
+
+.filter {
+  width: min(100%, 320px);
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--brew-border);
+  border-radius: 0.4em;
+  background: var(--brew-well);
+  color: #fff;
+  font: 1rem var(--ifm-font-family-monospace);
+}
+
+.filter::placeholder {
+  color: var(--brew-muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* brew.sh's large button: translucent fill, faint amber border. */
+.bottle {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5em;
+  padding: 10px 14px 9px;
+  border: 1px solid var(--brew-border);
+  border-radius: 0.4em;
+  background: rgb(255 255 255 / 10%);
+  box-shadow: 0 0 5px rgb(0 0 0 / 40%);
+}
+
+.bottle:hover {
+  background: var(--brew-border);
+  text-decoration: none;
+}
+
+.version {
+  color: var(--brew-text);
+  font: 400 0.8rem var(--ifm-font-family-monospace);
+  opacity: 0.8;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  color: var(--brew-muted);
+  text-align: center;
+}

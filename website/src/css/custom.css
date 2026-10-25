@@ -1,0 +1,78 @@
+/* brew.sh's palette: one warm dark theme, amber text and gold links. The
+   site has no light mode, so both colour modes get the same values. */
+:root,
+html[data-theme="dark"] {
+  --brew-bg: #2e2a24;
+  --brew-text: #ffd79a;
+  --brew-link: #e2a843;
+  --brew-link-hover: #f7c96c;
+  --brew-muted: #816f51;
+  --brew-rule: #745626;
+  --brew-well: rgb(0 0 0 / 30%);
+  --brew-border: rgb(162 107 20 / 30%);
+  --brew-focus: #87c7d8;
+
+  --ifm-color-primary: var(--brew-link);
+  --ifm-color-primary-dark: #d99a2a;
+  --ifm-color-primary-darker: #c98d24;
+  --ifm-color-primary-darkest: #a6741d;
+  --ifm-color-primary-light: #e8b55c;
+  --ifm-color-primary-lighter: #ebbc69;
+  --ifm-color-primary-lightest: var(--brew-link-hover);
+  --ifm-background-color: var(--brew-bg);
+  --ifm-background-surface-color: var(--brew-bg);
+  --ifm-navbar-background-color: var(--brew-bg);
+  --ifm-footer-background-color: #26221d;
+  --ifm-font-color-base: var(--brew-text);
+  --ifm-heading-color: var(--brew-text);
+  --ifm-link-color: var(--brew-link);
+  --ifm-link-hover-color: var(--brew-link-hover);
+  --ifm-menu-color: var(--brew-text);
+  --ifm-toc-border-color: var(--brew-rule);
+  --ifm-hr-background-color: var(--brew-rule);
+  --ifm-code-background: var(--brew-well);
+  --ifm-color-content-secondary: var(--brew-muted);
+  --ifm-font-family-base: ui-sans-serif, -apple-system, BlinkMacSystemFont,
+    "Helvetica Neue", Roboto, sans-serif;
+  --ifm-font-family-monospace: ui-monospace, "SF Mono", Monaco, Menlo,
+    Consolas, monospace;
+  --ifm-heading-font-weight: 800;
+  --ifm-code-font-size: 90%;
+  --prism-background-color: var(--brew-well);
+  --docusaurus-highlighted-code-line-bg: rgb(0 0 0 / 30%);
+}
+
+a {
+  font-weight: 700;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--brew-focus);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--brew-rule);
+}
+
+.navbar {
+  border-bottom: 1px solid var(--brew-border);
+  box-shadow: none;
+}
+
+.footer--dark {
+  --ifm-footer-background-color: #26221d;
+  --ifm-footer-link-color: var(--brew-link);
+  --ifm-footer-title-color: var(--brew-text);
+  --ifm-footer-color: var(--brew-muted);
+}
+
+.navbar__title {
+  font-weight: 900;
+}
+
+code {
+  border: none;
+  color: #fff;
+}

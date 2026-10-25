@@ -1,0 +1,96 @@
+/* brew.sh's home layout: a 62em centred column, a centred brand header and
+   rows of two columns under a centred heading. */
+.wrap {
+  width: 62em;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: clamp(16px, 3vw, 36px) clamp(16px, 4vw, 42px) 0;
+  font-size: 1.05rem;
+  line-height: 1.48;
+}
+
+.header {
+  margin-bottom: clamp(1rem, 3vw, 2rem);
+  text-align: center;
+}
+
+.brand {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: clamp(0.8rem, 1.6vw, 1.4rem);
+  align-items: center;
+  justify-content: center;
+}
+
+.brand img {
+  width: clamp(4.4rem, 7.4vw, 7.2rem);
+  height: auto;
+  filter: drop-shadow(0 12px 24px rgb(0 0 0 / 30%));
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  font-weight: 900;
+  line-height: 0.95;
+  text-shadow: 1px 1px 10px rgb(0 0 0 / 25%);
+}
+
+.subtitle {
+  margin: 0.6em auto 0.3em;
+  color: #fff;
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+.support {
+  margin: 0;
+  color: var(--brew-muted);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2em 2.2em;
+  align-items: start;
+  padding: 2rem 0 1rem;
+  border-bottom: 1px solid var(--brew-well);
+}
+
+.row > * {
+  min-width: 0;
+}
+
+.rowTitle {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  text-align: center;
+  text-shadow: 1px 1px 10px rgb(0 0 0 / 25%);
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.botText {
+  align-self: center;
+}
+
+.credits {
+  padding: 2rem 0 3rem;
+  font-size: 0.85rem;
+  text-align: center;
+  opacity: 0.6;
+}
+
+.credits p {
+  margin: 0 0 0.5em;
+}
+
+@media (max-width: 700px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
