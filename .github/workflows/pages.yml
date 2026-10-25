@@ -1,0 +1,62 @@
+name: pages
+
+# Builds the Docusaurus site in website/ with bun and publishes it to GitHub
+# Pages. The bottle list is generated from the tap's releases at build time,
+# so a new release only needs a rebuild, never a hand edit.
+on:
+  push:
+    branches: [main]
+    paths:
+      - website/**
+      - img/**
+      - Formula/**
+      - mise.toml
+      - mise.lock
+      - .github/workflows/pages.yml
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/configure-pages@v6
+      # mise.toml pins bun, so only bun is installed here.
+      - uses: jdx/mise-action@v5
+        with:
+          install_args: bun
+      - name: Build site
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: mise run docs:build
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: website/build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
