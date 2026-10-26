@@ -1,10 +1,10 @@
-# Generated from Homebrew/homebrew-core@bace6d7b45d7f4a15b78f0a34eb8b696c058eb47 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@152c85d1b9fe5e586bc14ee64a31142052614d4c by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/python@3.14.patch.
 class PythonAT314 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.14.9/Python-3.14.9.tgz"
-  sha256 "8b47e85ee67e93945e93620a051a8f44bfc1e9735ed67075d166f4a74b7a060b"
+  url "https://www.python.org/ftp/python/3.14.10/Python-3.14.10.tgz"
+  sha256 "9e4996c19ae5a3df31f10c37723661f71d3455d73bd005f79df7098e5cc13192"
   license "Python-2.0"
   compatibility_version 1
 
@@ -15,9 +15,8 @@ class PythonAT314 < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/python@3.14-3.14.9"
-    rebuild 2
-    sha256 sequoia: "34980e98009e48c6c2d82f52d062e67f41dc2ed835d035c606d922bb71e210b8"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/python@3.14-3.14.10"
+    sha256 sequoia: "569a8bd9b76c911adea93eff7dae015dcb6ceb4926eda7e25168ab219c5a6eb3"
   end
 
   # https://devguide.python.org/versions/#versions

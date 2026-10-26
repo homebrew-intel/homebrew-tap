@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@6904b75678bf9ea916bab32d0d81a7dfabdbf4e2 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@152c85d1b9fe5e586bc14ee64a31142052614d4c by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/libssh2.patch.
 class Libssh2 < Formula
   desc "C library implementing the SSH2 protocol"
@@ -17,6 +17,11 @@ class Libssh2 < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/libssh2-1.11.1_7"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "fc43a7c1b05f4de86e98e7860ea6034311d7019973f41eed91596cb62a27840c"
+  end
 
   head do
     url "https://github.com/libssh2/libssh2.git", branch: "master"
