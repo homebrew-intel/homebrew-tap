@@ -9,9 +9,8 @@ from pathlib import Path
 from core_source import core_repo, formula_relpath, read_core_file, read_formula
 from enabled import Entry, load_enabled
 from render import RENDER_ERRORS, TAP_ROOT, formula_files, patch_path, render_formula
+from tap_aliases import check_aliases, expected_aliases
 from transform import CORE_PATCHES, core_patch_paths, parse_header, strip_bottle_block
-
-from aliases import check_aliases, expected_aliases
 
 DIFF_CONTEXT = 1
 DIFF_MAX_LINES = 40

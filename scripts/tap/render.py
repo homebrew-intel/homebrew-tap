@@ -11,6 +11,7 @@ from closure import DependencyCycleError, build_order, expand
 from core_source import CoreSourceError, core_repo, formula_relpath, head_commit, read_core_file, read_formula
 from enabled import ConfigError, Entry, load_enabled
 from patching import PatchError, apply_patch, make_patch
+from tap_aliases import expected_aliases, write_aliases
 from transform import (
     CORE_PATCHES,
     TransformError,
@@ -21,8 +22,6 @@ from transform import (
     render_body,
     strip_bottle_block,
 )
-
-from aliases import expected_aliases, write_aliases
 
 TAP_ROOT = Path(__file__).resolve().parents[2]
 RENDER_ERRORS = (ConfigError, CoreSourceError, TransformError, PatchError)
