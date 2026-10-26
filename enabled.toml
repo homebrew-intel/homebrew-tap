@@ -60,3 +60,6 @@ kind = "generated"
 
 [formula.llvm]
 kind = "generated"
+
+[formula.rust]
+kind = "generated"
