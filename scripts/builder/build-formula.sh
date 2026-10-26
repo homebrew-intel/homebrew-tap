@@ -46,8 +46,8 @@ validate_arguments() {
 # lacks an Intel bottle a tap one, built earlier in the plan).
 build_and_test() {
   keg_touched=yes
-  brew install --build-bottle --include-test "${TAP}/${name}"
-  brew test "${TAP}/${name}"
+  run_brew install install --build-bottle --include-test "${TAP}/${name}"
+  run_brew install test "${TAP}/${name}"
 }
 
 # Prints "<local_filename> <decoded filename>" of the bottle JSON's single tag.

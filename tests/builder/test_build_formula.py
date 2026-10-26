@@ -159,6 +159,22 @@ class BuildFormulaTest(unittest.TestCase):
         self.assertEqual(self.fake.argvs()[-2:], [UNINSTALL, RESTORE_CORE])
         self.assertEqual(self.fake.finished()[-1], RESTORE_CORE)
 
+    def test_signal_to_the_script_alone_stops_brew_then_restores(self):
+        # The runner signals the processes it tracks, and brew drops the
+        # variable it tracks them by: the script must stop brew itself.
+        self.installed("homebrew/core")
+        self.fake.respond(*BUILD, sleep=30)
+        process = subprocess.Popen(self.argv(), env=self.environment(), stderr=subprocess.DEVNULL)
+        self.wait_for_call(BUILD)
+        brew_pid = self.cache / "brew-pid"
+        self.assertRegex(brew_pid.read_text(encoding="utf-8"), r"^[0-9]+ install\n$")
+        process.send_signal(signal.SIGTERM)
+        self.assertEqual(process.wait(timeout=20), 143)
+        self.assertNotIn(BUILD, self.fake.finished())
+        self.assertEqual(self.fake.argvs()[-2:], [UNINSTALL, RESTORE_CORE])
+        self.assertEqual(self.fake.finished()[-1], RESTORE_CORE)
+        self.assertFalse(brew_pid.exists())
+
     def test_versioned_name_asset_is_url_decoded(self):
         self.fake.respond("brew", "formula", f"{TAP}/python@3.12", stdout=f"{self.formula}\n")
         result = self.run_script("python@3.12", "3.12.7")

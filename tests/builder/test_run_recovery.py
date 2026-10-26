@@ -1,3 +1,5 @@
+import os
+import subprocess
 import unittest
 
 from tests.builder.run_harness import RunTest, git
@@ -22,6 +24,19 @@ class PendingRestoreTest(RunTest):
         self.assertIn("interrupted build", result.stderr)
         self.assertFalse(self.marker.exists())
         self.assertEqual(len(self.stub_calls("fetch-api.sh")), 1)
+
+    def test_stops_a_stale_brew_before_reinstalling(self):
+        # An orphan in its own group, as a killed job leaves it (init reaps it).
+        leader = subprocess.Popen(["bash", "-c", "sleep 60 &"], start_new_session=True)
+        leader.wait()
+        self.addCleanup(subprocess.run, ["kill", "-KILL", "--", f"-{leader.pid}"], check=False, capture_output=True)
+        (self.marker.parent / "brew-pid").write_text(f"{leader.pid} install\n", encoding="utf-8")
+        result = self.run_script()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        with self.assertRaises(ProcessLookupError):
+            os.killpg(leader.pid, 0)
+        self.assertLess(result.stderr.index("stopping brew"), result.stderr.index("interrupted build"))
+        self.assertEqual(self.brew_installs(), [["brew", "install", TAP_LZ4]])
 
     def test_failed_tap_reinstall_falls_back_to_core(self):
         self.fake.fail("brew", "install", TAP_LZ4)

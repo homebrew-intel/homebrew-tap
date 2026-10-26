@@ -34,9 +34,10 @@ for formula in installed:
 ' "${name}" <<<"${info}"
 }
 
-# EXIT trap. A cancelled Actions job sends SIGINT and then SIGTERM, so further
-# signals are ignored (brew inherits that) and errexit is off: the restore must
-# run to the end whatever happens.
+# EXIT trap. A cancelled Actions job sends SIGINT and then SIGTERM; the INT and
+# TERM traps first stop the brew group run_brew started (keg.sh), then exit
+# here. Further signals are ignored (brew inherits that) and errexit is off:
+# the restore must run to the end whatever happens.
 restore_previous_keg() {
   local status=$?
   trap '' INT TERM
@@ -95,7 +96,7 @@ uninstall_previous_keg() {
 start_keg_swap() {
   swap_name="$1"
   trap restore_previous_keg EXIT
-  trap 'exit 130' INT
-  trap 'exit 143' TERM
+  trap 'stop_brew; exit 130' INT
+  trap 'stop_brew; exit 143' TERM
   uninstall_previous_keg
 }

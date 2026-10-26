@@ -29,7 +29,7 @@ main() {
   fi
   start_keg_swap "$1"
   keg_touched=yes
-  brew install --force-bottle "${TAP}/$1"
+  run_brew install install --force-bottle "${TAP}/$1"
   log "poured ${TAP}/$1"
 }
 
