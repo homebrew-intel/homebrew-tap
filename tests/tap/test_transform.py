@@ -192,6 +192,20 @@ class BareDependencyNamesTest(unittest.TestCase):
         self.assertEqual(once.count("delete_prefix"), 1)
         self.assertEqual(bare_dependency_names(once), once)
 
+    def test_an_endless_def_widened_past_the_line_limit_gets_a_body(self):
+        # rust: the rewrite pushes this endless def past brew style's 118 columns
+        text = '  def openssl = deps.map(&:name).find { |dep| dep.start_with?("openssl@") }\n'
+        expected = (
+            "  def openssl\n"
+            f'    deps.map {{ |dep| dep.name{self.BARE} }}.find {{ |dep| dep.start_with?("openssl@") }}\n'
+            "  end\n"
+        )
+        self.assertEqual(bare_dependency_names(text), expected)
+
+    def test_an_endless_def_within_the_line_limit_stays_endless(self):
+        text = "  def llvm = deps.map(&:name).find { |dep| dep.match?(/^llvm(@\\d+)?$/) }\n"
+        self.assertTrue(bare_dependency_names(text).startswith("  def llvm = deps.map {"))
+
     def test_other_uses_are_identity(self):
         text = "    deps.map(&:to_formula).map { |dep| dep.opt_lib }\n    puts dep.name\n"
         self.assertEqual(bare_dependency_names(text), text)
