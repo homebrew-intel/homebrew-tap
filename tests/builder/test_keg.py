@@ -16,18 +16,37 @@ class ReapStaleBrewTest(unittest.TestCase):
         self.cache = Path(cache.name)
         self.marker = self.cache / "brew-pid"
 
-    def stale_group(self, phase: str, seconds: int = 60) -> subprocess.Popen:
-        """A process group like one a killed job's run_brew left behind."""
-        process = subprocess.Popen(["sleep", str(seconds)], start_new_session=True)
-        self.addCleanup(self.stop, process)
-        self.marker.write_text(f"{process.pid} {phase}\n", encoding="utf-8")
-        return process
+    def stale_group(self, phase: str, seconds: int = 60) -> int:
+        """A process group like one a killed job's run_brew left behind.
+
+        Its leader exits at once, so the sleep is an orphan that init reaps,
+        as on the build host: a child of this test would linger as a zombie,
+        which still counts as alive to `kill -0`.
+        """
+        leader = subprocess.Popen(["bash", "-c", f"sleep {seconds} &"], start_new_session=True)
+        leader.wait()
+        self.addCleanup(self.stop, leader.pid)
+        self.marker.write_text(f"{leader.pid} {phase}\n", encoding="utf-8")
+        return leader.pid
 
     @staticmethod
-    def stop(process: subprocess.Popen) -> None:
-        if process.poll() is None:
-            os.killpg(process.pid, signal.SIGKILL)
-            process.wait()
+    def alive(group: int) -> bool:
+        try:
+            os.killpg(group, 0)
+        except ProcessLookupError:
+            return False
+        return True
+
+    def stop(self, group: int) -> None:
+        if self.alive(group):
+            os.killpg(group, signal.SIGKILL)
+
+    def assert_gone(self, group: int) -> None:
+        deadline = time.monotonic() + 10
+        while self.alive(group):
+            if time.monotonic() > deadline:
+                self.fail(f"process group {group} is still alive")
+            time.sleep(0.1)
 
     def reap(self, wait: str = "1200") -> subprocess.CompletedProcess:
         script = f'log() {{ echo "$*" >&2; }}; source "{KEG}"; reap_stale_brew'
@@ -40,29 +59,29 @@ class ReapStaleBrewTest(unittest.TestCase):
         self.assertEqual(result.stderr, "")
 
     def test_stale_install_is_stopped_at_once(self):
-        process = self.stale_group("install")
+        group = self.stale_group("install")
         started = time.monotonic()
         result = self.reap()
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertLess(time.monotonic() - started, 10)
-        self.assertEqual(process.wait(timeout=10), -signal.SIGTERM)
+        self.assert_gone(group)
         self.assertIn("stopping brew left by a previous job", result.stderr)
         self.assertFalse(self.marker.exists())
 
     def test_stale_restore_is_left_to_finish(self):
-        process = self.stale_group("restore", seconds=2)
+        group = self.stale_group("restore", seconds=2)
         result = self.reap()
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(process.wait(timeout=10), 0)
+        self.assert_gone(group)
         self.assertIn("waiting for a previous job's brew restore", result.stderr)
         self.assertNotIn("stopping", result.stderr)
         self.assertFalse(self.marker.exists())
 
     def test_stale_restore_is_stopped_after_the_wait(self):
-        process = self.stale_group("restore")
+        group = self.stale_group("restore")
         result = self.reap(wait="5")
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(process.wait(timeout=10), -signal.SIGTERM)
+        self.assert_gone(group)
         self.assertIn("stopping brew left by a previous job", result.stderr)
 
     def test_dead_group_only_removes_the_marker(self):
