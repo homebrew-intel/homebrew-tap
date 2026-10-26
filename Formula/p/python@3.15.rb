@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bace6d7b45d7f4a15b78f0a34eb8b696c058eb47 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/python@3.15.patch.
 class PythonAT315 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
@@ -13,6 +13,11 @@ class PythonAT315 < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/python@3.15-3.15.1"
+    rebuild 1
+    sha256 sequoia: "1c3a52b178ef6d5551149d260d61a88a4a2488a8edf881cb3883b857f8ad0bce"
+  end
 
   # https://devguide.python.org/versions/#versions
   deprecate! date: "2031-11-01", because: :deprecated_upstream

@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bace6d7b45d7f4a15b78f0a34eb8b696c058eb47 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/ninja.patch.
 class Ninja < Formula
   desc "Small build system for use with gyp or CMake"
@@ -15,6 +15,11 @@ class Ninja < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/ninja-1.13.2"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "3501cd17bae5c5989d6cf3d9c3539ff1574181388a4b1ce6c0ab047a67c2502c"
+  end
 
   uses_from_macos "python" => [:build, :test]
 
