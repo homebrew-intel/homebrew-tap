@@ -63,3 +63,6 @@ kind = "generated"
 
 [formula.rust]
 kind = "generated"
+
+[formula.ruby]
+kind = "generated"
