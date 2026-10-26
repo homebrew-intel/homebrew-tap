@@ -11,10 +11,11 @@ set -Eeuo pipefail
 # ~/Library/Caches/homebrew-intel-builder).
 # Test seams: TAP_DIR (the checkout whose scripts run; default this script's
 # repository), TAPS_LINK (the Taps symlink), BUILDER_CORE_URL (core remote).
-# Steps: reinstall a keg an interrupted build left uninstalled, point the Taps
-# symlink at the checkout (restored on every exit), fetch the API, sync the core
-# clone, render, plan, record the changed formulae that need no bottle, build
-# each planned formula in order (skipping dependents of failures). A failed
+# Steps: stop a brew a killed job left running, reinstall a keg an interrupted
+# build left uninstalled, point the Taps symlink at the checkout (restored on
+# every exit), fetch the API, sync the core clone, render, plan, record the
+# changed formulae that need no bottle, build each planned formula in order
+# (skipping dependents of failures). A failed
 # formula is recorded, not fatal: the run fails only when it cannot run or the
 # plan names an invalid formula. --dry-run fetches the API and prints the plan.
 # --core-commit pins the run to the homebrew-core commit the hosted prepare job
@@ -152,7 +153,7 @@ record_skipped() {
   manifest skipped "${out_dir}" "$1" "$2"
 }
 
-# A cancelled job signals the whole process group. tee ignores INT and TERM so
+# A cancelled job may signal the whole process group. tee ignores INT and TERM so
 # it keeps draining build-formula.sh's output: if tee died, the keg restore in
 # build-formula.sh would be killed by SIGPIPE on its next write.
 tee_to_log() {
@@ -246,6 +247,7 @@ main() {
   fi
   # A previous run's output must never be uploaded as this one's.
   rm -rf "${out_dir}"
+  reap_stale_brew
   recover_pending_restore
   swap_taps_link
   set_origin_head

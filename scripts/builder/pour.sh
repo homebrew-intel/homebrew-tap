@@ -70,6 +70,7 @@ main() {
   exec </dev/null
   refuse_secrets
   out_dir="$(cd "$1" && pwd -P)"
+  reap_stale_brew
   recover_pending_restore
   place_formulae
   swap_taps_link
