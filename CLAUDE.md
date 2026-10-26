@@ -73,7 +73,7 @@ Design: `docs/superpowers/specs/2026-10-21-intel-bottles-design.md`.
 - `Aliases/` mirrors core's aliases where brew needs them: superenv's
   `pkg-config` shim runs `opt/pkg-config/bin/pkg-config`, and brew creates
   that opt link only from an alias recorded at install (`pkg-config` and
-  `pkgconfig` → `pkgconf`; `ruby@4.0` → `ruby`, whose `post_install` and
+  `pkgconfig` → `pkgconf`; `ruby@4` and `ruby@4.0` → `ruby`, whose `post_install` and
   test use `opt/ruby@4.0`).
 - `core-patches/` holds copies of core's `Patches/` files that tap formulae
   use (`patch do file "Patches/..."`), which brew resolves against the tap's
