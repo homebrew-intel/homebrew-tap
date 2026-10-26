@@ -22,6 +22,8 @@ from transform import (
     strip_bottle_block,
 )
 
+from aliases import expected_aliases, write_aliases
+
 TAP_ROOT = Path(__file__).resolve().parents[2]
 RENDER_ERRORS = (ConfigError, CoreSourceError, TransformError, PatchError)
 
@@ -164,7 +166,10 @@ def run(args: argparse.Namespace) -> None:
     elif args.make_patch:
         make_patch_file(args.make_patch, entries, set(order))
     else:
-        write_all(render_all(order, entries, args.core_commit, formulae))
+        rendered = render_all(order, entries, args.core_commit, formulae)
+        write_all(rendered)
+        headers = {name: parse_header(rendered[TAP_ROOT / formula_relpath(name)]) for name in order}
+        write_aliases(TAP_ROOT, expected_aliases(core_repo(), headers))
 
 
 def main(argv: list[str] | None = None) -> int:

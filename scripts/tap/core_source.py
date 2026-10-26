@@ -64,3 +64,36 @@ def read_core_file(repo: Path, relpath: str, commit: str) -> str:
         msg = f"{relpath} not in core@{commit}: {result.stderr.strip()}"
         raise CoreSourceError(msg)
     return result.stdout
+
+
+def read_core_aliases(repo: Path, commit: str) -> dict[str, str]:
+    """Core's Aliases/ at a commit, as {alias: formula name}, read in one batch."""
+    listing = _git(repo, "ls-tree", "-z", commit, "Aliases/")
+    if listing.returncode != 0:
+        msg = f"Aliases/ not readable at core@{commit}: {listing.stderr.strip()}"
+        raise CoreSourceError(msg)
+    links = {}
+    for entry in filter(None, listing.stdout.split("\0")):
+        meta, path = entry.split("\t", 1)
+        mode, _, sha = meta.split()
+        if mode == "120000":
+            links[path.removeprefix("Aliases/")] = sha
+    if not links:
+        return {}
+    batch = subprocess.run(
+        ["git", "-C", str(repo), "cat-file", "--batch"],
+        input="".join(f"{sha}\n" for sha in links.values()).encode(),
+        check=False,
+        capture_output=True,
+    )
+    if batch.returncode != 0:
+        msg = f"cannot read Aliases/ at core@{commit}: {batch.stderr.decode().strip()}"
+        raise CoreSourceError(msg)
+    targets, offset = [], 0
+    for _ in links:
+        header_end = batch.stdout.index(b"\n", offset)
+        size = int(batch.stdout[offset:header_end].split()[2])
+        start = header_end + 1
+        targets.append(batch.stdout[start : start + size].decode())
+        offset = start + size + 1
+    return {alias: Path(target).stem for alias, target in zip(links, targets, strict=True)}
