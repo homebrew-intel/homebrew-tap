@@ -66,3 +66,24 @@ kind = "generated"
 
 [formula.ruby]
 kind = "generated"
+
+[formula.uv]
+kind = "generated"
+
+[formula.mise]
+kind = "generated"
+
+[formula.just]
+kind = "generated"
+
+[formula.kubernetes-cli]
+kind = "generated"
+
+[formula.docker]
+kind = "generated"
+
+[formula.docker-compose]
+kind = "generated"
+
+[formula.cloudflared]
+kind = "generated"
