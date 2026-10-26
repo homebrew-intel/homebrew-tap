@@ -1,10 +1,10 @@
-# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bace6d7b45d7f4a15b78f0a34eb8b696c058eb47 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/z3.patch.
 class Z3 < Formula
   desc "High-performance theorem prover"
   homepage "https://github.com/Z3Prover/z3"
-  url "https://github.com/Z3Prover/z3/archive/refs/tags/z3-5.3.1.tar.gz"
-  sha256 "c007089dd8d92298d2a7d14105b14e8dddfbb540062ce471c3111e0741edd8da"
+  url "https://github.com/Z3Prover/z3/archive/refs/tags/z3-5.3.2.tar.gz"
+  sha256 "df91b87822f5f8b6710af1f2419ba98758cd647dee3a8f0d070f128b47024dbe"
   license "MIT"
   compatibility_version 5
   head "https://github.com/Z3Prover/z3.git", branch: "master"
@@ -16,6 +16,10 @@ class Z3 < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/z3-5.3.2"
+    sha256 cellar: :any, sequoia: "c8cd0750f6146e0cdec9fe0119d144438edc5b8b2a73b810a2f43fb89b087352"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
   # Has Python bindings but are supplementary to the main library
