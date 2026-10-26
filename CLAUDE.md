@@ -70,10 +70,12 @@ Design: `docs/superpowers/specs/2026-10-21-intel-bottles-design.md`.
   (llvm builds without z3). The render inserts
   `.delete_prefix("macos-intel/tap/")` there; names passed to
   `formula_opt_prefix` may stay qualified, brew strips the tap.
-- `Aliases/` mirrors core's aliases where brew needs them: superenv's
-  `pkg-config` shim runs `opt/pkg-config/bin/pkg-config`, and brew creates
-  that opt link only from an alias recorded at install (`pkg-config` and
-  `pkgconfig` → `pkgconf`).
+- `Aliases/` is generated too: the render mirrors every core alias of a tap
+  formula, read at that formula's header commit, as a relative symlink, and
+  removes stale ones; drift checks them. brew creates an `opt/<alias>` link
+  only from an alias recorded at install: superenv's `pkg-config` shim runs
+  `opt/pkg-config/bin/pkg-config`, and ruby's `post_install` and test use
+  `opt/ruby@4.0`.
 - `core-patches/` holds copies of core's `Patches/` files that tap formulae
   use (`patch do file "Patches/..."`), which brew resolves against the tap's
   root. The render rewrites the path and copies each file from core at the

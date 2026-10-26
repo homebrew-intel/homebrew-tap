@@ -11,6 +11,7 @@ from closure import DependencyCycleError, build_order, expand
 from core_source import CoreSourceError, core_repo, formula_relpath, head_commit, read_core_file, read_formula
 from enabled import ConfigError, Entry, load_enabled
 from patching import PatchError, apply_patch, make_patch
+from tap_aliases import expected_aliases, write_aliases
 from transform import (
     CORE_PATCHES,
     TransformError,
@@ -164,7 +165,10 @@ def run(args: argparse.Namespace) -> None:
     elif args.make_patch:
         make_patch_file(args.make_patch, entries, set(order))
     else:
-        write_all(render_all(order, entries, args.core_commit, formulae))
+        rendered = render_all(order, entries, args.core_commit, formulae)
+        write_all(rendered)
+        headers = {name: parse_header(rendered[TAP_ROOT / formula_relpath(name)]) for name in order}
+        write_aliases(TAP_ROOT, expected_aliases(core_repo(), headers))
 
 
 def main(argv: list[str] | None = None) -> int:

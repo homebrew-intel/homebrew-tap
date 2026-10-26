@@ -9,6 +9,7 @@ from pathlib import Path
 from core_source import core_repo, formula_relpath, read_core_file, read_formula
 from enabled import Entry, load_enabled
 from render import RENDER_ERRORS, TAP_ROOT, formula_files, patch_path, render_formula
+from tap_aliases import check_aliases, expected_aliases
 from transform import CORE_PATCHES, core_patch_paths, parse_header, strip_bottle_block
 
 DIFF_CONTEXT = 1
@@ -102,7 +103,12 @@ def check(tap_dir: Path, repo: Path) -> list[str]:
     entries = load_enabled(enabled_path) if enabled_path.is_file() else []
     tap_names = {path.stem for path in files}
     problems = [check_formula(path, tap_dir, repo, tap_names) for path in files]
-    return [problem for problem in problems if problem] + check_bookkeeping(tap_dir, files, entries)
+    problems = [problem for problem in problems if problem] + check_bookkeeping(tap_dir, files, entries)
+    headers = {path.stem: commit for path in files if (commit := header_commit(path))}
+    try:
+        return problems + check_aliases(tap_dir, expected_aliases(repo, headers))
+    except RENDER_ERRORS as error:
+        return [*problems, f"Aliases/: {error}"]
 
 
 def header_commits(tap_dir: Path) -> list[str]:

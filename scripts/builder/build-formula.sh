@@ -2,7 +2,7 @@
 
 set -Eeuo pipefail
 
-# Build, test and bottle one tap formula on the Intel host:
+# Build, bottle and test one tap formula on the Intel host:
 #   build-formula.sh <name> <pkg-version> <out-dir>
 # Leaves the bottle tarball (renamed to the bottle JSON's decoded filename) and
 # the bottle JSON in <out-dir>, and writes the bottle block into the checkout's
@@ -23,6 +23,7 @@ source "${script_dir}/keg-swap.sh"
 name=""
 version=""
 out_dir=""
+bottle_json=""
 
 log() {
   echo "build-formula: $*" >&2
@@ -44,9 +45,17 @@ validate_arguments() {
 # A clean host has no test dependencies, and `brew test` refuses to run
 # without them; --include-test installs them (the closure gives those core
 # lacks an Intel bottle a tap one, built earlier in the plan).
-build_and_test() {
+build() {
   keg_touched=yes
   run_brew install install --build-bottle --include-test "${TAP}/${name}"
+}
+
+# A --build-bottle keg skips post_install, which some tests rely on (ruby's
+# points libruby's install name at opt/ruby@<major.minor>). The bottle is
+# already written, so post_install changes nothing in it; the block is merged
+# only once the test passed.
+post_install_and_test() {
+  run_brew install postinstall "${TAP}/${name}"
   run_brew install test "${TAP}/${name}"
 }
 
@@ -66,10 +75,10 @@ print(*names) if safe else sys.exit(f"unsafe bottle filename in {sys.argv[1]}")
 ' "$1"
 }
 
-# Writes the bottle into out_dir, renames the tarball to the JSON's filename
-# and merges the bottle block into the formula.
-make_bottle() {
-  local root_url="$1" matches pair local_file filename formula_file
+# Writes the bottle into out_dir and renames the tarball to the JSON's
+# filename; sets bottle_json.
+write_bottle() {
+  local root_url="$1" matches pair local_file filename
   (cd "${out_dir}" && brew bottle --json --root-url="${root_url}" "${TAP}/${name}")
   matches="$(find "${out_dir}" -maxdepth 1 -name "${name}--${version}.*.bottle.json")"
   if [[ -z "${matches}" || "${matches}" == *$'\n'* ]]
@@ -83,7 +92,13 @@ make_bottle() {
   then
     mv -f "${out_dir}/${local_file}" "${out_dir}/${filename}"
   fi
-  brew bottle --merge --write --no-commit "${matches}"
+  bottle_json="${matches}"
+}
+
+# Merges the bottle block into the formula.
+merge_bottle() {
+  local formula_file
+  brew bottle --merge --write --no-commit "${bottle_json}"
   # brew places the block by its own rules (after license when it cannot
   # parse a livecheck block, as for readline); verify wants it at the marker.
   formula_file="$(brew formula "${TAP}/${name}")"
@@ -99,8 +114,10 @@ main() {
   local root_url
   root_url="$(python3 "${script_dir}/../tap/bottles.py" root-url "${name}" "${version}")"
   start_keg_swap "${name}"
-  build_and_test
-  make_bottle "${root_url}"
+  build
+  write_bottle "${root_url}"
+  post_install_and_test
+  merge_bottle
   log "bottled ${name} ${version}"
 }
 

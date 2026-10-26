@@ -19,6 +19,8 @@ BUILD = ["brew", "install", "--build-bottle", "--include-test", f"{TAP}/lz4"]
 UNINSTALL = ["brew", "uninstall", "--ignore-dependencies", "lz4"]
 RESTORE_CORE = ["brew", "install", "lz4"]
 RESTORE_TAP = ["brew", "install", f"{TAP}/lz4"]
+POSTINSTALL = ["brew", "postinstall", f"{TAP}/lz4"]
+TEST = ["brew", "test", f"{TAP}/lz4"]
 SAFEGUARDS = {
     "HOMEBREW_NO_AUTO_UPDATE": "1",
     "HOMEBREW_NO_AUTOREMOVE": "1",
@@ -72,6 +74,9 @@ class BuildFormulaTest(unittest.TestCase):
                 self.fail(f"{argv} was never called")
             time.sleep(0.05)
 
+    def bottle(self) -> list[str]:
+        return ["brew", "bottle", "--json", f"--root-url={ROOT_URL}", f"{TAP}/lz4"]
+
     def merge(self) -> list[str]:
         return ["brew", "bottle", "--merge", "--write", "--no-commit", str(self.out / BOTTLE_JSON)]
 
@@ -85,13 +90,14 @@ class BuildFormulaTest(unittest.TestCase):
                 INFO,
                 ["brew", "uninstall", "--ignore-dependencies", "lz4"],
                 BUILD,
-                ["brew", "test", f"{TAP}/lz4"],
-                ["brew", "bottle", "--json", f"--root-url={ROOT_URL}", f"{TAP}/lz4"],
+                self.bottle(),
+                POSTINSTALL,
+                TEST,
                 self.merge(),
                 ["brew", "formula", f"{TAP}/lz4"],
             ],
         )
-        self.assertEqual(self.fake.calls()[4]["cwd"], str(self.out))
+        self.assertEqual(self.fake.calls()[3]["cwd"], str(self.out))
         self.assertTrue((self.out / ASSET).is_file())
         self.assertFalse((self.out / "lz4--1.10.0.sequoia.bottle.tar.gz").exists())
         self.assertFalse(self.marker.exists())
@@ -119,6 +125,17 @@ class BuildFormulaTest(unittest.TestCase):
         self.assertEqual(self.fake.argvs()[-3:], [self.merge(), UNINSTALL, RESTORE_TAP])
         self.assertFalse(self.marker.exists())
 
+    def test_test_failure_merges_no_bottle_block(self):
+        self.installed("homebrew/core")
+        self.fake.fail(*TEST)
+        result = self.run_script()
+        self.assertEqual(result.returncode, 1)
+        argvs = self.fake.argvs()
+        self.assertLess(argvs.index(POSTINSTALL), argvs.index(TEST))
+        self.assertNotIn(self.merge(), argvs)
+        self.assertEqual(argvs[-2:], [UNINSTALL, RESTORE_CORE])
+        self.assertEqual(self.formula.read_text(encoding="utf-8"), FORMULA_WITHOUT_BLOCK)
+
     def test_build_failure_restores_previous_keg(self):
         self.installed("homebrew/core")
         self.fake.fail(*BUILD)
@@ -126,7 +143,7 @@ class BuildFormulaTest(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         argvs = self.fake.argvs()
         self.assertEqual(argvs[-2:], [UNINSTALL, RESTORE_CORE])
-        self.assertNotIn(["brew", "test", f"{TAP}/lz4"], argvs)
+        self.assertNotIn(TEST, argvs)
 
     def test_failed_tap_restore_falls_back_to_core(self):
         self.installed(TAP)
@@ -139,10 +156,10 @@ class BuildFormulaTest(unittest.TestCase):
 
     def test_not_installed_removes_half_built_keg_without_restore(self):
         self.fake.respond(*INFO, stdout="Error: No such keg: /usr/local/Cellar/lz4\n", exit_code=1)
-        self.fake.fail("brew", "test")
+        self.fake.fail(*TEST)
         result = self.run_script()
         self.assertEqual(result.returncode, 1)
-        self.assertEqual(self.fake.argvs(), [INFO, BUILD, ["brew", "test", f"{TAP}/lz4"], UNINSTALL])
+        self.assertEqual(self.fake.argvs(), [INFO, BUILD, self.bottle(), POSTINSTALL, TEST, UNINSTALL])
 
     def test_signals_cannot_interrupt_the_restore(self):
         self.installed("homebrew/core")
