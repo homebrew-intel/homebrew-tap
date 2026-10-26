@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@6904b75678bf9ea916bab32d0d81a7dfabdbf4e2 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@152c85d1b9fe5e586bc14ee64a31142052614d4c by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/llhttp.patch.
 class Llhttp < Formula
   desc "Port of http_parser to llparse"
@@ -9,6 +9,11 @@ class Llhttp < Formula
   compatibility_version 2
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/llhttp-9.4.3"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "e80ce493fda8185d8743efeba87bb28208069c512e32d1521a3bdaee719fa09c"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
 
