@@ -140,7 +140,25 @@ _DEPS_MAP_NAME = re.compile(r"\bdeps\.map\(&:name\)")
 
 def bare_dependency_names(text: str) -> str:
     text = _DEP_NAME_CALL.sub(f"dep.name{_BARE}.", text)
-    return _DEPS_MAP_NAME.sub(f"deps.map {{ |dep| dep.name{_BARE} }}", text)
+    return _fit_endless_defs(_DEPS_MAP_NAME.sub(f"deps.map {{ |dep| dep.name{_BARE} }}", text))
+
+
+# The rewrite widens lines, and brew style allows 118 columns. An endless def
+# pushed past that (rust's `def openssl = ...`) gets the multi-line body
+# `brew style --fix` would give it.
+_LINE_LIMIT = 118
+_ENDLESS_DEF = re.compile(r"^([ \t]*)def ([a-z_]+[?!]?) = (.+)$")
+
+
+def _fit_endless_defs(text: str) -> str:
+    lines = _lines(text)
+    for index, line in enumerate(lines):
+        body = line.rstrip("\n")
+        match = _ENDLESS_DEF.match(body)
+        if match and len(body) > _LINE_LIMIT:
+            indent, name, expression = match.groups()
+            lines[index] = f"{indent}def {name}\n{indent}  {expression}\n{indent}end\n"
+    return "".join(lines)
 
 
 # Core keeps shared patch files in Patches/ at its root, and brew resolves a
