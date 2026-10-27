@@ -9,6 +9,11 @@ class GoMd2man < Formula
   head "https://github.com/cpuguy83/go-md2man.git", branch: "master"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/go-md2man-2.0.7"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "eb08fa54da84acccb1ce0772c1a624214fc31c5141316e51c4f3c1b2599d76ba"
+  end
 
   depends_on "macos-intel/tap/go" => :build
 
