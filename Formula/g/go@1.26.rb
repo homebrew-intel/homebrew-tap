@@ -23,6 +23,11 @@ class GoAT126 < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/go@1.26-1.26.10"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "face8561e071c7593f6bd9c46d941b87c89feebef84601bfc995f5140e817c18"
+  end
 
   keg_only :versioned_formula
 
