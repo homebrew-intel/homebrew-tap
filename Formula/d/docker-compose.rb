@@ -17,6 +17,11 @@ class DockerCompose < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/docker-compose-5.6.1"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "c2857cf1ac2ef000cb4d93c1eb933eab3a5115fdb749d9efc8c201003e3d3c37"
+  end
 
   depends_on "macos-intel/tap/go" => :build
 
