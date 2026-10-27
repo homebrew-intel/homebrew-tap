@@ -1,19 +1,18 @@
-# Generated from Homebrew/homebrew-core@9b494b0a09aef39f7448227aa83aa2c13fd8d52e by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@95d9ee8feaa6d110f0f98cd761d2102a69b83ce2 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/uv.patch.
 class Uv < Formula
   desc "Extremely fast Python package installer and resolver, written in Rust"
   homepage "https://docs.astral.sh/uv/"
-  url "https://github.com/astral-sh/uv/archive/refs/tags/0.13.5.tar.gz"
-  sha256 "fbe5c69803f813d36661aaa18c0716317710b0069c9427ba8ef174c6de7c8b4b"
+  url "https://github.com/astral-sh/uv/archive/refs/tags/0.13.6.tar.gz"
+  sha256 "c2e01687fbbcb109277698ec97baca46e1547656ad580abf6d993f9c459af1c7"
   license any_of: ["Apache-2.0", "MIT"]
   compatibility_version 1
   head "https://github.com/astral-sh/uv.git", branch: "main"
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/uv-0.13.5"
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, sequoia: "e552d5b1a7f9a0bbf20a66230859939131df260b33434d4ff7da8231c3f75096"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/uv-0.13.6"
+    sha256 cellar: :any_skip_relocation, sequoia: "604c310522cffa6ad1fe569bb6b2fa2cf635f8fd34ca340898251cf02670baef"
   end
 
   depends_on "macos-intel/tap/pkgconf" => :build
