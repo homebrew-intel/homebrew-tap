@@ -258,6 +258,11 @@ rebuilds `reports/` from a fresh API snapshot plus local git history, taps and
   name stays in `~/Library/Caches/homebrew-intel-builder/pending-restore`
   (`$BUILDER_CACHE`); the next build or pour reinstalls it, and no keg swap
   starts until it is back.
+- `brew test` runs with every linked keg that is not the formula or one of
+  its runtime or test dependencies unlinked, as on core's clean CI hosts
+  (docker's test failed while docker-compose's CLI plugin was linked). The
+  unlinked names wait in `pending-relink` until they are linked back; the
+  next build or pour relinks them first.
 - Never hand-edit `bottle do` blocks; the builder writes them.
 
 ## Shell environment

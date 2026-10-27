@@ -43,6 +43,8 @@ restore_previous_keg() {
   trap '' INT TERM
   set +e
   trap - EXIT
+  # The marker keeps a failed relink for the next job; the restore goes on.
+  relink_isolated || status=1
   if [[ "${status}" -eq 0 ]]
   then
     # shellcheck disable=SC2154 # pending_restore comes from keg.sh

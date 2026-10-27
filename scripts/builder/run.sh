@@ -248,6 +248,7 @@ main() {
   # A previous run's output must never be uploaded as this one's.
   rm -rf "${out_dir}"
   reap_stale_brew
+  recover_pending_relink
   recover_pending_restore
   swap_taps_link
   set_origin_head

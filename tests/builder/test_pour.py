@@ -90,6 +90,14 @@ class PourTest(RunTest):
         self.assertEqual(self.fake.argvs()[0], ["brew", "install", TAP_LZ4])
         self.assertFalse(marker.exists())
 
+    def test_relinks_kegs_a_test_left_unlinked_first(self):
+        marker = self.root / "cache" / "pending-relink"
+        marker.parent.mkdir(parents=True)
+        marker.write_text("lazygit\n", encoding="utf-8")
+        self.assertEqual(self.pour().returncode, 0)
+        self.assertEqual(self.fake.argvs()[0], ["brew", "link", "--force", "lazygit"])
+        self.assertFalse(marker.exists())
+
     def test_requires_a_manifest(self):
         (self.artifact / "manifest.json").unlink()
         self.assertEqual(self.pour().returncode, 2)
