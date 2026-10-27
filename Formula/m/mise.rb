@@ -1,10 +1,10 @@
-# Generated from Homebrew/homebrew-core@3045cd43ecd48db75bd7d8577cd73a85b3f65b1f by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@f062e136e50c0265b9c287427b6e6c38d43e0da2 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/mise.patch.
 class Mise < Formula
   desc "Polyglot runtime manager (asdf rust clone)"
   homepage "https://mise.jdx.dev/"
-  url "https://github.com/jdx/mise/archive/refs/tags/v2026.10.19.tar.gz"
-  sha256 "01e180b643c462180a408f8715f52e57bebea206881650ab3f3f93e6e09ef4a1"
+  url "https://github.com/jdx/mise/archive/refs/tags/v2026.10.20.tar.gz"
+  sha256 "dc9c992b21fe02aecb103a56cb51ff2854951f5fc8566d15588b9afeb3c844f6"
   license "MIT"
   head "https://github.com/jdx/mise.git", branch: "main"
 
@@ -15,9 +15,8 @@ class Mise < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/mise-2026.10.19"
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, sequoia: "6ab020dc0062ad81dab3e467d20c9afde2883711cf22f3f9750969d8a5a2361a"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/mise-2026.10.20"
+    sha256 cellar: :any_skip_relocation, sequoia: "e64e1e97253bc58968600daff17ec4180827de24900cc94c4cee580efbea8371"
   end
 
   depends_on "macos-intel/tap/cmake" => :build
