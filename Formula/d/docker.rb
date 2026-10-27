@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@9b494b0a09aef39f7448227aa83aa2c13fd8d52e by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@f062e136e50c0265b9c287427b6e6c38d43e0da2 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/docker.patch.
 class Docker < Formula
   desc "Pack, ship and run any application as a lightweight container"
@@ -15,6 +15,11 @@ class Docker < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/docker-29.9.2"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "cfe3103d21ba3d0d13a8cfe3248ab648244ebde5b9cc1b4ac7475c7ee9236168"
+  end
 
   depends_on "macos-intel/tap/go" => :build
   depends_on "macos-intel/tap/go-md2man" => :build
