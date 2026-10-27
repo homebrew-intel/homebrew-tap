@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@152c85d1b9fe5e586bc14ee64a31142052614d4c by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@95d9ee8feaa6d110f0f98cd761d2102a69b83ce2 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/rust.patch.
 class Rust < Formula
   desc "Safe, concurrent, practical language"
@@ -88,8 +88,8 @@ class Rust < Formula
   # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/macos-intel/homebrew-tap/releases/download/rust-1.99.1"
-    rebuild 1
-    sha256 cellar: :any, sequoia: "85193d37e085fc2b2bd62f075f161981f7d6500742d122c4574213b42b521c92"
+    rebuild 2
+    sha256 cellar: :any, sequoia: "3624eae55e9617a8fdfd7cccfb6c7cb63a4654ae71498643fe09613d00342241"
   end
 
   depends_on "macos-intel/tap/libgit2"
