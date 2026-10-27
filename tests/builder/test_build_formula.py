@@ -21,6 +21,8 @@ RESTORE_CORE = ["brew", "install", "lz4"]
 RESTORE_TAP = ["brew", "install", f"{TAP}/lz4"]
 POSTINSTALL = ["brew", "postinstall", f"{TAP}/lz4"]
 TEST = ["brew", "test", f"{TAP}/lz4"]
+PREFIX = ["brew", "--prefix"]
+DEPS = ["brew", "deps", "--include-test", f"{TAP}/lz4"]
 SAFEGUARDS = {
     "HOMEBREW_NO_AUTO_UPDATE": "1",
     "HOMEBREW_NO_AUTOREMOVE": "1",
@@ -40,7 +42,9 @@ def installed_from(tap: str) -> str:
     return json.dumps({"formulae": [formula], "casks": []})
 
 
-class BuildFormulaTest(unittest.TestCase):
+class BuildFormulaCase(unittest.TestCase):
+    """Fake brew, out-dir and builder cache for build-formula.sh; holds no tests."""
+
     def setUp(self):
         self.fake = self.enterContext(FakeBin())
         out = tempfile.TemporaryDirectory()
@@ -80,6 +84,8 @@ class BuildFormulaTest(unittest.TestCase):
     def merge(self) -> list[str]:
         return ["brew", "bottle", "--merge", "--write", "--no-commit", str(self.out / BOTTLE_JSON)]
 
+
+class BuildFormulaTest(BuildFormulaCase):
     def test_happy_path_call_order(self):
         self.installed("homebrew/core")
         result = self.run_script()
@@ -92,6 +98,8 @@ class BuildFormulaTest(unittest.TestCase):
                 BUILD,
                 self.bottle(),
                 POSTINSTALL,
+                DEPS,
+                PREFIX,
                 TEST,
                 self.merge(),
                 ["brew", "formula", f"{TAP}/lz4"],
@@ -159,7 +167,7 @@ class BuildFormulaTest(unittest.TestCase):
         self.fake.fail(*TEST)
         result = self.run_script()
         self.assertEqual(result.returncode, 1)
-        self.assertEqual(self.fake.argvs(), [INFO, BUILD, self.bottle(), POSTINSTALL, TEST, UNINSTALL])
+        self.assertEqual(self.fake.argvs(), [INFO, BUILD, self.bottle(), POSTINSTALL, DEPS, PREFIX, TEST, UNINSTALL])
 
     def test_signals_cannot_interrupt_the_restore(self):
         self.installed("homebrew/core")

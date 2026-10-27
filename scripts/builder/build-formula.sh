@@ -53,10 +53,12 @@ build() {
 # A --build-bottle keg skips post_install, which some tests rely on (ruby's
 # points libruby's install name at opt/ruby@<major.minor>). The bottle is
 # already written, so post_install changes nothing in it; the block is merged
-# only once the test passed.
+# only once the test passed. The test runs with unrelated kegs unlinked.
 post_install_and_test() {
   run_brew install postinstall "${TAP}/${name}"
+  isolate_test "${TAP}/${name}"
   run_brew install test "${TAP}/${name}"
+  relink_isolated
 }
 
 # Prints "<local_filename> <decoded filename>" of the bottle JSON's single tag.

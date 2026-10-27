@@ -69,6 +69,34 @@ class PendingRestoreTest(RunTest):
         self.assertTrue(self.marker.exists())
 
 
+class PendingRelinkTest(RunTest):
+    def setUp(self):
+        super().setUp()
+        self.marker = self.root / "cache" / "pending-relink"
+        self.marker.parent.mkdir(parents=True)
+        self.marker.write_text("docker-compose lazygit\n", encoding="utf-8")
+
+    def test_relinks_kegs_a_test_left_unlinked_before_the_run(self):
+        result = self.run_script()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(self.fake.argvs()[0], ["brew", "link", "--force", "docker-compose", "lazygit"])
+        self.assertFalse(self.marker.exists())
+
+    def test_failed_relink_aborts_the_run(self):
+        self.fake.fail("brew", "link")
+        result = self.run_script()
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("could not relink", result.stderr)
+        self.assertTrue(self.marker.exists())
+        self.assertEqual(self.stub_calls(), [])
+
+    def test_invalid_marker_aborts_without_linking(self):
+        self.marker.write_text("lz4 ../../evil\n", encoding="utf-8")
+        result = self.run_script()
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(self.fake.argvs(), [])
+
+
 class OriginHeadTest(RunTest):
     def test_origin_head_points_at_main_after_the_run(self):
         self.configure(plan="lz4 1.10.0\n")

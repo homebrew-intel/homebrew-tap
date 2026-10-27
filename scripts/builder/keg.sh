@@ -9,7 +9,9 @@
 # run_brew, in a process group of their own recorded in the brew-pid marker:
 # the Actions runner signals only the job's processes it tracks, and brew drops
 # the variable it tracks them by, so a brew left behind by a killed job would
-# keep building and hold its formula locks. The caller defines log().
+# keep building and hold its formula locks. isolate_test and relink_isolated
+# keep the pending-relink marker the same way for the kegs a test unlinks.
+# The caller defines log().
 # Must stay compatible with macOS /bin/bash 3.2.
 
 # Host safeguards: never update, clean up, autoremove, upgrade or rebuild
@@ -26,8 +28,10 @@ readonly NAME_PATTERN='^[a-z0-9][a-z0-9@._+-]*$'
 readonly builder_cache="${BUILDER_CACHE:-${HOME}/Library/Caches/homebrew-intel-builder}"
 # shellcheck disable=SC2034 # read by the scripts that source this file
 readonly pending_restore="${builder_cache}/pending-restore"
+readonly pending_relink="${builder_cache}/pending-relink"
 readonly brew_pid_file="${builder_cache}/brew-pid"
 brew_pid=""
+isolated_kegs=""
 
 # Formula code (install, test) runs as this user and can read the environment
 # of every ancestor process (`ps -E`), so a token here could be stolen and
@@ -154,4 +158,70 @@ recover_pending_restore() {
   fi
   log "could not reinstall '${full_name}'; reinstall it by hand and delete ${pending_restore}"
   exit 1
+}
+
+# Core's CI tests each formula on a host holding only its dependencies; this
+# host keeps every keg it built linked, and a test can see them (docker's
+# `docker info` lists docker-compose's CLI plugin). isolate_test <full name>
+# unlinks every linked keg that is neither the formula nor one of its runtime
+# or test dependencies, after recording them in the pending-relink marker.
+isolate_test() {
+  local full_name="$1" keep link keg
+  if [[ -f "${pending_relink}" ]]
+  then
+    # shellcheck disable=SC2312 # message only; return 1 follows whatever cat returns
+    log "refusing to test: $(cat "${pending_relink}") is still unlinked (${pending_relink})"
+    return 1
+  fi
+  keep="$(brew deps --include-test "${full_name}")"
+  keep="$(printf '%s\n' "${full_name}" "${keep}" | sed 's#.*/##')"
+  isolated_kegs=""
+  for link in "$(brew --prefix)"/var/homebrew/linked/*
+  do
+    keg="${link##*/}"
+    [[ "${keg}" =~ ${NAME_PATTERN} ]] || continue
+    grep -qxF "${keg}" <<<"${keep}" || isolated_kegs="${isolated_kegs:+${isolated_kegs} }${keg}"
+  done
+  [[ -n "${isolated_kegs}" ]] || return 0
+  write_atomically "${pending_relink}" "${isolated_kegs}"
+  log "unlinking for the test: ${isolated_kegs}"
+  local kegs
+  read -r -a kegs <<<"${isolated_kegs}"
+  # The restore phase: a later job's reap_stale_brew lets it finish.
+  run_brew restore unlink "${kegs[@]}"
+}
+
+# Links back what isolate_test unlinked (--force: a keg-only keg was linked by
+# hand) and deletes the marker; the marker stays when that fails.
+relink_isolated() {
+  [[ -n "${isolated_kegs}" ]] || return 0
+  local kegs
+  read -r -a kegs <<<"${isolated_kegs}"
+  # shellcheck disable=SC2310 # the failure is handled here
+  if ! run_brew restore link --force "${kegs[@]}"
+  then
+    log "could not relink ${isolated_kegs}; link them by hand and delete ${pending_relink}"
+    return 1
+  fi
+  rm -f "${pending_relink}"
+  isolated_kegs=""
+}
+
+# Relinks the kegs an interrupted test left unlinked; stops the job when
+# that fails.
+recover_pending_relink() {
+  [[ -f "${pending_relink}" ]] || return 0
+  local keg
+  isolated_kegs="$(cat "${pending_relink}")"
+  for keg in ${isolated_kegs}
+  do
+    if [[ ! "${keg}" =~ ${NAME_PATTERN} ]]
+    then
+      log "invalid keg name '${keg}' in ${pending_relink}"
+      exit 1
+    fi
+  done
+  log "relinking ${isolated_kegs}, left unlinked by an interrupted test"
+  # shellcheck disable=SC2310 # the failure is handled here
+  relink_isolated || exit 1
 }
