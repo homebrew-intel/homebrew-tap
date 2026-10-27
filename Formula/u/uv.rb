@@ -10,6 +10,11 @@ class Uv < Formula
   head "https://github.com/astral-sh/uv.git", branch: "main"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/uv-0.13.5"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "e552d5b1a7f9a0bbf20a66230859939131df260b33434d4ff7da8231c3f75096"
+  end
 
   depends_on "macos-intel/tap/pkgconf" => :build
   depends_on "macos-intel/tap/rust" => :build

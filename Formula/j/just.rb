@@ -14,6 +14,11 @@ class Just < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/just-1.59.0"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "294dee19a4742618a9f99f6ad3ab3d07e82407cb3f7583f39cd57e04646969f8"
+  end
 
   depends_on "macos-intel/tap/rust" => :build
 

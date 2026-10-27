@@ -9,6 +9,11 @@ class Cloudflared < Formula
   head "https://github.com/cloudflare/cloudflared.git", branch: "master"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/cloudflared-2026.10.3"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "161d8705512286294ef2904d9123241b690df3ad592429e87eac4cb1e0095902"
+  end
 
   depends_on "macos-intel/tap/go" => :build
 

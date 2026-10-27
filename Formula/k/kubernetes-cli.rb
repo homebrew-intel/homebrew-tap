@@ -15,6 +15,11 @@ class KubernetesCli < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/kubernetes-cli-1.37.1"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "a0e97bc6d238f7ddd47ae5a71e78f943950559366f9324b5d1a2d14c3176dce7"
+  end
 
   # TODO: unpin go@1.26 when Go 1.27's ML-DSA ClientHello no longer gets reset by TLS middleboxes
   # Upstream also builds v1.37 with Go 1.26
