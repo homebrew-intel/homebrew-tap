@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@bace6d7b45d7f4a15b78f0a34eb8b696c058eb47 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@95d9ee8feaa6d110f0f98cd761d2102a69b83ce2 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/llvm.patch.
 class Llvm < Formula
   desc "Next-gen compiler infrastructure"
@@ -27,8 +27,8 @@ class Llvm < Formula
   # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/macos-intel/homebrew-tap/releases/download/llvm-23.1.4"
-    rebuild 1
-    sha256 cellar: :any, sequoia: "3ca2bfc6700dea92bae78494566a8d0da708934c584b3dc6b5b3cdfce538ce90"
+    rebuild 2
+    sha256 cellar: :any, sequoia: "0695ce40f56d92ae812bf4559762e3c0cda16e5f6059773f1bb122a15b05c654"
   end
 
   keg_only :provided_by_macos
