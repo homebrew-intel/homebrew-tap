@@ -1,10 +1,10 @@
-# Generated from Homebrew/homebrew-core@dc696222c55eeef85dc35114e6ec027cae3604ca by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@3045cd43ecd48db75bd7d8577cd73a85b3f65b1f by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/gh.patch.
 class Gh < Formula
   desc "GitHub command-line tool"
   homepage "https://cli.github.com/"
-  url "https://github.com/cli/cli/archive/refs/tags/v2.103.2.tar.gz"
-  sha256 "73a62f89937b2c058e0873a571f4963a28c7c78d3b60d0bf29e5658789eb8012"
+  url "https://github.com/cli/cli/archive/refs/tags/v2.103.3.tar.gz"
+  sha256 "bb148138a3a2fe023e57c78042fe3b42fc09171c0e8fff4cf983b227b7a2eade"
   license "MIT"
   compatibility_version 1
   head "https://github.com/cli/cli.git", branch: "trunk"
@@ -16,8 +16,8 @@ class Gh < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/gh-2.103.2"
-    sha256 cellar: :any_skip_relocation, sequoia: "27c999ee2833a71cb409a585081abe49ee8c3a672d7f1d23557656f605768e46"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/gh-2.103.3"
+    sha256 cellar: :any_skip_relocation, sequoia: "123864deee46603766998f3993c566b32a0cd1a297181d3439356aa19006923d"
   end
 
   depends_on "macos-intel/tap/go" => :build
