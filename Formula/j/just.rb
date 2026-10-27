@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@9b494b0a09aef39f7448227aa83aa2c13fd8d52e by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@95d9ee8feaa6d110f0f98cd761d2102a69b83ce2 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/just.patch.
 class Just < Formula
   desc "Handy way to save and run project-specific commands"
@@ -16,8 +16,8 @@ class Just < Formula
   # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/macos-intel/homebrew-tap/releases/download/just-1.59.0"
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, sequoia: "294dee19a4742618a9f99f6ad3ab3d07e82407cb3f7583f39cd57e04646969f8"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, sequoia: "01af920a2d9fc37492bb51e3229089bc2be44a9665c99e5c7f6a74a6d8cb97f5"
   end
 
   depends_on "macos-intel/tap/rust" => :build
