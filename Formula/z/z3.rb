@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@bace6d7b45d7f4a15b78f0a34eb8b696c058eb47 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@95d9ee8feaa6d110f0f98cd761d2102a69b83ce2 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/z3.patch.
 class Z3 < Formula
   desc "High-performance theorem prover"
@@ -18,7 +18,8 @@ class Z3 < Formula
   # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/macos-intel/homebrew-tap/releases/download/z3-5.3.2"
-    sha256 cellar: :any, sequoia: "c8cd0750f6146e0cdec9fe0119d144438edc5b8b2a73b810a2f43fb89b087352"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "db2ce6c526c37ab447100a132b5d23bdea6c2d40805c9d209572f408dc0675be"
   end
 
   depends_on "macos-intel/tap/cmake" => :build
