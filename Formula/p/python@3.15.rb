@@ -1,10 +1,10 @@
-# Generated from Homebrew/homebrew-core@bace6d7b45d7f4a15b78f0a34eb8b696c058eb47 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@95d9ee8feaa6d110f0f98cd761d2102a69b83ce2 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/python@3.15.patch.
 class PythonAT315 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.15.1/Python-3.15.1.tgz"
-  sha256 "133d85e118dc32621cda1d9d1d7d9694fe0c5e82bc339a7d528c109fe8b36387"
+  url "https://www.python.org/ftp/python/3.15.2/Python-3.15.2.tgz"
+  sha256 "f74e1db0eabd651cd01e4e2a00201bd41866abe74869ab716f9bf33cbbaa0943"
   license "Python-2.0"
 
   livecheck do
@@ -14,9 +14,8 @@ class PythonAT315 < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/python@3.15-3.15.1"
-    rebuild 1
-    sha256 sequoia: "1c3a52b178ef6d5551149d260d61a88a4a2488a8edf881cb3883b857f8ad0bce"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/python@3.15-3.15.2"
+    sha256 sequoia: "cf5f23838ed4b7aa95dca3a9a459f734b66cd18172b0dda17cb2302518ea2cbd"
   end
 
   # https://devguide.python.org/versions/#versions

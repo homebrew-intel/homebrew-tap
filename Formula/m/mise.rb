@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@f062e136e50c0265b9c287427b6e6c38d43e0da2 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@95d9ee8feaa6d110f0f98cd761d2102a69b83ce2 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/mise.patch.
 class Mise < Formula
   desc "Polyglot runtime manager (asdf rust clone)"
@@ -16,7 +16,8 @@ class Mise < Formula
   # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/macos-intel/homebrew-tap/releases/download/mise-2026.10.20"
-    sha256 cellar: :any_skip_relocation, sequoia: "e64e1e97253bc58968600daff17ec4180827de24900cc94c4cee580efbea8371"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "7ba1a455f98a1cb4b31755fb03b6717ca5f47fb9518895796746e63a70373d88"
   end
 
   depends_on "macos-intel/tap/cmake" => :build
