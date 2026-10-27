@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@e55bacbb3107e8e09dcfb7be5ede808a4b6f4c97 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@95d9ee8feaa6d110f0f98cd761d2102a69b83ce2 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/ruby.patch.
 class Ruby < Formula
   desc "Powerful, clean, object-oriented scripting language"
@@ -33,8 +33,8 @@ class Ruby < Formula
   # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/macos-intel/homebrew-tap/releases/download/ruby-4.0.9"
-    rebuild 1
-    sha256 sequoia: "fbce82ee148384bce391001a5ca226a832778e9dc33199ae5ba0e130da534ac5"
+    rebuild 2
+    sha256 sequoia: "5d076a47cf8f4963bbe36aee24c338a0aef771008fcee9d55f659174f19c2b49"
   end
 
   head do
