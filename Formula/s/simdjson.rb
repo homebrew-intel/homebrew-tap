@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/simdjson.patch.
 class Simdjson < Formula
   desc "SIMD-accelerated C++ JSON parser"
@@ -9,6 +9,11 @@ class Simdjson < Formula
   head "https://github.com/simdjson/simdjson.git", branch: "master"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/simdjson-5.0.6"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "4333dbf404d8c6cb2742ce8cb544f360458964fa61593bbf3e95289853bbf134"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
 
