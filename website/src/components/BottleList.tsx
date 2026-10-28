@@ -2,9 +2,10 @@ import { useState, type ReactNode } from "react";
 import useBottles from "@site/src/hooks/useBottles";
 import useSelection from "@site/src/hooks/useSelection";
 import type { Bottle } from "@site/src/lib/bottle";
-import { groupNames, toggleGroup, toggleName } from "@site/src/lib/selection";
+import { groupNames, shownNames, toggleGroup, toggleName } from "@site/src/lib/selection";
 import BottleGroup from "./BottleGroup";
 import MigrationPanel from "./MigrationPanel";
+import SelectAll from "./SelectAll";
 import styles from "./BottleList.module.css";
 
 const RELEASES_URL = "https://github.com/macos-intel/homebrew-tap/releases";
@@ -32,6 +33,10 @@ export default function BottleList(): ReactNode {
   const byName = new Map(all.map((bottle) => [bottle.name, bottle]));
   const filtering = query.trim() !== "";
   const groups = groupNames(all.map((bottle) => bottle.name), query);
+  const toggleAll = (names: string[]) => setSelected(toggleGroup(selected, names));
+  const selectAll = groups.length > 0 && (
+    <SelectAll names={shownNames(groups)} selected={selected} onToggle={toggleAll} />
+  );
   const allOpen = groups.length > 0 && groups.every((group) => open.has(group.initial));
 
   return (
@@ -60,6 +65,7 @@ export default function BottleList(): ReactNode {
         </p>
       </div>
       <div className={styles.groups}>
+        {selectAll}
         {groups.map((group) => (
           <BottleGroup
             key={group.initial}
@@ -69,9 +75,10 @@ export default function BottleList(): ReactNode {
             onToggleExpanded={filtering ? undefined : () => setOpen(toggleName(open, group.initial))}
             selected={selected}
             onToggleName={(name) => setSelected(toggleName(selected, name))}
-            onToggleGroup={(names) => setSelected(toggleGroup(selected, names))}
+            onToggleGroup={toggleAll}
           />
         ))}
+        {selectAll}
         {state.status === "ready" && groups.length === 0 && (
           <p className={styles.empty}>No bottle matches “{query}”. It may still build from source.</p>
         )}
