@@ -120,3 +120,21 @@ kind = "generated"
 
 [formula.gnu-tar]
 kind = "generated"
+
+[formula.nmap]
+kind = "generated"
+
+[formula.git-lfs]
+kind = "generated"
+
+[formula.starship]
+kind = "generated"
+
+[formula.vim]
+kind = "generated"
+
+[formula.direnv]
+kind = "generated"
+
+[formula.rclone]
+kind = "generated"
