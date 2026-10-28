@@ -33,17 +33,100 @@
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 10px;
   margin: 0;
-  padding: 0;
+  padding: 10px 0 6px;
   list-style: none;
 }
 
-/* brew.sh's large button: translucent fill, faint amber border. */
+/* Buttons share brew.sh's large-button look: translucent fill, faint amber
+   border. */
+.action,
+.chip {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--brew-border);
+  border-radius: 0.4em;
+  background: rgb(255 255 255 / 10%);
+  color: var(--brew-text);
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.action:hover:not(:disabled),
+.chip:hover {
+  background: var(--brew-border);
+}
+
+.action:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.groupHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 12px;
+  border-bottom: 1px solid var(--brew-well);
+}
+
+.groupToggle {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: baseline;
+  gap: 0.75em;
+  min-height: 44px;
+  padding: 0 4px;
+  border: none;
+  background: none;
+  color: var(--brew-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.groupToggle:disabled {
+  cursor: default;
+}
+
+.initial {
+  min-width: 1.2em;
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+
+.groupCount {
+  flex: 1 1 auto;
+  color: var(--brew-muted);
+  font-size: 0.9rem;
+}
+
+.chevron {
+  color: var(--brew-muted);
+}
+
+.check {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--brew-link);
+  cursor: pointer;
+}
+
 .bottle {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 0.5em;
-  padding: 10px 14px 9px;
+  min-height: 44px;
+  padding: 0 14px 0 12px;
   border: 1px solid var(--brew-border);
   border-radius: 0.4em;
   background: rgb(255 255 255 / 10%);
@@ -52,13 +135,60 @@
 
 .bottle:hover {
   background: var(--brew-border);
-  text-decoration: none;
+}
+
+.picked {
+  border-color: var(--brew-link);
+}
+
+.pick {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 0.6em;
+  min-width: 0;
+  min-height: 44px;
+  color: #fff;
+  cursor: pointer;
+  overflow-wrap: anywhere;
 }
 
 .version {
   color: var(--brew-text);
   font: 400 0.8rem var(--ifm-font-family-monospace);
   opacity: 0.8;
+}
+
+.version:hover {
+  opacity: 1;
+}
+
+.panel {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--brew-well);
+}
+
+.panelTitle {
+  margin: 0 0 0.75rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.chip {
+  color: #fff;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.note {
+  margin: 0 0 0.75rem;
+  color: var(--brew-muted);
+  font-size: 0.95rem;
 }
 
 .empty {

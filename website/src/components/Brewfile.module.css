@@ -1,0 +1,116 @@
+.migration > p:first-child {
+  margin-bottom: 1rem;
+}
+
+.inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 0.75rem;
+}
+
+/* The file input is hidden behind its label, which looks like the page's
+   other buttons; focus still lands on the input, so the label shows it. */
+.upload {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--brew-border);
+  border-radius: 0.4em;
+  background: rgb(255 255 255 / 10%);
+  color: var(--brew-text);
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.upload:hover {
+  background: var(--brew-border);
+}
+
+.upload:focus-within {
+  outline: 2px solid var(--brew-focus);
+  outline-offset: 2px;
+}
+
+.fileInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.source {
+  display: block;
+  width: 100%;
+  min-height: 8em;
+  margin-bottom: 1rem;
+  padding: 10px 12px;
+  border: 1px solid var(--brew-border);
+  border-radius: 0.4em;
+  background: var(--brew-well);
+  color: #fff;
+  font: 0.95rem / 1.6 var(--ifm-font-family-monospace);
+  resize: vertical;
+}
+
+.source::placeholder {
+  color: var(--brew-muted);
+}
+
+.status {
+  margin: 0 0 0.5rem;
+  color: var(--brew-muted);
+}
+
+.error {
+  margin: 0 0 0.75rem;
+  color: var(--brew-link-hover);
+  font-weight: 700;
+}
+
+.diff {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 20em;
+  margin: 0 0 1rem;
+  padding: 10px 12px;
+  overflow: auto;
+  border-radius: 0.4em;
+  background: var(--brew-well);
+  font-size: 0.9rem;
+}
+
+.change {
+  display: flex;
+  flex-direction: column;
+}
+
+.change del {
+  color: #e8a49a;
+  text-decoration: none;
+}
+
+.change ins {
+  color: #b5e3a1;
+  text-decoration: none;
+}
+
+.lineNumber {
+  color: var(--brew-muted);
+  font-size: 0.8rem;
+}
+
+.fileHeader {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  color: var(--brew-muted);
+}

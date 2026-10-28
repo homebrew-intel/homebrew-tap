@@ -4,6 +4,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 import Heading from "@theme/Heading";
 import Layout from "@theme/Layout";
 import BottleList from "@site/src/components/BottleList";
+import BrewfileMigration from "@site/src/components/BrewfileMigration";
 import Copyable from "@site/src/components/Copyable";
 import Mascot from "@site/src/components/Mascot";
 import styles from "./index.module.css";
@@ -92,6 +93,12 @@ export default function Home(): ReactNode {
         <Row id="bottles" title="📦 On tap now">
           <div className={styles.full}>
             <BottleList />
+          </div>
+          <div className={styles.full}>
+            <Heading as="h3" id="brewfile">
+              Move a Brewfile
+            </Heading>
+            <BrewfileMigration />
           </div>
         </Row>
 
