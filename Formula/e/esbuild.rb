@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/esbuild.patch.
 class Esbuild < Formula
   desc "Extremely fast JavaScript bundler and minifier"
@@ -9,6 +9,11 @@ class Esbuild < Formula
   head "https://github.com/evanw/esbuild.git", branch: "main"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/esbuild-0.28.2"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "04adb1c654ff1d7cdbe45f5267a6820adbb0221ffb155da62ef51d30f36f623f"
+  end
 
   depends_on "macos-intel/tap/go" => :build
   depends_on "macos-intel/tap/node" => :test
