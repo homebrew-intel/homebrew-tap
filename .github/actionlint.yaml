@@ -1,5 +1,5 @@
 paths:
-  .github/workflows/trigger-builder.yml:
+  "**/.github/workflows/trigger-builder.yml":
     ignore:
       # actionlint's bundled metadata for create-github-app-token@v3 is stale:
       # the real action.yml has `client-id` (and deprecates `app-id`).
