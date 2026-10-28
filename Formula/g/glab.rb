@@ -1,19 +1,18 @@
-# Generated from Homebrew/homebrew-core@f2fa4540ee4fc41c70a3c94df121528a11c17cb6 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@71f2f069cf7b6695d57f6bd91668f55e68d280cc by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/glab.patch.
 class Glab < Formula
   desc "Open-source GitLab command-line tool"
   homepage "https://gitlab.com/gitlab-org/cli"
   url "https://gitlab.com/gitlab-org/cli.git",
-    tag:      "v1.124.0",
-    revision: "d43ccacecb043b0c060dd13224cf993140db6c2b"
+    tag:      "v1.125.0",
+    revision: "685c1cbd74c882e0c93d7011657adde811582ed7"
   license "MIT"
   head "https://gitlab.com/gitlab-org/cli.git", branch: "main"
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/glab-1.124.0"
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, sequoia: "21a231a899df0fabcc2e6a1c11fbe7988c517d714bc1de2321ca01cce8f225ae"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/glab-1.125.0"
+    sha256 cellar: :any_skip_relocation, sequoia: "2bb886142ae968ab4e44b05f7d6e5cc17d333dd91ea8db29926742e7205ecf94"
   end
 
   depends_on "macos-intel/tap/go" => :build
