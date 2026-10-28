@@ -1,5 +1,7 @@
 [
   "abseil",
   "coreutils",
-  "highway"
+  "highway",
+  "redis",
+  "xxhash"
 ]

@@ -105,3 +105,18 @@ kind = "generated"
 
 [formula.pipx]
 kind = "generated"
+
+[formula.neovim]
+kind = "generated"
+
+[formula.gnupg]
+kind = "generated"
+
+[formula.ccache]
+kind = "generated"
+
+[formula.redis]
+kind = "generated"
+
+[formula.gnu-tar]
+kind = "generated"
