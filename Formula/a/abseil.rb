@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/abseil.patch.
 class Abseil < Formula
   desc "C++ Common Libraries"
@@ -10,6 +10,11 @@ class Abseil < Formula
   head "https://github.com/abseil/abseil-cpp.git", branch: "master"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/abseil-20260817.0"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "694169a7984dcfb582727b3bcd9a973ef1cf53849258970b43449b9308d74bbf"
+  end
 
   depends_on "macos-intel/tap/cmake" => [:build, :test]
   depends_on "macos-intel/tap/googletest" => :build # For test helpers
