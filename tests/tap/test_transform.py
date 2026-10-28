@@ -261,6 +261,26 @@ class OrderTest(unittest.TestCase):
         )
         self.assertEqual(order_dependencies(text), expected)
 
+    def test_comment_lines_stay_in_the_run_and_move_with_the_next_dependency(self):
+        text = (
+            f'  depends_on "{TAP}/libssh2"\n'
+            "  # Check supported Lua version.\n"
+            '  depends_on "lua"\n'
+            f'  depends_on "{TAP}/pcre2"\n'
+        )
+        expected = (
+            "  # Check supported Lua version.\n"
+            '  depends_on "lua"\n'
+            f'  depends_on "{TAP}/libssh2"\n'
+            f'  depends_on "{TAP}/pcre2"\n'
+        )
+        self.assertEqual(order_dependencies(text), expected)
+
+    def test_a_comment_ending_a_run_stays_in_place(self):
+        text = '  depends_on "b"\n  depends_on "a"\n  # trailing\n\n  uses_from_macos "c"\n'
+        expected = '  depends_on "a"\n  depends_on "b"\n  # trailing\n\n  uses_from_macos "c"\n'
+        self.assertEqual(order_dependencies(text), expected)
+
     def test_conditional_runs_are_left_alone(self):
         text = '  depends_on "b" if build.with? "x"\n  depends_on "a"\n'
         self.assertEqual(order_dependencies(text), text)
