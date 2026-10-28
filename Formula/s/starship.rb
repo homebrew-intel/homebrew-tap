@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@cfadc8c8d402d66cc7175918b34bea5c4d0ffa47 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/starship.patch.
 class Starship < Formula
   desc "Cross-shell prompt for astronauts"
@@ -9,6 +9,11 @@ class Starship < Formula
   head "https://github.com/starship/starship.git", branch: "main"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/starship-1.27.0"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "096a76ed30b071a2fdcc840f159fb7b2f67cad9e3b467628f36c4d1307423c77"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
   depends_on "macos-intel/tap/pkgconf" => :build
