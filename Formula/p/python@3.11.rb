@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/python@3.11.patch.
 class PythonAT311 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
@@ -14,6 +14,11 @@ class PythonAT311 < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/python@3.11-3.11.18"
+    rebuild 1
+    sha256 sequoia: "98185c344037e9e85ec2fe046e7403dc7cf946d9866c9059822768e85032fe25"
+  end
 
   # setuptools remembers the build flags python is built with and uses them to
   # build packages later. Xcode-only systems need different flags.
