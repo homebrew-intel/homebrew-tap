@@ -142,8 +142,8 @@ rebuilds `reports/` from a fresh API snapshot plus local git history, taps and
 - `trigger-builder` (`.github/workflows/trigger-builder.yml`) runs when a
   pull request that changes `Formula/` is merged, so its result shows on that
   pull request, and dispatches `build.yml` for the changed formulae with a
-  token from the `homebrew-intel-internal` App
-  (`INTERNAL_APP_ID`/`INTERNAL_APP_PRIVATE_KEY`, `actions: write` on
+  token from the `homebrew-intel-internal` App (`INTERNAL_APP_CLIENT_ID`
+  variable, `INTERNAL_APP_PRIVATE_KEY` secret, `actions: write` on
   `builder` only). It skips the builder's own bottle pull requests: those
   only add bottle blocks, and dispatching them would rebuild endlessly.
   It also skips pull requests labelled `skip-build`, for changes that
