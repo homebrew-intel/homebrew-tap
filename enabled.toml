@@ -87,3 +87,21 @@ kind = "generated"
 
 [formula.cloudflared]
 kind = "generated"
+
+[formula.node]
+kind = "generated"
+
+[formula.pnpm]
+kind = "generated"
+
+[formula."python@3.13"]
+kind = "generated"
+
+[formula."python@3.12"]
+kind = "generated"
+
+[formula."python@3.11"]
+kind = "generated"
+
+[formula.pipx]
+kind = "generated"

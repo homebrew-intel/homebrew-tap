@@ -1,3 +1,5 @@
 [
-  "coreutils"
+  "abseil",
+  "coreutils",
+  "highway"
 ]
