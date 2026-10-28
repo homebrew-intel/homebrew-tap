@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/uvwasi.patch.
 class Uvwasi < Formula
   desc "WASI syscall API built atop libuv"
@@ -10,6 +10,11 @@ class Uvwasi < Formula
   head "https://github.com/nodejs/uvwasi.git", branch: "main"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/uvwasi-0.0.23"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "d3f53984b4ff0a9f26ac634afb05dc3c520e4605cdc010507cfda67730460f9c"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
   depends_on "macos-intel/tap/libuv"
