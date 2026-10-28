@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/python@3.12.patch.
 class PythonAT312 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
@@ -14,6 +14,11 @@ class PythonAT312 < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/python@3.12-3.12.16"
+    rebuild 1
+    sha256 sequoia: "2315b9b26461b0ba46e7204a978af7cefea17c8c83367750e4bc2e50e7ea7a42"
+  end
 
   # https://devguide.python.org/versions/#versions
   deprecate! date: "2028-11-01", because: :deprecated_upstream
