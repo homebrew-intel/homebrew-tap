@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/googletest.patch.
 class Googletest < Formula
   desc "Google Testing and Mocking Framework"
@@ -9,6 +9,11 @@ class Googletest < Formula
   head "https://github.com/google/googletest.git", branch: "main"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/googletest-1.18.0"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "5f3763009c292fc7e273a094ffb8c8f0ec7369aadf52de7073447f9937d17516"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
 
