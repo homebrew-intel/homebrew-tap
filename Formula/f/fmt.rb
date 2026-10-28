@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/fmt.patch.
 class Fmt < Formula
   desc "Open-source formatting library for C++"
@@ -10,6 +10,11 @@ class Fmt < Formula
   head "https://github.com/fmtlib/fmt.git", branch: "main"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/fmt-12.2.0"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "2a8e415dd4e1a2176efd20ecff126c5183d6601f1cd19496759cbabc19834b1a"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
 

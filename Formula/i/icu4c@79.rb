@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/icu4c@79.patch.
 class Icu4cAT79 < Formula
   desc "C/C++ and Java libraries for Unicode and globalization"
@@ -20,6 +20,11 @@ class Icu4cAT79 < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/icu4c@79-79.1"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "ad53ef39d0d11e9d6ed3edc7209b62f0dec8a293133126b1b8cd1d77bdcb3b49"
+  end
 
   keg_only :shadowed_by_macos, "macOS provides libicucore.dylib (but nothing else)"
 

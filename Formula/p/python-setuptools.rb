@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/python-setuptools.patch.
 class PythonSetuptools < Formula
   desc "Easily download, build, install, upgrade, and uninstall Python packages"
@@ -8,6 +8,11 @@ class PythonSetuptools < Formula
   license "MIT"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/python-setuptools-84.2.1"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "adc64ab463ffdd8fe832d5ac66b3700016ba8f295f483f3fead47bd6ec671d2d"
+  end
 
   depends_on "macos-intel/tap/python@3.15" => [:build, :test]
 

@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/highway.patch.
 class Highway < Formula
   desc "Performance-portable, length-agnostic SIMD with runtime dispatch"
@@ -10,6 +10,11 @@ class Highway < Formula
   head "https://github.com/google/highway.git", branch: "master"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/highway-1.4.0"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "b07b27709de82b8d440a92b2fb6674e15054c38187e3b665c7f755f44ae99518"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
 

@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/nbytes.patch.
 class Nbytes < Formula
   desc "Library of byte handling functions extracted from Node.js core"
@@ -8,6 +8,11 @@ class Nbytes < Formula
   license "MIT"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/nbytes-0.1.4"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "2778cf52e8d9273f167f55b0a767c35dd385c712e6868b6894f2d3fca9363b30"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
 

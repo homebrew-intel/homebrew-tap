@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/aklomp-base64.patch.
 class AklompBase64 < Formula
   desc "Fast Base64 stream encoder/decoder in C99, with SIMD acceleration"
@@ -8,6 +8,11 @@ class AklompBase64 < Formula
   license "BSD-2-Clause"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/aklomp-base64-0.5.2"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "81b1d10bbd8dfcfe30a640554c8325e42955eca3fd956917bf3184def557cb10"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
 

@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/cxxopts.patch.
 class Cxxopts < Formula
   desc "Lightweight C++ command-line option parser"
@@ -9,6 +9,11 @@ class Cxxopts < Formula
   head "https://github.com/jarro2783/cxxopts.git", branch: "master"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/cxxopts-3.3.1"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "937c3f95af0e1e4c197a7a0a1436b5edb2063fc1647324be78b6647951a4f115"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
 

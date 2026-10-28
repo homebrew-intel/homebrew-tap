@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/libnghttp2.patch.
 class Libnghttp2 < Formula
   desc "HTTP/2 C Library"
@@ -17,6 +17,11 @@ class Libnghttp2 < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/libnghttp2-1.70.0"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "32c81573957250da04701e5916c04c94c27c61ea6b269666f81880dbb4ed8bfd"
+  end
 
   head do
     url "https://github.com/nghttp2/nghttp2.git", branch: "master"

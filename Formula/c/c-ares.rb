@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/c-ares.patch.
 class CAres < Formula
   desc "Asynchronous DNS library"
@@ -15,6 +15,11 @@ class CAres < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/c-ares-1.34.9"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "80b658bc51d282feb06cf901d8ac49a2a31ed45388b4932f69ebc0b5a399a0d2"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
 
