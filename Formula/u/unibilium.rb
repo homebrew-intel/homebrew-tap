@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@02e642fb33630603a58f53d14d9f3d1e93fc56a7 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/unibilium.patch.
 class Unibilium < Formula
   desc "Very basic terminfo library"
@@ -8,6 +8,11 @@ class Unibilium < Formula
   license "LGPL-3.0-or-later"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/unibilium-2.1.4"
+    rebuild 1
+    sha256 sequoia: "af09a228a7312caa266d508b50c085454de4cb42e0aa9bce2f1417402c825a0f"
+  end
 
   depends_on "autoconf" => :build
   depends_on "libtool" => :build
