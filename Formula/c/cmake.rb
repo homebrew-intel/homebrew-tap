@@ -1,12 +1,12 @@
-# Generated from Homebrew/homebrew-core@a2dee8ba714e60f35a4edf44c77561d60ac92a1a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/cmake.patch.
 class Cmake < Formula
   desc "Cross-platform make"
   homepage "https://www.cmake.org/"
-  url "https://github.com/Kitware/CMake/releases/download/v4.4.4/cmake-4.4.4.tar.gz"
-  mirror "http://fresh-center.net/linux/misc/cmake-4.4.4.tar.gz"
-  mirror "http://fresh-center.net/linux/misc/legacy/cmake-4.4.4.tar.gz"
-  sha256 "bd24c30d80a7744ae84b845ff080cc8453b06c622ef01066564108e9cefc44cf"
+  url "https://github.com/Kitware/CMake/releases/download/v4.4.5/cmake-4.4.5.tar.gz"
+  mirror "http://fresh-center.net/linux/misc/cmake-4.4.5.tar.gz"
+  mirror "http://fresh-center.net/linux/misc/legacy/cmake-4.4.5.tar.gz"
+  sha256 "a0c54c88abb8078dd8eccadb717fc6bb194bf18e7d44c86309910288886e04e2"
   license "BSD-3-Clause"
   compatibility_version 1
   head "https://gitlab.kitware.com/cmake/cmake.git", branch: "master"
@@ -21,9 +21,8 @@ class Cmake < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/cmake-4.4.4"
-    rebuild 3
-    sha256 cellar: :any_skip_relocation, sequoia: "ec566bf33c3e821ee3f1e1abb19015bf60d897dd8377ba3a89482ee9c46d819e"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/cmake-4.4.5"
+    sha256 cellar: :any_skip_relocation, sequoia: "9f268fb1815d4a6345c6f9ebb854c68b1334df79c1a525fcf42df8ccde4eec8b"
   end
 
   uses_from_macos "ncurses"
