@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@02e642fb33630603a58f53d14d9f3d1e93fc56a7 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/gnupg.patch.
 class Gnupg < Formula
   desc "GNU Privacy Guard (OpenPGP)"
@@ -21,6 +21,11 @@ class Gnupg < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/gnupg-2.5.24_1"
+    rebuild 1
+    sha256 sequoia: "cc7c637c1eca3a435dbffadfa0c9f9e9c408642c6b6a24987845b45c54b14c4c"
+  end
 
   depends_on "macos-intel/tap/pkgconf" => :build
   depends_on "libusb"
