@@ -99,21 +99,36 @@ def order_dependencies(text: str) -> str:
     """Re-sort each run of same-indent depends_on lines the way brew style expects.
 
     Qualifying a name with the tap changes where it sorts, so a core formula's
-    order no longer satisfies FormulaAudit/DependencyOrder.
+    order no longer satisfies FormulaAudit/DependencyOrder. A comment line inside
+    a run belongs to the dependency below it and moves with it, as brew style
+    sorts across comments.
     """
     out: list[str] = []
     run: list[tuple[str, re.Match[str]]] = []
+    comments: list[str] = []
     for line in _lines(text):
         match = _DEPENDS_ON.match(line.rstrip("\n"))
-        if match and (not run or match.group(1) == run[0][1].group(1)):
-            run.append((line, match))
+        indent = run[0][1].group(1) if run else None
+        if match and (indent is None or match.group(1) == indent):
+            run.append(("".join(comments) + line, match))
+            comments = []
+            continue
+        if indent is not None and _is_comment(line, indent):
+            comments.append(line)
             continue
         out.extend(_ordered_run(run))
+        out.extend(comments)
+        comments = []
         run = [(line, match)] if match else []
         if not match:
             out.append(line)
     out.extend(_ordered_run(run))
+    out.extend(comments)
     return "".join(out)
+
+
+def _is_comment(line: str, indent: str) -> bool:
+    return line.startswith(f"{indent}#")
 
 
 # brew refuses these in an unofficial tap ("no_autobump! can only be used in
