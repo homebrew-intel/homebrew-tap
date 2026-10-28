@@ -1,0 +1,57 @@
+# Generated from Homebrew/homebrew-core@02e642fb33630603a58f53d14d9f3d1e93fc56a7 by scripts/tap/render.py; do not edit.
+# Hand-written changes belong in patches/lpeg.patch.
+class Lpeg < Formula
+  desc "Parsing Expression Grammars For Lua"
+  homepage "https://www.inf.puc-rio.br/~roberto/lpeg/"
+  url "https://www.inf.puc-rio.br/~roberto/lpeg/lpeg-1.1.0.tar.gz"
+  mirror "https://github.com/neovim/deps/raw/master/opt/lpeg-1.1.0.tar.gz"
+  sha256 "4b155d67d2246c1ffa7ad7bc466c1ea899bbc40fef0257cc9c03cecbaed4352a"
+  license "MIT"
+  revision 2
+  compatibility_version 1
+
+  livecheck do
+    url :homepage
+    regex(/href=.*?lpeg[._-]v?(\d+(?:\.\d+)+)\.t/i)
+  end
+
+  # bottle block: written by brew pr-pull
+
+  depends_on "lua" => [:build, :test]
+  depends_on "macos-intel/tap/luajit" => [:build, :test]
+
+  def make_install_lpeg_so(luadir, dllflags, abi_version)
+    system "make", "LUADIR=#{luadir}", "DLLFLAGS=#{dllflags.join(" ")}", "lpeg.so"
+    (share/"lua"/abi_version).install_symlink pkgshare/"re.lua"
+    (lib/"lua"/abi_version).install "lpeg.so"
+    system "make", "clean"
+  end
+
+  def luas
+    deps.map(&:to_formula).select { |f| f.name.match?(/^lua(@\d+(\.\d+)*)?$/) }
+  end
+
+  def luajit = Formula["luajit"]
+
+  def install
+    dllflags = %w[-shared -fPIC]
+    dllflags << "-Wl,-undefined,dynamic_lookup" if OS.mac?
+
+    make_install_lpeg_so(luajit.opt_include/"luajit-2.1", dllflags, "5.1")
+    luas.each do |lua|
+      make_install_lpeg_so(lua.opt_include/"lua", dllflags, lua.version.major_minor)
+    end
+
+    doc.install "lpeg.html", "re.html"
+    pkgshare.install "test.lua", "re.lua"
+    # Needed by neovim.
+    lib.install_symlink lib/"lua/5.1/lpeg.so" => shared_library("liblpeg")
+  end
+
+  test do
+    luas.each do |lua|
+      system lua.bin/"lua", pkgshare/"test.lua"
+    end
+    system luajit.bin/"luajit", pkgshare/"test.lua"
+  end
+end
