@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import useBaseUrl from "@docusaurus/useBaseUrl";
+import type { Bottle } from "@site/src/lib/bottle";
 
-// Shape written by scripts/bottles.sh: one entry per formula.
-export type Bottle = { name: string; version: string; url: string };
+export type { Bottle };
 
 export type BottlesState =
   | { status: "loading" }

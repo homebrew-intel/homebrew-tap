@@ -36,12 +36,20 @@ Switch the formula's tap dependencies first: run
 A keg you built from source with `--build-bottle` keeps building on
 `reinstall`. Switch it with `brew uninstall` and then `brew install`.
 
+The [bottle list](/#bottles) writes these commands for you: tick the
+formulae you have, and it lists them with their tap dependencies in order.
+
 ## Use a Brewfile
 
 ```ruby
 tap "macos-intel/tap", trusted: true
 brew "macos-intel/tap/cmake"
 ```
+
+To move an existing Brewfile, load it under
+[Move a Brewfile](/#brewfile). It qualifies every entry the tap carries,
+core aliases such as `pkg-config` included, adds the trusted tap entry and
+prints the matching reinstall commands. The file stays in your browser.
 
 ## Staying up to date
 

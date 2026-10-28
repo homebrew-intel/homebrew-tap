@@ -1,11 +1,13 @@
 import { useState, type ReactNode } from "react";
 import styles from "./Copyable.module.css";
 
-type Props = { command: string };
+// `prompt` off shows file contents (a Brewfile) without the "$ " prompt,
+// in a well that scrolls instead of growing with the file.
+type Props = { command: string; prompt?: boolean };
 
 // brew.sh's copyable command: a "$ " prompt per line and a copy button
 // joined to the right edge of the code well.
-export default function Copyable({ command }: Props): ReactNode {
+export default function Copyable({ command, prompt = true }: Props): ReactNode {
   const [copied, setCopied] = useState(false);
 
   async function copy(): Promise<void> {
@@ -20,9 +22,10 @@ export default function Copyable({ command }: Props): ReactNode {
 
   return (
     <div className={styles.copyable}>
-      <pre className={styles.code}>
-        {command.split("\n").map((line) => (
-          <code key={line}>{line}</code>
+      <pre className={prompt ? styles.code : `${styles.code} ${styles.file}`}>
+        {/* Lines repeat in a file (blank ones at least), so key by index. */}
+        {command.split("\n").map((line, index) => (
+          <code key={index}>{line || " "}</code>
         ))}
       </pre>
       <button

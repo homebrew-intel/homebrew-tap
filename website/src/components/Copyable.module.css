@@ -34,6 +34,16 @@
   user-select: none;
 }
 
+.file {
+  justify-content: flex-start;
+  max-height: 24em;
+  overflow-y: auto;
+}
+
+.file code::before {
+  content: none;
+}
+
 .button {
   flex: 0 0 44px;
   min-height: 44px;

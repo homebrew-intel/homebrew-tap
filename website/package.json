@@ -6,7 +6,8 @@
     "start": "docusaurus start",
     "build": "docusaurus build",
     "serve": "docusaurus serve",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "test": "bun test"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.2",
@@ -21,6 +22,7 @@
     "@docusaurus/module-type-aliases": "3.10.2",
     "@docusaurus/tsconfig": "3.10.2",
     "@docusaurus/types": "3.10.2",
+    "@types/bun": "^1.4.4",
     "typescript": "~5.9.0"
   },
   "browserslist": {
