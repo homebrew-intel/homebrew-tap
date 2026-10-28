@@ -1,17 +1,17 @@
-# Generated from Homebrew/homebrew-core@f062e136e50c0265b9c287427b6e6c38d43e0da2 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@71f2f069cf7b6695d57f6bd91668f55e68d280cc by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/cloudflared.patch.
 class Cloudflared < Formula
   desc "Cloudflare Tunnel client (formerly Argo Tunnel)"
   homepage "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/"
-  url "https://github.com/cloudflare/cloudflared/archive/refs/tags/2026.10.4.tar.gz"
-  sha256 "9e13353772430d29dd3a492ff55fb20d013f97dc79f4a24c306a834f3464bbba"
+  url "https://github.com/cloudflare/cloudflared/archive/refs/tags/2026.10.5.tar.gz"
+  sha256 "cca0918e869d6e303ab9d0a31bc1d96ae7dbbbfe6ff2bde9208159ea91f793d6"
   license "Apache-2.0"
   head "https://github.com/cloudflare/cloudflared.git", branch: "master"
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/cloudflared-2026.10.4"
-    sha256 cellar: :any_skip_relocation, sequoia: "7d39c3419896e80da9acb04b5515e048fcec0b9edd85ac0bef7f21dc92f42886"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/cloudflared-2026.10.5"
+    sha256 cellar: :any_skip_relocation, sequoia: "8dd8b4dceb1acbdf02d2bc2d7f864e0dc32ea779fd8dfd8748e189cdf1976a1d"
   end
 
   depends_on "macos-intel/tap/go" => :build
