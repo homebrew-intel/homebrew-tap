@@ -40,6 +40,20 @@ def bottle_exists_gh(name: str, version: str) -> bool:
     return result.returncode == 0
 
 
+def is_stale(name: str, tap_dir: Path, formulae: Mapping[str, Mapping], *, skip_unchanged: bool) -> bool:
+    """Whether NAME lacks a bottle for its current pkg_version.
+
+    The render drops a bottle block whose version the API no longer has, so
+    a missing block means stale. With skip_unchanged, an existing release for
+    the current pkg_version counts as bottled instead.
+    """
+    if skip_unchanged:
+        version = pkg_version(formulae[name]) if name in formulae else None
+        if version and bottle_exists_gh(name, version):
+            return False
+    return not is_bottled(tap_dir, name)
+
+
 def needs_build(
     order: list[str],
     tap_dir: Path,
@@ -48,27 +62,15 @@ def needs_build(
     *,
     skip_unchanged: bool = False,
 ) -> list[str]:
-    built: list[str] = []
-    for name in order:
-        # Always build forced formulae
-        if name in forced:
-            built.append(name)
-            continue
+    """Formulae to build, in ORDER: the forced ones and the stale ones.
 
-        # Skip if bottle exists for current version (only when skip_unchanged enabled)
-        if skip_unchanged:
-            version = pkg_version(formulae[name]) if name in formulae else None
-            if version and bottle_exists_gh(name, version):
-                # Still need to rebuild if a dependency was rebuilt
-                if any(d in built for d in tap_dependencies(name, order, formulae)):
-                    built.append(name)
-                continue
-
-        # Default behavior: build if stale or dependency was rebuilt
-        stale = not is_bottled(tap_dir, name)
-        if stale or any(d in built for d in tap_dependencies(name, order, formulae)):
-            built.append(name)
-    return built
+    A rebuilt dependency never pulls in its dependents, as in homebrew-core:
+    when an ABI change needs them rebuilt, core bumps their revision, which
+    changes their pkg_version and makes them stale.
+    """
+    return [
+        name for name in order if name in forced or is_stale(name, tap_dir, formulae, skip_unchanged=skip_unchanged)
+    ]
 
 
 def build_line(name: str, order: list[str], formulae: Mapping[str, Mapping]) -> str:
