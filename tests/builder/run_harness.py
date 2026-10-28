@@ -83,6 +83,16 @@ elif script == "pour-formula.sh":
 """
 
 
+TAP = "macos-intel/tap"
+
+
+def brew_info(name: str, pkg_version: str) -> str:
+    """`brew info --json=v2` output for one formula at PKG_VERSION (<version>[_<revision>])."""
+    version, _, revision = pkg_version.partition("_")
+    formula = {"name": name, "versions": {"stable": version}, "revision": int(revision or 0)}
+    return json.dumps({"formulae": [formula], "casks": []})
+
+
 def git(*args: str) -> str:
     identity = ["-c", "user.name=t", "-c", "user.email=t@example.com", "-c", "commit.gpgsign=false"]
     result = subprocess.run(["git", *identity, *args], capture_output=True, text=True, check=True)
@@ -126,9 +136,17 @@ class RunTest(unittest.TestCase):
             path.write_text(stub, encoding="utf-8")
             path.chmod(0o755)
 
-    def configure(self, plan: str, fail: tuple[str, ...] = (), **extra: object) -> None:
+    def configure(
+        self, plan: str, fail: tuple[str, ...] = (), rendered: dict[str, str] | None = None, **extra: object
+    ) -> None:
+        """Set the stubs; `brew info` reports each planned version unless `rendered` overrides it."""
         config = {"commit": self.core_commit, "plan": plan, "fail": list(fail), "render": {}, "sleep": {}}
         (self.root / "stubs.json").write_text(json.dumps({**config, **extra}), encoding="utf-8")
+        self.fake.forget("brew", "info")
+        planned = (line.split() for line in plan.splitlines())
+        versions = {fields[0]: fields[1] for fields in planned if fields[1:]}
+        for name, version in {**versions, **(rendered or {})}.items():
+            self.fake.respond("brew", "info", "--json=v2", f"{TAP}/{name}", stdout=brew_info(name, version))
 
     def environment(self, **extra: str) -> dict[str, str]:
         env = {

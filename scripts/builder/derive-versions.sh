@@ -62,14 +62,7 @@ link_tap() {
 # Prints <name>'s pkg_version from `brew info`, failing unless brew described
 # exactly that formula.
 pkg_version() {
-  brew info --json=v2 "${TAP}/$1" | python3 -c '
-import json, sys
-sys.path.insert(0, sys.argv[2])
-from bottles import pkg_version
-(formula,) = json.load(sys.stdin)["formulae"]
-described = formula["name"]
-print(pkg_version(formula)) if described == sys.argv[1] else sys.exit(f"brew info described {described}")
-' "$1" "${script_dir}/../tap"
+  brew info --json=v2 "${TAP}/$1" | python3 "${script_dir}/../tap/bottles.py" info-version "$1"
 }
 
 # Writes {"<name>": "<pkg_version>"} for the artifact's formulae to

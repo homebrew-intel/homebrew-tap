@@ -1,7 +1,9 @@
 """Bottle release tags, root URLs and package versions for the Intel builder."""
 
 import argparse
+import json
 import re
+import sys
 from collections import Counter
 from collections.abc import Iterable, Mapping
 from pathlib import Path
@@ -41,6 +43,16 @@ def api_core_commit(formulae: Iterable[Mapping]) -> str:
     return heads.most_common(1)[0][0]
 
 
+def info_version(name: str, document: str) -> str:
+    """The pkg_version of NAME in `brew info --json=v2` output describing only NAME."""
+    formulae = json.loads(document)["formulae"]
+    if len(formulae) != 1 or formulae[0].get("name") != name:
+        described = ", ".join(str(formula.get("name")) for formula in formulae) or "nothing"
+        message = f"brew info described {described}, not {name}"
+        raise ValueError(message)
+    return pkg_version(formulae[0])
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
@@ -49,7 +61,16 @@ def main(argv: list[str] | None = None) -> int:
     root.add_argument("version", help="package version: <version> or <version>_<revision>")
     place = commands.add_parser("place", help="move FORMULA's bottle block next to the bottle marker, in place")
     place.add_argument("formula", type=Path)
+    info = commands.add_parser("info-version", help="print NAME's pkg_version from `brew info --json=v2` on stdin")
+    info.add_argument("name")
     args = parser.parse_args(argv)
+    if args.command == "info-version":
+        try:
+            print(info_version(args.name, sys.stdin.read()))
+        except (ValueError, KeyError, TypeError) as error:
+            print(f"bottles: {error}", file=sys.stderr)
+            return 1
+        return 0
     if args.command == "place":
         text = args.formula.read_text(encoding="utf-8")
         args.formula.write_text(move_bottle_to_marker(text), encoding="utf-8")

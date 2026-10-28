@@ -155,6 +155,11 @@ class FakeBin:
         self.rules.append(rule)
         self._save()
 
+    def forget(self, *argv: str) -> None:
+        """Drop every rule whose argv starts with ARGV."""
+        self.rules = [rule for rule in self.rules if rule["argv"][: len(argv)] != list(argv)]
+        self._save()
+
     def fail(self, *argv: str) -> None:
         self.respond(*argv, exit_code=1)
 
