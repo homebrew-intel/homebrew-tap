@@ -173,6 +173,10 @@ rebuilds `reports/` from a fresh API snapshot plus local git history, taps and
   with `brew bottle --merge --write` and publishes them through a bot pull
   request (not `brew pr-pull`). Only Sequoia bottles are built; they also
   pour on Tahoe.
+- The plan (`scripts/tap/plan.py`) builds a formula only when forced or
+  stale (no bottle block for its current `pkg_version`), never because a
+  tap dependency was rebuilt: as in core, a dependent that needs a rebuild
+  gets a `revision` bump, which makes it stale.
 - The self-hosted runner `macos-intel-sequoia` (label `sequoia`) runs in
   the VMware Fusion VM `macos-intel-sequoia-builder` on the owner's iMac Pro,
   as the VM's own `runner` user, never on the host. Safeguards: never

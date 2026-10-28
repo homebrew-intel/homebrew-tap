@@ -33,14 +33,19 @@ class PlanTestCase(TapTestCase):
             code = plan.main(list(argv))
         return code, stdout.getvalue(), stderr.getvalue()
 
-    def needs(self, forced: frozenset[str] = frozenset()) -> list[str]:
-        return plan.needs_build(ORDER, self.tap, FORMULAE, forced)
+    def needs(self, forced: frozenset[str] = frozenset(), *, skip_unchanged: bool = False) -> list[str]:
+        return plan.needs_build(ORDER, self.tap, FORMULAE, forced, skip_unchanged=skip_unchanged)
+
+    def needs_with_releases(self, released: set[str], forced: frozenset[str] = frozenset()) -> list[str]:
+        exists = mock.patch.object(plan, "bottle_exists_gh", side_effect=lambda name, _version: name in released)
+        with exists:
+            return self.needs(forced, skip_unchanged=True)
 
 
 class NeedsBuildTest(PlanTestCase):
     def test_unbottled_formula_is_built(self):
         self.put("z3", bottled=False)
-        self.put("llvm", bottled=True)
+        self.put("llvm", bottled=False)
         self.assertEqual(self.needs(), ["z3", "llvm"])
 
     def test_bottled_formula_is_skipped(self):
@@ -48,19 +53,37 @@ class NeedsBuildTest(PlanTestCase):
         self.put("llvm", bottled=True)
         self.assertEqual(self.needs(), [])
 
-    def test_dependent_of_built_formula_is_built(self):
+    def test_rebuilt_runtime_dependency_does_not_pull_in_bottled_dependent(self):
+        self.assertIn("z3", FORMULAE["llvm"]["dependencies"])
         self.put("z3", bottled=False)
         self.put("llvm", bottled=True)
-        self.assertEqual(self.needs(), ["z3", "llvm"])
+        self.assertEqual(self.needs(), ["z3"])
 
-    def test_forced_formula_is_built(self):
+    def test_forced_formula_does_not_pull_in_bottled_dependent(self):
         self.put("z3", bottled=True)
         self.put("llvm", bottled=True)
+        self.assertEqual(self.needs(frozenset({"z3"})), ["z3"])
+
+    def test_stale_dependent_keeps_dependency_order(self):
+        self.put("z3", bottled=True)
+        self.put("llvm", bottled=False)
         self.assertEqual(self.needs(frozenset({"z3"})), ["z3", "llvm"])
 
     def test_missing_file_is_built(self):
         self.put("z3", bottled=True)
         self.assertEqual(self.needs(), ["llvm"])
+
+    def test_skip_unchanged_skips_released_formula(self):
+        self.assertEqual(self.needs_with_releases({"z3", "llvm"}), [])
+
+    def test_skip_unchanged_builds_unreleased_formula(self):
+        self.assertEqual(self.needs_with_releases(set()), ["z3", "llvm"])
+
+    def test_skip_unchanged_does_not_pull_in_released_dependent(self):
+        self.assertEqual(self.needs_with_releases({"llvm"}), ["z3"])
+
+    def test_skip_unchanged_still_builds_forced_formula(self):
+        self.assertEqual(self.needs_with_releases({"z3", "llvm"}, frozenset({"z3"})), ["z3"])
 
     def test_tap_dependencies_are_restricted_to_order(self):
         self.assertEqual(plan.tap_dependencies("llvm", ORDER, FORMULAE), ["z3"])
@@ -80,7 +103,7 @@ class NeedsBuildTest(PlanTestCase):
 class PlanCliTest(PlanTestCase):
     def test_builds_cli_prints_deps(self):
         self.put("z3", bottled=False)
-        self.put("llvm", bottled=True)
+        self.put("llvm", bottled=False)
         self.enable('[formula.llvm]\nkind = "generated"\n')
         self.assertEqual(self.run_plan("builds"), (0, "z3 4.15.4\nllvm 23.1.4 z3\n", ""))
 

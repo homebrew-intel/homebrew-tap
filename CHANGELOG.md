@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed - 2026-10-27
+
+- The builder plan no longer rebuilds a formula because a tap dependency
+  was rebuilt in the same plan. As in homebrew-core, a formula builds only
+  when forced or stale (no bottle for its current `pkg_version`); core bumps
+  `revision` on dependents that need a rebuild. A python@3.15 patch bump had
+  cascaded through z3, llvm, rust, just, mise and ruby: about 15 hours of
+  `rebuild N` bottles for unchanged versions.
+
 ### Changed - 2026-10-25
 
 - The organization was renamed from `homebrew-intel` to `macos-intel`: the
