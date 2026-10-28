@@ -32,7 +32,7 @@ class Pnpm < Formula
     cd "pnpm/esm-loader" do
       inreplace "package.json" do |s|
         s.gsub! '"enhanced-resolve": "catalog:"', '"enhanced-resolve": "5.26.0"'
-        s.gsub! '"esbuild": "catalog:"', "\"esbuild\": \"#{Formula["esbuild"].version}\""
+        s.gsub! '"esbuild": "catalog:"', "\"esbuild\": \"#{Formula["macos-intel/tap/esbuild"].version}\""
       end
       system "npm", "install", "--workspaces=false", "--omit=optional",
                     *std_npm_args(prefix: false)

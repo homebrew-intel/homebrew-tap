@@ -71,7 +71,7 @@ class Libgit2 < Formula
         return 0;
       }
     C
-    libssh2 = Formula["libssh2"]
+    libssh2 = Formula["macos-intel/tap/libssh2"]
     flags = %W[
       -I#{include}
       -I#{libssh2.opt_include}

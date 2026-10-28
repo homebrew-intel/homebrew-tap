@@ -58,6 +58,9 @@ Design: `docs/superpowers/specs/2026-10-21-intel-bottles-design.md`.
   so in README and caveats; never rename to dodge the collision.
 - Dependencies that are also in this tap are rewritten to
   `macos-intel/tap/<dep>` by the render; the rest stay plain names.
+  So are `Formula["<dep>"]` lookups: a bare one loads core's formula,
+  whose versioned paths (`bin`, `version`) name a keg never installed
+  (lpeg's test ran core's `Cellar/luajit/<version>/bin/luajit`).
 - Casks are out of scope.
 - `style_exceptions/*.json` copies entries from core's lists of the same
   name for tap formulae that need them (e.g. `coreutils` uses

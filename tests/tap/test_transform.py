@@ -17,6 +17,7 @@ from transform import (
     order_dependencies,
     parse_header,
     qualify_dependencies,
+    qualify_formula_lookups,
     render_body,
     strip_bottle_block,
 )
@@ -126,6 +127,32 @@ class QualifyTest(unittest.TestCase):
 
     def test_empty_tap_names_is_identity(self):
         self.assertEqual(qualify_dependencies(FORMULA, set()), FORMULA)
+
+
+class FormulaLookupTest(unittest.TestCase):
+    def test_qualifies_a_lookup_of_a_tap_formula(self):
+        text = '  def luajit = Formula["luajit"]\n    terminfo = Formula["ncurses"].opt_share\n'
+        expected = f'  def luajit = Formula["{TAP}/luajit"]\n    terminfo = Formula["ncurses"].opt_share\n'
+        self.assertEqual(qualify_formula_lookups(text, {"luajit"}), expected)
+
+    def test_a_qualified_lookup_is_kept(self):
+        text = f'  x = Formula["{TAP}/luajit"].bin\n'
+        self.assertEqual(qualify_formula_lookups(text, {"luajit"}), text)
+
+    def test_a_longer_name_is_not_a_match(self):
+        text = '  x = Formula["luajit-openresty"].bin\n'
+        self.assertEqual(qualify_formula_lookups(text, {"luajit"}), text)
+
+    def test_an_endless_def_pushed_past_the_line_limit_is_split(self):
+        name = "a" * 80
+        text = f'  def some_long_helper_name = Formula["{name}"]\n'
+        expected = f'  def some_long_helper_name\n    Formula["{TAP}/{name}"]\n  end\n'
+        self.assertEqual(qualify_formula_lookups(text, {name}), expected)
+
+    def test_render_body_applies_it(self):
+        source = FORMULA.replace("  def install\n", '  def luajit = Formula["luajit"]\n\n  def install\n')
+        body = render_body(source, name="x", commit=SHA, tap_names={"luajit"})
+        self.assertIn(f'Formula["{TAP}/luajit"]', body)
 
 
 class MoveBottleTest(unittest.TestCase):
