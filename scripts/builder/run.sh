@@ -37,6 +37,7 @@ source "${script_dir}/render-plan.sh"
 readonly run_dir="${TAP_DIR}/.builder"
 readonly out_dir="${run_dir}/out"
 readonly log_dir="${out_dir}/logs"
+readonly TAP="macos-intel/tap"
 readonly core_url="${BUILDER_CORE_URL:-https://github.com/Homebrew/homebrew-core}"
 
 build_only=no
@@ -181,9 +182,21 @@ build_one() {
   record_failed "${name}" "${version}"
 }
 
+# Prints <name>'s pkg_version as `brew info` reads it from the render. The plan
+# takes versions from the API snapshot, which can lag the run's core commit
+# (simdutf 9.3.2_1 planned, 9.3.3 rendered), and the bottle file, root URL and
+# release tag must name the version actually built. brew's errors go to the
+# formula's log.
+rendered_version() {
+  local log_file="${log_dir}/$1.log"
+  mkdir -p "${log_dir}"
+  brew info --json=v2 "${TAP}/$1" 2>>"${log_file}" |
+    python3 "${script_dir}/../tap/bottles.py" info-version "$1" 2>>"${log_file}"
+}
+
 # Arguments: one plan line, "<name> <pkg-version|-> <tap-dep>...".
 build_planned_formula() {
-  local name="$1" version="$2" dependency
+  local name="$1" version="$2" dependency rendered
   shift 2
   if [[ ! "${name}" =~ ${NAME_PATTERN} ]]
   then
@@ -195,6 +208,18 @@ build_planned_formula() {
   then
     record_skipped "${name}" "no API entry"
     return 0
+  fi
+  # rendered_version's failure is recorded as the formula's.
+  # shellcheck disable=SC2310
+  if ! rendered="$(rendered_version "${name}")"
+  then
+    record_failed "${name}" "${version}"
+    return 0
+  fi
+  if [[ "${rendered}" != "${version}" ]]
+  then
+    log "${name}: the API snapshot has ${version}, the render has ${rendered}; building ${rendered}"
+    version="${rendered}"
   fi
   for dependency in "$@"
   do

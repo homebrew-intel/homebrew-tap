@@ -1,7 +1,9 @@
 import contextlib
 import io
+import json
 import tempfile
 import unittest
+import unittest.mock
 from pathlib import Path
 
 import bottles
@@ -48,6 +50,34 @@ class BottlesTest(unittest.TestCase):
             code = bottles.main(["root-url", "lz4", "1.10.0"])
         self.assertEqual(code, 0)
         self.assertEqual(stdout.getvalue(), bottles.root_url("lz4", "1.10.0") + "\n")
+
+
+class InfoVersionTest(unittest.TestCase):
+    def info(self, *formulae: tuple[str, str, int]) -> str:
+        entries = [{"name": n, "versions": {"stable": v}, "revision": r} for n, v, r in formulae]
+        return json.dumps({"formulae": entries, "casks": []})
+
+    def run_cli(self, name: str, document: str) -> tuple[int, str]:
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out), unittest.mock.patch("sys.stdin", io.StringIO(document)):
+            try:
+                status = bottles.main(["info-version", name])
+            except SystemExit as error:
+                status = error.code
+        return status, out.getvalue()
+
+    def test_prints_the_pkg_version_brew_describes(self):
+        self.assertEqual(self.run_cli("simdutf", self.info(("simdutf", "9.3.3", 0))), (0, "9.3.3\n"))
+        self.assertEqual(self.run_cli("llvm", self.info(("llvm", "19.1.0", 2))), (0, "19.1.0_2\n"))
+
+    def test_refuses_another_formula(self):
+        status, out = self.run_cli("z3", self.info(("zstd", "1.5.6", 0)))
+        self.assertNotEqual(status, 0)
+        self.assertEqual(out, "")
+
+    def test_refuses_several_formulae(self):
+        status, _ = self.run_cli("z3", self.info(("z3", "4.13.0", 0), ("z3", "4.13.0", 0)))
+        self.assertNotEqual(status, 0)
 
 
 class PlaceTest(unittest.TestCase):
