@@ -115,6 +115,14 @@ jobs:
             else
               brew install --overwrite --force-bottle "macos-intel/tap/${name}"
             fi
+            # A test listed in hosted-test-skip.txt needs hardware the hosted
+            # runner lacks; the builder ran it on the VM before bottling, so
+            # here the poured keg only has its linkage checked.
+            if sed 's/[[:space:]]*#.*//' scripts/ci/hosted-test-skip.txt | grep -qxF "$name"; then
+              echo "::notice::not running ${name}'s test on this runner (scripts/ci/hosted-test-skip.txt)"
+              brew linkage --test "macos-intel/tap/${name}"
+              continue
+            fi
             brew test "macos-intel/tap/${name}"
           done 3<<< "$order"
           if [ "$found" = no ]; then

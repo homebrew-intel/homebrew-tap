@@ -1,0 +1,7 @@
+# Formulae whose `brew test` cannot pass on the hosted macos-15-intel runner
+# because it needs hardware that runner lacks. pour-test still pours each one
+# and runs `brew linkage --test`; the builder runs the full test on the Intel
+# VM before it writes the bottle, so a bottle never skips its test.
+# One name per line, a trailing comment giving the reason. Remove an entry once
+# its test passes on the hosted runner again.
+highway # the test's benchmark aborts without RDTSCP, which the runner's CPU lacks
