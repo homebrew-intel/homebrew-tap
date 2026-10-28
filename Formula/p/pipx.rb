@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/pipx.patch.
 class Pipx < Formula
   include Language::Python::Virtualenv
@@ -11,6 +11,11 @@ class Pipx < Formula
   head "https://github.com/pypa/pipx.git", branch: "main"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/pipx-1.18.4"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "e5576f12f76193c67dec5cd0684266b36c42e63617f5a226a74c7ce47baa37ee"
+  end
 
   depends_on "macos-intel/tap/python@3.15"
 
