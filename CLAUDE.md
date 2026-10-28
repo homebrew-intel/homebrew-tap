@@ -139,6 +139,9 @@ rebuilds `reports/` from a fresh API snapshot plus local git history, taps and
 - Public CI (`.github/workflows/ci.yml`) runs on hosted runners only:
   `lint-and-test`, `tap-syntax` and `drift` on Ubuntu, and `pour-test` on
   `macos-15-intel`. Never run a job from this repository on the iMac.
+  `pour-test` skips `brew test` (keeping `brew linkage --test`) only for
+  formulae in `scripts/ci/hosted-test-skip.txt`, whose tests need hardware
+  the hosted runner lacks (highway: RDTSCP); the builder still tests them.
 - `trigger-builder` (`.github/workflows/trigger-builder.yml`) runs when a
   pull request that changes `Formula/` is merged, so its result shows on that
   pull request, and dispatches `build.yml` for the changed formulae with a
