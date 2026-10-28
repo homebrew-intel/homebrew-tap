@@ -1,12 +1,11 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/simdutf.patch.
 class Simdutf < Formula
   desc "Unicode conversion routines, fast"
   homepage "https://simdutf.github.io/simdutf/"
-  url "https://github.com/simdutf/simdutf/archive/refs/tags/v9.3.2.tar.gz"
-  sha256 "d92a0a4ce216dcebf18af20fed7ea7279fa535683f790fdaeed39827a234f567"
+  url "https://github.com/simdutf/simdutf/archive/refs/tags/v9.3.3.tar.gz"
+  sha256 "441e374e8629bd8469f6d5cde9f0fa17ef3ad158aeb077791606d8aa73b565ef"
   license any_of: ["Apache-2.0", "MIT"]
-  revision 1
   compatibility_version 7
   head "https://github.com/simdutf/simdutf.git", branch: "master"
 
@@ -16,6 +15,10 @@ class Simdutf < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/simdutf-9.3.3"
+    sha256 cellar: :any, sequoia: "e2dae16aeab576c6e7bbc62da4b0701281ed9258d13b8a35c8982d09f4913bbc"
+  end
 
   depends_on "macos-intel/tap/aklomp-base64" => :build
   depends_on "macos-intel/tap/cmake" => :build
