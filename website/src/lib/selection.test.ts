@@ -5,6 +5,7 @@ import {
   initialOf,
   restoreSelection,
   serializeSelection,
+  shownNames,
   toggleGroup,
   toggleName,
 } from "./selection";
@@ -51,6 +52,17 @@ describe("toggles", () => {
 
   test("toggleGroup only touches the names it is given (the visible ones)", () => {
     expect([...toggleGroup(new Set(), ["git"])]).toEqual(["git"]);
+  });
+});
+
+describe("select all", () => {
+  test("shownNames covers every group in list order", () => {
+    expect(shownNames(groupNames(names, ""))).toEqual(["7zip", "gh", "git", "go", "zstd"]);
+  });
+
+  test("shownNames follows the filter, so All only touches matches", () => {
+    const shown = shownNames(groupNames(names, "g"));
+    expect([...toggleGroup(new Set(["zstd"]), shown)].sort()).toEqual(["gh", "git", "go", "zstd"]);
   });
 });
 

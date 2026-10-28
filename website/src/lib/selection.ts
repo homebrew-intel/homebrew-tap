@@ -23,6 +23,11 @@ export function groupNames(names: readonly string[], query: string): Group[] {
   return [...groups].map(([initial, members]) => ({ initial, names: members }));
 }
 
+// Every name the groups show, in list order: what the "All" checkbox covers.
+export function shownNames(groups: readonly Group[]): string[] {
+  return groups.flatMap((group) => group.names);
+}
+
 export type GroupState = "none" | "some" | "all";
 
 export function groupState(names: readonly string[], selected: ReadonlySet<string>): GroupState {
