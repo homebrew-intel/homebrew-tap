@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@02e642fb33630603a58f53d14d9f3d1e93fc56a7 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/span-lite.patch.
 class SpanLite < Formula
   desc "C++20-like span for C++98, C++11 and later in a single-file header-only library"
@@ -9,6 +9,11 @@ class SpanLite < Formula
   head "https://github.com/nonstd-lite/span-lite.git", branch: "master"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/span-lite-0.11.0"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "7ec9046f366829598e3db52f03faa2c85509a8fd18cf3b90abb76576d099b368"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
 
