@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@8701235251a995187352bd621a2f182a1127fa8c by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/jemalloc.patch.
 class Jemalloc < Formula
   desc "Implementation of malloc emphasizing fragmentation avoidance"
@@ -20,6 +20,8 @@ class Jemalloc < Formula
     depends_on "autoconf" => :build
     depends_on "docbook-xsl" => :build
   end
+
+  deny_network_access!
 
   def install
     args = %W[
