@@ -76,6 +76,18 @@ def qualify_dependencies(text: str, tap_names: AbstractSet[str]) -> str:
     return pattern.sub(rf'\1"{TAP}/\2"', text)
 
 
+# A bare Formula["luajit"] resolves to core's formula even when the tap's is
+# the dependency, so its versioned paths name a keg that was never installed
+# (lpeg's test ran core's Cellar/luajit/<version>/bin/luajit). opt_* paths
+# happen to agree, which is why a build can pass while the test fails.
+def qualify_formula_lookups(text: str, tap_names: AbstractSet[str]) -> str:
+    if not tap_names:
+        return text
+    names = "|".join(re.escape(name) for name in sorted(tap_names))
+    pattern = re.compile(rf'\bFormula\["({names})"\]')
+    return _fit_endless_defs(pattern.sub(rf'Formula["{TAP}/\1"]', text))
+
+
 _DEPENDS_ON = re.compile(r'^([ \t]*)depends_on "([^"]+)"(.*)$')
 _CONDITIONAL = re.compile(r"\b(if|unless)\b")
 # brew style's DependencyOrder: build-time > test > normal > recommended > optional.
@@ -196,7 +208,8 @@ def core_patch_paths(text: str) -> list[str]:
 
 def render_body(source: str, *, name: str, commit: str, tap_names: AbstractSet[str]) -> str:
     body = bare_dependency_names(localize_core_patches(drop_official_only(mark_bottle_block(source))))
-    return header(commit, name) + order_dependencies(qualify_dependencies(body, tap_names))
+    body = qualify_formula_lookups(qualify_dependencies(body, tap_names), tap_names)
+    return header(commit, name) + order_dependencies(body)
 
 
 def apply_bottle(body: str, bottle_block: str | None) -> str:

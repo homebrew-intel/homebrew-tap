@@ -39,7 +39,7 @@ class Libuv < Formula
   deny_network_access!
 
   def install
-    venv = virtualenv_create(buildpath/"venv", Formula["sphinx-doc"].python3)
+    venv = virtualenv_create(buildpath/"venv", Formula["macos-intel/tap/sphinx-doc"].python3)
     venv.pip_install resources, build_isolation: false
     ENV.prepend_path "PYTHONPATH", venv.site_packages
 

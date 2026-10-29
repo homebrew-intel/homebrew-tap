@@ -31,7 +31,7 @@ class Lpeg < Formula
     deps.map(&:to_formula).select { |f| f.name.match?(/^lua(@\d+(\.\d+)*)?$/) }
   end
 
-  def luajit = Formula["luajit"]
+  def luajit = Formula["macos-intel/tap/luajit"]
 
   def install
     dllflags = %w[-shared -fPIC]
