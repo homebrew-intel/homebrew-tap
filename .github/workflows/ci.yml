@@ -94,17 +94,23 @@ jobs:
             # one); brew refuses a same-named tap formula next to them. That
             # holds for the tap dependencies too (git needs the tap's
             # libunistring), so swap out every core keg among them.
+            tap_names=()
             for swap in "$name" ${deps[@]+"${deps[@]}"}; do
               case "$swap" in
                 macos-intel/tap/*) swap="${swap#macos-intel/tap/}" ;;
                 "$name") ;;
                 *) continue ;;
               esac
+              tap_names+=("$swap")
               receipt="$(brew --prefix)/opt/${swap}/INSTALL_RECEIPT.json"
               if [ -f "$receipt" ] && ! grep -qF '"tap":"macos-intel/tap"' <(tr -d ' \n' < "$receipt"); then
                 brew uninstall --ignore-dependencies "$swap"
               fi
             done
+            # The image also links versioned core siblings of tap formulae
+            # (ruby@3.3 next to the tap's ruby), whose files --overwrite does
+            # not take over from another keg; unlink those.
+            scripts/ci/unlink-siblings.sh "${tap_names[@]}"
             # brew test refuses to run without test dependencies, and neither
             # install nor reinstall adds them unasked. --overwrite: the image
             # links files of other kegs where ours link (bin/openssl belongs

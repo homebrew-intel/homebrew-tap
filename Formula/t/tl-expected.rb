@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@02e642fb33630603a58f53d14d9f3d1e93fc56a7 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/tl-expected.patch.
 class TlExpected < Formula
   desc "C++11/14/17 std::expected with functional-style extensions"
@@ -8,6 +8,11 @@ class TlExpected < Formula
   license "CC0-1.0"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/tl-expected-1.3.1"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "030c2d280c378ca03255e5118d939014783068221bbcb95e65922cc634100aad"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
 

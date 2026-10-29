@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@02e642fb33630603a58f53d14d9f3d1e93fc56a7 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/blake3.patch.
 class Blake3 < Formula
   desc "C implementation of the BLAKE3 cryptographic hash function"
@@ -9,6 +9,11 @@ class Blake3 < Formula
   compatibility_version 1
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/blake3-1.8.7"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "03167764aff8e620e510807dfe79a74491c76dbae4393015e986e925ac000945"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
 

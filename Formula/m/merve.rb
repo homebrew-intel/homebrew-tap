@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/merve.patch.
 class Merve < Formula
   desc "C++ lexer for extracting named exports from CommonJS modules"
@@ -9,6 +9,11 @@ class Merve < Formula
   revision 4
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/merve-1.2.2_4"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "fb849d0b6ff205bd2f62300c018d9ebad6a5ce3b39219cecc1198354f2f96b11"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
   depends_on "macos-intel/tap/simdutf"

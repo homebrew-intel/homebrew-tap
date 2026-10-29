@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/pnpm.patch.
 class Pnpm < Formula
   desc "Fast, disk space efficient package manager"
@@ -17,6 +17,11 @@ class Pnpm < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/pnpm-12.15.0"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "4907164665bf9a5507b87b5f45f76118ff81138be5de766da962d556c9161594"
+  end
 
   depends_on "macos-intel/tap/esbuild" => :build
   depends_on "macos-intel/tap/node" => :build

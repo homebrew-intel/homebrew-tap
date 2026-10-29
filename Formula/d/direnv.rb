@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@cfadc8c8d402d66cc7175918b34bea5c4d0ffa47 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/direnv.patch.
 class Direnv < Formula
   desc "Load/unload environment variables based on $PWD"
@@ -8,6 +8,11 @@ class Direnv < Formula
   license "MIT"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/direnv-2.38.2"
+    rebuild 1
+    sha256 sequoia: "69c386bedd8cd28ccbdac10452337426889262b34e3a7f59e729c0a0caf6719a"
+  end
 
   head do
     url "https://github.com/direnv/direnv.git", branch: "master"

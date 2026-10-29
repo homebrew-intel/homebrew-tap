@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/node.patch.
 class Node < Formula
   desc "Open-source, cross-platform JavaScript runtime environment"
@@ -25,6 +25,11 @@ class Node < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/node-26.12.1_1"
+    rebuild 1
+    sha256 sequoia: "902f06dd5ab40ed563e467597b0b4a9f6f0a0981322cfbb7144176682edf8ea8"
+  end
 
   depends_on "macos-intel/tap/pkgconf" => :build
   depends_on "macos-intel/tap/python@3.15" => :build
