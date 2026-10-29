@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@02e642fb33630603a58f53d14d9f3d1e93fc56a7 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/gnutls.patch.
 class Gnutls < Formula
   desc "GNU Transport Layer Security (TLS) Library"
@@ -34,6 +34,11 @@ class Gnutls < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/gnutls-3.8.13_2"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "8395ac0b4336a83c10e9f4f05252f416ce1ad93d0314c198e8d3dc8300eca0bf"
+  end
 
   depends_on "macos-intel/tap/pkgconf" => :build
   depends_on "texinfo" => :build

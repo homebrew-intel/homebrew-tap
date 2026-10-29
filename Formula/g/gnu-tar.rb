@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@02e642fb33630603a58f53d14d9f3d1e93fc56a7 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/gnu-tar.patch.
 class GnuTar < Formula
   desc "GNU version of the tar archiving utility"
@@ -11,6 +11,11 @@ class GnuTar < Formula
   compatibility_version 1
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/gnu-tar-1.35_1"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "b458d5928978d9545d86cb6126e346ba7a90f554d5e2cd160a7397f34250a1c9"
+  end
 
   head do
     url "https://git.savannah.gnu.org/git/tar.git", branch: "master"

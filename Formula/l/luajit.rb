@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@02e642fb33630603a58f53d14d9f3d1e93fc56a7 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/luajit.patch.
 # NOTE: We have a policy of building only from tagged commits, but make a
 #       singular exception for luajit. This exception will not be extended
@@ -31,6 +31,11 @@ class Luajit < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/luajit-2.1.1792588164"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "a528b3a46e0674076bae86eada7594348c577c9750cb36a4f531b546f3bd2aea"
+  end
 
   deny_network_access!
 

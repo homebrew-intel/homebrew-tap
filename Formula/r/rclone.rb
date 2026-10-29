@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@cfadc8c8d402d66cc7175918b34bea5c4d0ffa47 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/rclone.patch.
 class Rclone < Formula
   desc "Rsync for cloud storage"
@@ -10,6 +10,11 @@ class Rclone < Formula
   head "https://github.com/rclone/rclone.git", branch: "master"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/rclone-1.75.2"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "ac3202138379d63d7ab6c339d704e3e55044ddb06c12a857ca0f1641145f8fa1"
+  end
 
   depends_on "macos-intel/tap/go" => :build
 

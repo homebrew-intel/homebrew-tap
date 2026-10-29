@@ -1,11 +1,11 @@
-# Generated from Homebrew/homebrew-core@9b494b0a09aef39f7448227aa83aa2c13fd8d52e by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/kubernetes-cli.patch.
 class KubernetesCli < Formula
   desc "Kubernetes command-line interface"
   homepage "https://kubernetes.io/docs/reference/kubectl/"
   url "https://github.com/kubernetes/kubernetes.git",
-      tag:      "v1.37.1",
-      revision: "f78e722310e50bcaca9276be22276d9e91d91308"
+      tag:      "v1.37.2",
+      revision: "c50e5395f1ae2d4a2c05f28fdcc38c0916cc1a32"
   license "Apache-2.0"
   head "https://github.com/kubernetes/kubernetes.git", branch: "master"
 
@@ -16,9 +16,8 @@ class KubernetesCli < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/kubernetes-cli-1.37.1"
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, sequoia: "a0e97bc6d238f7ddd47ae5a71e78f943950559366f9324b5d1a2d14c3176dce7"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/kubernetes-cli-1.37.2"
+    sha256 cellar: :any_skip_relocation, sequoia: "7b910b50db5a5023880d607e676766a6672cc89e2eeae83fc6216fd56ee8ef1d"
   end
 
   # TODO: unpin go@1.26 when Go 1.27's ML-DSA ClientHello no longer gets reset by TLS middleboxes

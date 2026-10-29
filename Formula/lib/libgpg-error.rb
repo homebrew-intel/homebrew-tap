@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@02e642fb33630603a58f53d14d9f3d1e93fc56a7 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/libgpg-error.patch.
 class LibgpgError < Formula
   desc "Common error values for all GnuPG components"
@@ -14,6 +14,11 @@ class LibgpgError < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/libgpg-error-1.61"
+    rebuild 1
+    sha256 sequoia: "41fc4bb84f2a1bfe111e21163101c8975cbf5fda65c250ec95e7207079b80ee0"
+  end
 
   on_macos do
     depends_on "macos-intel/tap/gettext"

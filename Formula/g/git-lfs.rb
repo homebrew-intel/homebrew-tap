@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@cfadc8c8d402d66cc7175918b34bea5c4d0ffa47 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/git-lfs.patch.
 class GitLfs < Formula
   desc "Git extension for versioning large files"
@@ -16,6 +16,11 @@ class GitLfs < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/git-lfs-3.8.1"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "dbae22e95507bec4ec9a8ab797ba11522d52d518e2f833a6663db67b660f0a1e"
+  end
 
   depends_on "macos-intel/tap/asciidoctor" => :build
   depends_on "macos-intel/tap/go" => :build

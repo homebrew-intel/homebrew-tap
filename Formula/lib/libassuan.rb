@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@02e642fb33630603a58f53d14d9f3d1e93fc56a7 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/libassuan.patch.
 class Libassuan < Formula
   desc "Assuan IPC Library"
@@ -19,6 +19,11 @@ class Libassuan < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/libassuan-3.0.2"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "2b8371b9d12be336b5d23d8c1b68f553f14b7a331c65e5415b1ab88e583ffe14"
+  end
 
   depends_on "macos-intel/tap/libgpg-error"
 

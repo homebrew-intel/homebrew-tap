@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@02e642fb33630603a58f53d14d9f3d1e93fc56a7 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/ccache.patch.
 class Ccache < Formula
   desc "Object-file caching compiler wrapper"
@@ -10,6 +10,11 @@ class Ccache < Formula
   head "https://github.com/ccache/ccache.git", branch: "master"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/ccache-4.14.2"
+    rebuild 1
+    sha256 sequoia: "aa0b753a13804d87e270c8be1e6df632d8828409034e27a594e9003ea9caaac0"
+  end
 
   depends_on "macos-intel/tap/asciidoctor" => :build
   depends_on "macos-intel/tap/cmake" => :build

@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@02e642fb33630603a58f53d14d9f3d1e93fc56a7 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/p11-kit.patch.
 class P11Kit < Formula
   desc "Library to load and enumerate PKCS#11 modules"
@@ -10,6 +10,11 @@ class P11Kit < Formula
   head "https://github.com/p11-glue/p11-kit.git", branch: "master"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/p11-kit-0.26.5"
+    rebuild 1
+    sha256 sequoia: "9ee7d107c3c75f60f8460165bdcbe4b87fa9fa3f9ad24d697ea072becd62c294"
+  end
 
   depends_on "macos-intel/tap/meson" => :build
   depends_on "macos-intel/tap/ninja" => :build

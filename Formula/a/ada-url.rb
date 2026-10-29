@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@726b46e5846b7a2f6a5fc241fc60b06a3b8b0c71 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/ada-url.patch.
 class AdaUrl < Formula
   desc "WHATWG-compliant and fast URL parser written in modern C++"
@@ -11,6 +11,11 @@ class AdaUrl < Formula
   head "https://github.com/ada-url/ada.git", branch: "main"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/ada-url-4.0.0_1"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "3a88a1b0922361cc3ed80475845719f6af48fed00ac7ff5615e43b1d7d436d25"
+  end
 
   depends_on "macos-intel/tap/cmake" => :build
   depends_on "macos-intel/tap/cxxopts" => :build

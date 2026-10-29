@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@cfadc8c8d402d66cc7175918b34bea5c4d0ffa47 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/nmap.patch.
 class Nmap < Formula
   desc "Port scanning utility for large networks"
@@ -14,6 +14,11 @@ class Nmap < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/nmap-7.993"
+    rebuild 1
+    sha256 sequoia: "5d4ffeb417169c0731a4a4c5375374d4df901898fb7e6172650db9ce7c04c4af"
+  end
 
   head do
     url "https://svn.nmap.org/nmap/"

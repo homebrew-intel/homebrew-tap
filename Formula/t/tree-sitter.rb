@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@02e642fb33630603a58f53d14d9f3d1e93fc56a7 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/tree-sitter.patch.
 class TreeSitter < Formula
   desc "Incremental parsing library"
@@ -15,6 +15,11 @@ class TreeSitter < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/tree-sitter-0.27.1"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "5607cbf83a72041f1645346e49a3378479abe17cfa659a0ca11aa227dd3510da"
+  end
 
   deny_network_access!
 

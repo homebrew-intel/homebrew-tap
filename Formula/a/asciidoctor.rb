@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@02e642fb33630603a58f53d14d9f3d1e93fc56a7 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/asciidoctor.patch.
 class Asciidoctor < Formula
   desc "Text processor and publishing toolchain for AsciiDoc"
@@ -8,6 +8,11 @@ class Asciidoctor < Formula
   license "MIT"
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/asciidoctor-2.0.26"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, sequoia: "5b7faa38cdb3558e5aca1bdb71020759ec64f9965e67659af8762de3b88d10a3"
+  end
 
   # Some gems require >= ruby 2.7
   depends_on "macos-intel/tap/ruby"
