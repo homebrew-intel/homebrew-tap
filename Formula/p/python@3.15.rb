@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@95d9ee8feaa6d110f0f98cd761d2102a69b83ce2 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@8701235251a995187352bd621a2f182a1127fa8c by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/python@3.15.patch.
 class PythonAT315 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
@@ -6,6 +6,7 @@ class PythonAT315 < Formula
   url "https://www.python.org/ftp/python/3.15.2/Python-3.15.2.tgz"
   sha256 "f74e1db0eabd651cd01e4e2a00201bd41866abe74869ab716f9bf33cbbaa0943"
   license "Python-2.0"
+  compatibility_version 1
 
   livecheck do
     url "https://www.python.org/downloads/source/"
