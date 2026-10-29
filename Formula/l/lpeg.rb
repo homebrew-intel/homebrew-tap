@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@02e642fb33630603a58f53d14d9f3d1e93fc56a7 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@8701235251a995187352bd621a2f182a1127fa8c by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/lpeg.patch.
 class Lpeg < Formula
   desc "Parsing Expression Grammars For Lua"
@@ -16,6 +16,11 @@ class Lpeg < Formula
   end
 
   # bottle block: written by brew pr-pull
+  bottle do
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/lpeg-1.1.0_2"
+    rebuild 1
+    sha256 cellar: :any, sequoia: "becdde426541e5414064a37e02688be145a42df484aaaa8320586925c688e593"
+  end
 
   depends_on "lua" => [:build, :test]
   depends_on "macos-intel/tap/luajit" => [:build, :test]
