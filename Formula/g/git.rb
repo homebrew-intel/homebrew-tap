@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@a2dee8ba714e60f35a4edf44c77561d60ac92a1a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@8701235251a995187352bd621a2f182a1127fa8c by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/git.patch.
 class Git < Formula
   desc "Distributed revision control system"
@@ -12,7 +12,7 @@ class Git < Formula
     "BSD-3-Clause",      # xdiff/xhistogram.c; reftable/
     "MIT",               # khash.h; sha1dc/
   ]
-  revision 1
+  revision 2
   compatibility_version 1
   head "https://github.com/git/git.git", branch: "master"
 
@@ -23,16 +23,16 @@ class Git < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/git-2.56.0_1"
-    rebuild 2
-    sha256 sequoia: "cc02389b87472cb61a1699649eb11be14b380076b7e32d61f4faf7db2ece3a12"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/git-2.56.0_2"
+    sha256 sequoia: "c63ebf734d27fd74e16b78036a332dbe39a5e9ee62b39bdc542970348f8e5d39"
   end
 
   depends_on "macos-intel/tap/gettext" => :build
   depends_on "macos-intel/tap/pkgconf" => :build
+  # TODO: Replace with `uses_from_macos` once Apple fixes their CA bundle.
+  depends_on "macos-intel/tap/curl"
   depends_on "macos-intel/tap/pcre2"
 
-  uses_from_macos "curl"
   uses_from_macos "expat"
 
   # Don't try to add a libiconv dependency without reading this PR first:

@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@8701235251a995187352bd621a2f182a1127fa8c by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/libuv.patch.
 class Libuv < Formula
   include Language::Python::Virtualenv
@@ -19,8 +19,8 @@ class Libuv < Formula
   # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/macos-intel/homebrew-tap/releases/download/libuv-1.53.0"
-    rebuild 1
-    sha256 cellar: :any, sequoia: "650d4c2f280e97c87a99506b9872c8f4a5925ada3a39eb787752d7309bd23b32"
+    rebuild 2
+    sha256 cellar: :any, sequoia: "8bf094aa0be9f85940bb09b4bc14e4201304f0ce29a970b5b00d3de5bffddeda"
   end
 
   depends_on "macos-intel/tap/cmake" => :build

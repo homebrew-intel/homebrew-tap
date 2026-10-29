@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@152c85d1b9fe5e586bc14ee64a31142052614d4c by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@8701235251a995187352bd621a2f182a1127fa8c by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/libgit2.patch.
 class Libgit2 < Formula
   desc "C library of Git core methods that is re-entrant and linkable"
@@ -18,8 +18,8 @@ class Libgit2 < Formula
   # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/macos-intel/homebrew-tap/releases/download/libgit2-1.9.7_2"
-    rebuild 1
-    sha256 cellar: :any, sequoia: "09d544e7c55d3b4129b4f2e665c7184feffe472209133545be87903de89c2722"
+    rebuild 2
+    sha256 cellar: :any, sequoia: "00c93d7f9c70476dccb6d6219012e060e44103082f3d6541b630878e74b03159"
   end
 
   depends_on "macos-intel/tap/cmake" => :build

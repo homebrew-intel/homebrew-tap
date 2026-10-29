@@ -1,15 +1,14 @@
-# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@8701235251a995187352bd621a2f182a1127fa8c by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/node.patch.
 class Node < Formula
   desc "Open-source, cross-platform JavaScript runtime environment"
   homepage "https://nodejs.org/"
   license "MIT"
-  revision 1
   head "https://github.com/nodejs/node.git", branch: "main"
 
   stable do
-    url "https://nodejs.org/dist/v26.12.1/node-v26.12.1.tar.xz"
-    sha256 "053e3b296859b6d8d93f99ef97fa9cec1c4ee171c72968100c649978c1dbd38c"
+    url "https://nodejs.org/dist/v26.13.0/node-v26.13.0.tar.xz"
+    sha256 "263f639ecfa7a17b49438d76cdbf9aff73179e3c7cb789da69b900718427fa2e"
 
     # https://github.com/v8/v8/commit/f607706154eabc4a949628a88b38dbe95cd2274c
     patch do
@@ -26,9 +25,8 @@ class Node < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/node-26.12.1_1"
-    rebuild 1
-    sha256 sequoia: "902f06dd5ab40ed563e467597b0b4a9f6f0a0981322cfbb7144176682edf8ea8"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/node-26.13.0"
+    sha256 sequoia: "3b9c7b33793ee8139ff79d1645d0d548a69d97dec1e17d0e77cc30142368b179"
   end
 
   depends_on "macos-intel/tap/pkgconf" => :build

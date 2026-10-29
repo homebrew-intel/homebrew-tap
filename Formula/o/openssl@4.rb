@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@e8ef0108242be8280a06fd3349f2d00563388f70 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@8701235251a995187352bd621a2f182a1127fa8c by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/openssl@4.patch.
 class OpensslAT4 < Formula
   desc "Cryptography and SSL/TLS Toolkit"
@@ -7,6 +7,7 @@ class OpensslAT4 < Formula
   mirror "http://fresh-center.net/linux/misc/openssl-4.1.0.tar.gz"
   sha256 "50c17baf54cb008f6ce42d50deb4b28050a1aad711636cabd4b241c7e90cc2fd"
   license "Apache-2.0"
+  compatibility_version 1
 
   livecheck do
     url "https://openssl-library.org/source/"
