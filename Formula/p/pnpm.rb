@@ -1,10 +1,10 @@
-# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@8701235251a995187352bd621a2f182a1127fa8c by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/pnpm.patch.
 class Pnpm < Formula
   desc "Fast, disk space efficient package manager"
   homepage "https://pnpm.io/"
-  url "https://github.com/pnpm/pnpm/archive/refs/tags/v12.15.0.tar.gz"
-  sha256 "a4e58c4bc5113d4539463a7f65708032f7dc8b8b6c4106675c8e2a7e08c754b8"
+  url "https://github.com/pnpm/pnpm/archive/refs/tags/v12.16.1.tar.gz"
+  sha256 "baaffdb2671a414882d13379d978339a58a9e66fe099f1f00f05a47b6232322c"
   license "MIT"
   compatibility_version 1
   head "https://github.com/pnpm/pnpm.git", branch: "main"
@@ -18,9 +18,8 @@ class Pnpm < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/pnpm-12.15.0"
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, sequoia: "4907164665bf9a5507b87b5f45f76118ff81138be5de766da962d556c9161594"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/pnpm-12.16.1"
+    sha256 cellar: :any_skip_relocation, sequoia: "beaef08d7f16a47db3ece419beb34bb23766b6642b093cbf718ebbaa2aec6de1"
   end
 
   depends_on "macos-intel/tap/esbuild" => :build
