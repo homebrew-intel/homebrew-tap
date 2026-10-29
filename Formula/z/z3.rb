@@ -1,10 +1,10 @@
-# Generated from Homebrew/homebrew-core@95d9ee8feaa6d110f0f98cd761d2102a69b83ce2 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@fe327689718ab572568e8f8ad243278382571680 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/z3.patch.
 class Z3 < Formula
   desc "High-performance theorem prover"
   homepage "https://github.com/Z3Prover/z3"
-  url "https://github.com/Z3Prover/z3/archive/refs/tags/z3-5.3.2.tar.gz"
-  sha256 "df91b87822f5f8b6710af1f2419ba98758cd647dee3a8f0d070f128b47024dbe"
+  url "https://github.com/Z3Prover/z3/archive/refs/tags/z3-5.3.3.tar.gz"
+  sha256 "f8373e6a753da6e336f0955fca65c7a56346f3de68a56fd353acb4abf33d4823"
   license "MIT"
   compatibility_version 5
   head "https://github.com/Z3Prover/z3.git", branch: "master"
@@ -17,9 +17,8 @@ class Z3 < Formula
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/z3-5.3.2"
-    rebuild 1
-    sha256 cellar: :any, sequoia: "db2ce6c526c37ab447100a132b5d23bdea6c2d40805c9d209572f408dc0675be"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/z3-5.3.3"
+    sha256 cellar: :any, sequoia: "883e815f32ad197d199b58426a1fa61226522a400b18fc5b9cf944f1c7ce52a9"
   end
 
   depends_on "macos-intel/tap/cmake" => :build
