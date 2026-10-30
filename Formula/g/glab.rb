@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@8701235251a995187352bd621a2f182a1127fa8c by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/glab.patch.
 class Glab < Formula
   desc "Open-source GitLab command-line tool"
@@ -7,6 +7,7 @@ class Glab < Formula
     tag:      "v1.126.0",
     revision: "4dd0d32d18361db6c1c668eb4ac691c0d6edf255"
   license "MIT"
+  compatibility_version 1
   head "https://gitlab.com/gitlab-org/cli.git", branch: "main"
 
   # bottle block: written by brew pr-pull
