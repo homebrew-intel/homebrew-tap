@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/kubernetes-cli.patch.
 class KubernetesCli < Formula
   desc "Kubernetes command-line interface"
@@ -7,6 +7,7 @@ class KubernetesCli < Formula
       tag:      "v1.37.2",
       revision: "c50e5395f1ae2d4a2c05f28fdcc38c0916cc1a32"
   license "Apache-2.0"
+  compatibility_version 1
   head "https://github.com/kubernetes/kubernetes.git", branch: "master"
 
   livecheck do
