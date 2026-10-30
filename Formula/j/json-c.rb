@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@a2dee8ba714e60f35a4edf44c77561d60ac92a1a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/json-c.patch.
 class JsonC < Formula
   desc "JSON parser for C"
@@ -6,6 +6,7 @@ class JsonC < Formula
   url "https://s3.amazonaws.com/json-c_releases/releases/json-c-0.19.tar.gz"
   sha256 "37ad0249902e301bd9052bf712e511fcc6acff4ecaad4b5900aad9ce564e26de"
   license "MIT"
+  compatibility_version 1
   head "https://github.com/json-c/json-c.git", branch: "master"
 
   livecheck do
