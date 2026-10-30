@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@f2fa4540ee4fc41c70a3c94df121528a11c17cb6 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/helm.patch.
 class Helm < Formula
   desc "Kubernetes package manager"
@@ -7,6 +7,7 @@ class Helm < Formula
       tag:      "v4.3.1",
       revision: "c0d08d0d6d9424d4a14febb5e8a3e51b0dd00dff"
   license "Apache-2.0"
+  compatibility_version 1
   head "https://github.com/helm/helm.git", branch: "main"
 
   # bottle block: written by brew pr-pull
