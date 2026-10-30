@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@a2dee8ba714e60f35a4edf44c77561d60ac92a1a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/lz4.patch.
 class Lz4 < Formula
   desc "Extremely Fast Compression algorithm"
@@ -8,6 +8,7 @@ class Lz4 < Formula
   mirror "http://fresh-center.net/linux/misc/legacy/lz4-1.10.0.tar.gz"
   sha256 "537512904744b35e232912055ccf8ec66d768639ff3abe5788d90d792ec5f48b"
   license "BSD-2-Clause"
+  compatibility_version 1
   head "https://github.com/lz4/lz4.git", branch: "dev"
 
   livecheck do
