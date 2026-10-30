@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/span-lite.patch.
 class SpanLite < Formula
   desc "C++20-like span for C++98, C++11 and later in a single-file header-only library"
@@ -6,6 +6,7 @@ class SpanLite < Formula
   url "https://github.com/nonstd-lite/span-lite/archive/refs/tags/v0.11.0.tar.gz"
   sha256 "ef4e028e18ff21044da4b4641ca1bc8a2e2d656e2028322876c0e1b9b6904f9d"
   license "BSL-1.0"
+  compatibility_version 1
   head "https://github.com/nonstd-lite/span-lite.git", branch: "master"
 
   # bottle block: written by brew pr-pull
