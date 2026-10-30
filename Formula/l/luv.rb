@@ -1,19 +1,18 @@
-# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@c48d966391c9a986cd8c7ba7f0c59e62a40d91d4 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/luv.patch.
 class Luv < Formula
   desc "Bare libuv bindings for lua"
   homepage "https://github.com/luvit/luv"
-  url "https://github.com/luvit/luv/archive/refs/tags/1.53.0-0.tar.gz"
-  sha256 "bd393b5918f320c79a2c6405e3abebe01c024557c32b9fb9006bee20ce71e19e"
+  url "https://github.com/luvit/luv/archive/refs/tags/1.53.0-1.tar.gz"
+  sha256 "e7d7c872637560e9e9ac0cdcaad1b06c4058152fb0eb9d039f38612b183d01a7"
   license "Apache-2.0"
   compatibility_version 1
   head "https://github.com/luvit/luv.git", branch: "master"
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/luv-1.53.0-0"
-    rebuild 1
-    sha256 cellar: :any, sequoia: "045bab0da56c38fd6fd75ea0e2d327644e699bcba7d00eadc4e4a3eec9c241fb"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/luv-1.53.0-1"
+    sha256 cellar: :any, sequoia: "1669ef00971f50e86860baed41036463c8c838a0cf613e2020b84552e16cbea6"
   end
 
   depends_on "lua" => [:build, :test]

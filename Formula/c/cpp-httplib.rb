@@ -1,17 +1,16 @@
-# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@c48d966391c9a986cd8c7ba7f0c59e62a40d91d4 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/cpp-httplib.patch.
 class CppHttplib < Formula
   desc "C++ header-only HTTP/HTTPS server and client library"
   homepage "https://yhirose.github.io/cpp-httplib/"
-  url "https://github.com/yhirose/cpp-httplib/archive/refs/tags/v0.63.0.tar.gz"
-  sha256 "44ab42e16926e95f7641d286bc90d739ab1c16886114d7cc5bc7a9f905c5edf8"
+  url "https://github.com/yhirose/cpp-httplib/archive/refs/tags/v0.64.0.tar.gz"
+  sha256 "1ada413782af5e67e80452c39b7c90beb6fa4fc8341e18c0896bf95684b9a620"
   license "MIT"
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/cpp-httplib-0.63.0"
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, sequoia: "60da3f2173a0aa8df561802d522a756d145e24c06363b8f395919a410f387cfe"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/cpp-httplib-0.64.0"
+    sha256 cellar: :any_skip_relocation, sequoia: "ffad06ca82083739c572d2dbbb35ad0b3679ef353101de80b3606068748aed8d"
   end
 
   depends_on "macos-intel/tap/cmake" => :build

@@ -1,19 +1,19 @@
-# Generated from Homebrew/homebrew-core@8701235251a995187352bd621a2f182a1127fa8c by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@c48d966391c9a986cd8c7ba7f0c59e62a40d91d4 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/pipx.patch.
 class Pipx < Formula
   include Language::Python::Virtualenv
 
   desc "Execute binaries from Python packages in isolated environments"
   homepage "https://pipx.pypa.io"
-  url "https://files.pythonhosted.org/packages/d9/48/135b5ce453bdee14f5a7a20a432ec7bb51a079c0f3a85b011a68b9f25ebe/pipx-1.18.7.tar.gz"
-  sha256 "cdeac1c999977b1847bbbff6b39c14a7d27cf2284dddc911d4410bcaec4ccec4"
+  url "https://files.pythonhosted.org/packages/4a/c6/c4217ce3afe3eb98e4691f4169b12cfffbf67ae6ac9f53aefb1b4a68e41a/pipx-1.18.9.tar.gz"
+  sha256 "7f85f40e5fb7a7edc367dff92c7dcd511aecfb17ccbef070a8a1ea067ecc1a49"
   license "MIT"
   head "https://github.com/pypa/pipx.git", branch: "main"
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/pipx-1.18.7"
-    sha256 cellar: :any_skip_relocation, sequoia: "482b61db086d124e36ffe8f082541bab4f018ff49f4f3278acb2823613736257"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/pipx-1.18.9"
+    sha256 cellar: :any_skip_relocation, sequoia: "dbd1ff752a5f0a41e74055afa1b4b9d200b052d4239c0072c6bd26e788237efc"
   end
 
   depends_on "macos-intel/tap/python@3.15"
@@ -39,8 +39,8 @@ class Pipx < Formula
   end
 
   resource "platformdirs" do
-    url "https://files.pythonhosted.org/packages/35/e9/bf409046a91b6a9ca652e9b0ac3c39481674f6774e23e58b52315516099a/platformdirs-4.13.7.tar.gz"
-    sha256 "f7f351c027d6632c30471124e1fdb6ac0fef9ccc5cbac1b34cb333431b1fc3e1"
+    url "https://files.pythonhosted.org/packages/40/28/1c058a9143d2304b3078f8dadcbb9dc27f7d3581b5d05157c84869c4cc0d/platformdirs-4.14.0.tar.gz"
+    sha256 "83f009c1e8c5fc36869b5171755b291887bd2cade7965233cdfabd23d754720b"
   end
 
   resource "userpath" do
