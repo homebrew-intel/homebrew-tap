@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/unibilium.patch.
 class Unibilium < Formula
   desc "Very basic terminfo library"
@@ -6,6 +6,7 @@ class Unibilium < Formula
   url "https://github.com/neovim/unibilium/archive/refs/tags/v2.1.4.tar.gz"
   sha256 "7360907bcf79ba49f6fc4a504767ff86e93ab9018477026fcc70d5ab77e1f2c1"
   license "LGPL-3.0-or-later"
+  compatibility_version 1
 
   # bottle block: written by brew pr-pull
   bottle do
