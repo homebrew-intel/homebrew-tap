@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@f062e136e50c0265b9c287427b6e6c38d43e0da2 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/docker.patch.
 class Docker < Formula
   desc "Pack, ship and run any application as a lightweight container"
@@ -7,6 +7,7 @@ class Docker < Formula
       tag:      "v29.9.2",
       revision: "a82e528901260c8df6073311379eac65f92db204"
   license "Apache-2.0"
+  compatibility_version 1
   head "https://github.com/docker/cli.git", branch: "master"
 
   livecheck do

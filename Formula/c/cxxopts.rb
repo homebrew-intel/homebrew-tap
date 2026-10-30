@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/cxxopts.patch.
 class Cxxopts < Formula
   desc "Lightweight C++ command-line option parser"
@@ -6,6 +6,7 @@ class Cxxopts < Formula
   url "https://github.com/jarro2783/cxxopts/archive/refs/tags/v3.3.1.tar.gz"
   sha256 "3bfc70542c521d4b55a46429d808178916a579b28d048bd8c727ee76c39e2072"
   license "MIT"
+  compatibility_version 1
   head "https://github.com/jarro2783/cxxopts.git", branch: "master"
 
   # bottle block: written by brew pr-pull

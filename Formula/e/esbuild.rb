@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/esbuild.patch.
 class Esbuild < Formula
   desc "Extremely fast JavaScript bundler and minifier"
@@ -6,6 +6,7 @@ class Esbuild < Formula
   url "https://github.com/evanw/esbuild/archive/refs/tags/v0.28.2.tar.gz"
   sha256 "300162f899361d9f0263065f8728ef9086dcfc1a3d36bcbc4e0abe5de9c58bf8"
   license "MIT"
+  compatibility_version 1
   head "https://github.com/evanw/esbuild.git", branch: "main"
 
   # bottle block: written by brew pr-pull

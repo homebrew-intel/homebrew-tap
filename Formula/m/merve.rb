@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/merve.patch.
 class Merve < Formula
   desc "C++ lexer for extracting named exports from CommonJS modules"
@@ -7,6 +7,7 @@ class Merve < Formula
   sha256 "8f19c2132447b9113545ffd399cb2bc1e61c6166743921b04883f8e1d778d69e"
   license "Apache-2.0"
   revision 4
+  compatibility_version 1
 
   # bottle block: written by brew pr-pull
   bottle do

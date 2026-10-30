@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/doctest.patch.
 class Doctest < Formula
   desc "Feature-rich C++11/14/17/20/23 single-header testing framework"
@@ -6,6 +6,7 @@ class Doctest < Formula
   url "https://github.com/doctest/doctest/archive/refs/tags/v2.5.3.tar.gz"
   sha256 "174ebc4e769928959614789c5b4e9c3d0a0f81a62bb608756b127bfebfb21331"
   license "MIT"
+  compatibility_version 1
 
   # bottle block: written by brew pr-pull
   bottle do

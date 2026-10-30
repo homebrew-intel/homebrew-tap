@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@95d9ee8feaa6d110f0f98cd761d2102a69b83ce2 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/just.patch.
 class Just < Formula
   desc "Handy way to save and run project-specific commands"
@@ -6,6 +6,7 @@ class Just < Formula
   url "https://github.com/casey/just/archive/refs/tags/1.59.0.tar.gz"
   sha256 "20f876880851f1cc67fc7eb7589c7f7ccaa7612d827feac75797cf4a6ed729aa"
   license "CC0-1.0"
+  compatibility_version 1
   head "https://github.com/casey/just.git", branch: "master"
 
   livecheck do

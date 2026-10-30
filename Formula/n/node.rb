@@ -1,10 +1,11 @@
-# Generated from Homebrew/homebrew-core@c48d966391c9a986cd8c7ba7f0c59e62a40d91d4 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/node.patch.
 class Node < Formula
   desc "Open-source, cross-platform JavaScript runtime environment"
   homepage "https://nodejs.org/"
   license "MIT"
   revision 1
+  compatibility_version 1
   head "https://github.com/nodejs/node.git", branch: "main"
 
   stable do

@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/sphinx-doc.patch.
 class SphinxDoc < Formula
   include Language::Python::Virtualenv
@@ -8,6 +8,7 @@ class SphinxDoc < Formula
   url "https://files.pythonhosted.org/packages/64/d4/413466f0be8b1cb0e3e43893a148b96d7462d0923d82b4166b21afc5f30c/sphinx-9.2.0.tar.gz"
   sha256 "90470459f3cab15d9dfed146c71cf77694b0445df17b2e0e69059cb9f7fc9ee4"
   license "BSD-2-Clause"
+  compatibility_version 1
   head "https://github.com/sphinx-doc/sphinx.git", branch: "master"
 
   # bottle block: written by brew pr-pull

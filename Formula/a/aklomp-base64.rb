@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/aklomp-base64.patch.
 class AklompBase64 < Formula
   desc "Fast Base64 stream encoder/decoder in C99, with SIMD acceleration"
@@ -6,6 +6,7 @@ class AklompBase64 < Formula
   url "https://github.com/aklomp/base64/archive/refs/tags/v0.5.2.tar.gz"
   sha256 "723a0f9f4cf44cf79e97bcc315ec8f85e52eb104c8882942c3f2fba95acc080d"
   license "BSD-2-Clause"
+  compatibility_version 1
 
   # bottle block: written by brew pr-pull
   bottle do

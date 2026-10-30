@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@c48d966391c9a986cd8c7ba7f0c59e62a40d91d4 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/cpp-httplib.patch.
 class CppHttplib < Formula
   desc "C++ header-only HTTP/HTTPS server and client library"
@@ -6,6 +6,7 @@ class CppHttplib < Formula
   url "https://github.com/yhirose/cpp-httplib/archive/refs/tags/v0.64.0.tar.gz"
   sha256 "1ada413782af5e67e80452c39b7c90beb6fa4fc8341e18c0896bf95684b9a620"
   license "MIT"
+  compatibility_version 1
 
   # bottle block: written by brew pr-pull
   bottle do

@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@5dc8e789d823006a4b7ca94336645ae3f3b248f5 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/oniguruma.patch.
 class Oniguruma < Formula
   desc "Regular expressions library"
@@ -6,6 +6,7 @@ class Oniguruma < Formula
   url "https://github.com/kkos/oniguruma/releases/download/v6.9.10/onig-6.9.10.tar.gz"
   sha256 "2a5cfc5ae259e4e97f86b68dfffc152cdaffe94e2060b770cb827238d769fc05"
   license "BSD-2-Clause"
+  compatibility_version 1
   head "https://github.com/kkos/oniguruma.git", branch: "master"
 
   livecheck do

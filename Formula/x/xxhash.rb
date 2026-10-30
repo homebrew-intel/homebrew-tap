@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/xxhash.patch.
 class Xxhash < Formula
   desc "Extremely fast non-cryptographic hash algorithm"
@@ -9,6 +9,7 @@ class Xxhash < Formula
     "BSD-2-Clause", # library
     "GPL-2.0-or-later", # `xxhsum` command line utility
   ]
+  compatibility_version 1
 
   livecheck do
     url :stable

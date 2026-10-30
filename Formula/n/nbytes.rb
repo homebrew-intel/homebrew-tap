@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/nbytes.patch.
 class Nbytes < Formula
   desc "Library of byte handling functions extracted from Node.js core"
@@ -6,6 +6,7 @@ class Nbytes < Formula
   url "https://github.com/nodejs/nbytes/archive/refs/tags/v0.1.4.tar.gz"
   sha256 "67f4b8363f12abb64c07a0cecf2bf2dce7ab47b5f8b9fd2efdb852ea254c2d40"
   license "MIT"
+  compatibility_version 1
 
   # bottle block: written by brew pr-pull
   bottle do

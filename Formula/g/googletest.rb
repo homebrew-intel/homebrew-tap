@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@076d5c47d8f3f6f762744b6f02e93b19d784f0bf by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/googletest.patch.
 class Googletest < Formula
   desc "Google Testing and Mocking Framework"
@@ -6,6 +6,7 @@ class Googletest < Formula
   url "https://github.com/google/googletest/archive/refs/tags/v1.18.0.tar.gz"
   sha256 "6e3191c1455468b3fc35a417fb565c1c5071aee1b7e7f85e30cf48a98d37d8b5"
   license "BSD-3-Clause"
+  compatibility_version 1
   head "https://github.com/google/googletest.git", branch: "main"
 
   # bottle block: written by brew pr-pull

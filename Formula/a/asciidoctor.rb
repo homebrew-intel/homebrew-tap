@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/asciidoctor.patch.
 class Asciidoctor < Formula
   desc "Text processor and publishing toolchain for AsciiDoc"
@@ -6,6 +6,7 @@ class Asciidoctor < Formula
   url "https://github.com/asciidoctor/asciidoctor/archive/refs/tags/v2.0.26.tar.gz"
   sha256 "25c22b934bc0ae2448f2d73d4b2eba0c59e0521cf5e893fb0b0ad54a461bf066"
   license "MIT"
+  compatibility_version 1
 
   # bottle block: written by brew pr-pull
   bottle do
