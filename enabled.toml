@@ -138,3 +138,28 @@ kind = "generated"
 
 [formula.rclone]
 kind = "generated"
+
+[formula.openjdk]
+kind = "patched"
+base = "2d52dc6671cddf66a3bee75aa2b2b68236894664"
+
+[formula.pandoc]
+kind = "generated"
+
+[formula.rumdl]
+kind = "generated"
+
+[formula.maven]
+kind = "generated"
+
+[formula.gradle]
+kind = "generated"
+
+[formula.pkl]
+kind = "generated"
+
+[formula.sonar-scanner]
+kind = "generated"
+
+[formula.hk]
+kind = "generated"

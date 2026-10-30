@@ -1,0 +1,28 @@
+--- a/Formula/o/openjdk.rb
++++ b/Formula/o/openjdk.rb
+@@ -32,7 +32,6 @@
+ 
+   on_macos do
+     depends_on xcode: :build # for metal
+-    depends_on arch: :arm64
+   end
+ 
+   on_linux do
+@@ -51,8 +50,15 @@
+   # From https://jdk.java.net/archive/
+   resource "boot-jdk" do
+     on_macos do
+-      url "https://download.java.net/java/GA/jdk27/55ce5470a6294008af0057ff4626d0e5/35/GPL/openjdk-27_macos-aarch64_bin.tar.gz"
+-      sha256 "ff42134c1bc5ac81c5a91a95fd4df87479db5d0499ba875d6adb5bda5626c3e8"
++      on_arm do
++        url "https://download.java.net/java/GA/jdk27/55ce5470a6294008af0057ff4626d0e5/35/GPL/openjdk-27_macos-aarch64_bin.tar.gz"
++        sha256 "ff42134c1bc5ac81c5a91a95fd4df87479db5d0499ba875d6adb5bda5626c3e8"
++      end
++      # jdk.java.net ships no macOS x64 build of JDK 27; JDK 26 is a valid (N-1) boot JDK.
++      on_intel do
++        url "https://download.java.net/java/GA/jdk26.0.2.1/3b8e6c7ec6274148a7aa15e7e7dfb53c/1/GPL/openjdk-26.0.2.1_macos-x64_bin.tar.gz"
++        sha256 "5ec3817530ffa1c38f15a55609a2767335bbd0c59ea8ce41aad68d3cd620c0ae"
++      end
+     end
+     on_linux do
+       on_arm do

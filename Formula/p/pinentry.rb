@@ -28,8 +28,8 @@ class Pinentry < Formula
   uses_from_macos "ncurses"
 
   on_linux do
-    depends_on "glib"
     depends_on "libsecret"
+    depends_on "macos-intel/tap/glib"
   end
 
   def install
