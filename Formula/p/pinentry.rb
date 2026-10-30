@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@7913402d27bc6fb622ffe866bad75f810d0d3858 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/pinentry.patch.
 class Pinentry < Formula
   desc "Passphrase entry dialog utilizing the Assuan protocol"
@@ -17,8 +17,8 @@ class Pinentry < Formula
   # bottle block: written by brew pr-pull
   bottle do
     root_url "https://github.com/macos-intel/homebrew-tap/releases/download/pinentry-1.3.3"
-    rebuild 1
-    sha256 cellar: :any, sequoia: "e805208b0f6f3c5292ebc851243db3c5848bd7afe2ed9900f43bf1355c2eb168"
+    rebuild 2
+    sha256 cellar: :any, sequoia: "aefcb9bf0cf9174823040add6aa970d6f633e805c5c7a5f3b35863bc6f29ecec"
   end
 
   depends_on "macos-intel/tap/pkgconf" => :build
