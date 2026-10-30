@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@bee15277559640637059d39ec4a0ea534332440a by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/tl-expected.patch.
 class TlExpected < Formula
   desc "C++11/14/17 std::expected with functional-style extensions"
@@ -6,6 +6,7 @@ class TlExpected < Formula
   url "https://github.com/TartanLlama/expected/archive/refs/tags/v1.3.1.tar.gz"
   sha256 "9a04f4f472fbb5c30bf60402f1ca626c4a76987f867978d0b8a35d7ab3fb8fe7"
   license "CC0-1.0"
+  compatibility_version 1
 
   # bottle block: written by brew pr-pull
   bottle do
