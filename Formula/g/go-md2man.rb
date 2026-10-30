@@ -1,4 +1,4 @@
-# Generated from Homebrew/homebrew-core@9b494b0a09aef39f7448227aa83aa2c13fd8d52e by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@34b9bceef03fee96aaa8ead8efc5c058ffe37de9 by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/go-md2man.patch.
 class GoMd2man < Formula
   desc "Converts markdown into roff (man pages)"
@@ -6,6 +6,7 @@ class GoMd2man < Formula
   url "https://github.com/cpuguy83/go-md2man/archive/refs/tags/v2.0.7.tar.gz"
   sha256 "ca3a5b57e2c01759f5a00ad2a578d034c5370fae9aa7a6c3af5648b2fc802a92"
   license "MIT"
+  compatibility_version 1
   head "https://github.com/cpuguy83/go-md2man.git", branch: "master"
 
   # bottle block: written by brew pr-pull
