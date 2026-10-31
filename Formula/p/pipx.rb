@@ -1,19 +1,19 @@
-# Generated from Homebrew/homebrew-core@c48d966391c9a986cd8c7ba7f0c59e62a40d91d4 by scripts/tap/render.py; do not edit.
+# Generated from Homebrew/homebrew-core@321c05452de8fa2ed952345b2f60e05b1cd5c56e by scripts/tap/render.py; do not edit.
 # Hand-written changes belong in patches/pipx.patch.
 class Pipx < Formula
   include Language::Python::Virtualenv
 
   desc "Execute binaries from Python packages in isolated environments"
   homepage "https://pipx.pypa.io"
-  url "https://files.pythonhosted.org/packages/4a/c6/c4217ce3afe3eb98e4691f4169b12cfffbf67ae6ac9f53aefb1b4a68e41a/pipx-1.18.9.tar.gz"
-  sha256 "7f85f40e5fb7a7edc367dff92c7dcd511aecfb17ccbef070a8a1ea067ecc1a49"
+  url "https://files.pythonhosted.org/packages/ca/cc/f5f30dec0af4b287c1ff4b5aead54db6c7982fde774e6237c893268738e0/pipx-1.18.10.tar.gz"
+  sha256 "f970a652eeccc1c1815234f539c924d8e2da207d4f39cfaf8c99c9c5d541370b"
   license "MIT"
   head "https://github.com/pypa/pipx.git", branch: "main"
 
   # bottle block: written by brew pr-pull
   bottle do
-    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/pipx-1.18.9"
-    sha256 cellar: :any_skip_relocation, sequoia: "dbd1ff752a5f0a41e74055afa1b4b9d200b052d4239c0072c6bd26e788237efc"
+    root_url "https://github.com/macos-intel/homebrew-tap/releases/download/pipx-1.18.10"
+    sha256 cellar: :any_skip_relocation, sequoia: "07edae0ea2e4b008869635d6347bcb3b8673f0133fe5a2c9b58eab71beaf0a4c"
   end
 
   depends_on "macos-intel/tap/python@3.15"
